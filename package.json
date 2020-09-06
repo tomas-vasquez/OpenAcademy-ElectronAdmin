@@ -5,11 +5,16 @@
   "version": "0.2.7",
   "private": true,
   "dependencies": {
+    "axios": "^0.20.0",
+    "classname": "0.0.0",
     "cross-env": "6.0.2",
     "electron-is-dev": "1.1.0",
     "electron-log": "^3.0.8",
+    "font-awesome": "^4.7.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-drag-listview": "^0.1.7",
+    "reactstrap": "^8.5.1",
     "update-electron-app": "^1.2.0"
   },
   "devDependencies": {
