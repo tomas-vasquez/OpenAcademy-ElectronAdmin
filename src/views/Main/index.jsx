@@ -30,7 +30,7 @@ class App extends Component {
             <ToolBar setCurrentView={this.setCurrentView} />
             <AllCourses setCurrentView={this.setCurrentView} />
           </>
-        ) : this.state.currentView === "editcourse" ? (
+        ) : this.state.currentView === "edititems" ? (
           <EditCourse
             setCurrentView={this.setCurrentView}
             course={this.state.target}

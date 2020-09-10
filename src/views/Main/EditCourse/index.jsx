@@ -28,12 +28,12 @@ class App extends Component {
   componentDidMount() {
     console.log(this.state.course.course_short_link);
     Axios.get(courseItemsUrl + "/" + this.state.course.course_short_link)
-      .then(response => {
+      .then((response) => {
         this.setState({
           items: response.data.items,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         alert(JSON.stringify(error));
       });
   }
