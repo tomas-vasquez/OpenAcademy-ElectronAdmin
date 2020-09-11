@@ -43,8 +43,6 @@ export default class AllCourses extends Component {
       newCourses.push(_course);
     }
 
-    console.log(index);
-
     this.setState({
       courses: newCourses,
     });

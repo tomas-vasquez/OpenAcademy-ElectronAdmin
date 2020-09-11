@@ -5,6 +5,7 @@ import VideoInformation from "./VideoInformation";
 import Axios from "axios";
 import { courseItemsUrl } from "config";
 import ListItems from "./ListItems";
+import Description from "./Description";
 
 class App extends Component {
   constructor(props) {
@@ -62,6 +63,10 @@ class App extends Component {
               {this.state.targetItem ? (
                 <>
                   <VideoInformation
+                    handleItemChanged={this.handleItemChanged}
+                    item={this.state.targetItem}
+                  />
+                  <Description
                     handleItemChanged={this.handleItemChanged}
                     item={this.state.targetItem}
                   />
