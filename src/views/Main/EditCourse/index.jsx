@@ -1,17 +1,7 @@
 import React, { Component } from "react";
-import {
-  Row,
-  Col,
-  Card,
-  CardHeader,
-  CardTitle,
-  CardBody,
-  Container,
-  ButtonGroup,
-  Button,
-} from "reactstrap";
+import { Row, Col, Container } from "reactstrap";
 import ToolBar from "./ToolBar";
-import MainInformation from "./MainInformation";
+import VideoInformation from "./VideoInformation";
 import Axios from "axios";
 import { courseItemsUrl } from "config";
 import ListItems from "./ListItems";
@@ -22,11 +12,35 @@ class App extends Component {
     this.state = {
       course: props.course,
       items: null,
+      targetItem: null,
     };
   }
 
+  handleItemChanged = (item) => {
+    let index = this.state.items.findIndex((_item) => {
+      return item._id === _item._id;
+    });
+
+    let newItems = [...this.state.items];
+    if (index !== -1) {
+      newItems[index] = item;
+    } else {
+      newItems.push(item);
+    }
+
+    this.setState({
+      items: newItems,
+      targetItem: item,
+    });
+  };
+
+  handleItemTargetChanged = (item) => {
+    this.setState({
+      targetItem: item,
+    });
+  };
+
   componentDidMount() {
-    console.log(this.state.course.course_short_link);
     Axios.get(courseItemsUrl + "/" + this.state.course.course_short_link)
       .then((response) => {
         this.setState({
@@ -45,11 +59,23 @@ class App extends Component {
         <Container fluid>
           <Row>
             <Col xs="8">
-              <MainInformation />
+              {this.state.targetItem ? (
+                <>
+                  <VideoInformation
+                    handleItemChanged={this.handleItemChanged}
+                    item={this.state.targetItem}
+                  />
+                </>
+              ) : null}
             </Col>
 
             <Col xs="4">
-              <ListItems items={this.state.items} />
+              <ListItems
+                course={this.props.course}
+                handleItemTargetChanged={this.handleItemTargetChanged}
+                handleItemChanged={this.handleItemChanged}
+                items={this.state.items}
+              />
             </Col>
           </Row>
         </Container>
