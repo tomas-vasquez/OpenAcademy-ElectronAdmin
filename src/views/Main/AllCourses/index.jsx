@@ -11,6 +11,7 @@ import Axios from "axios";
 import { coursesUrl } from "config";
 import SingleCourse from "./SingleCourse";
 import MyAddElements from "./MyAddElements";
+import Alerts from "helpers/Alerts";
 
 export default class AllCourses extends Component {
   constructor() {
@@ -26,7 +27,8 @@ export default class AllCourses extends Component {
         this.setState({ courses: data.data.courses });
       })
       .catch((error) => {
-        alert(JSON.stringify(error));
+        Alerts.showErrorUnknow();
+        console.error(error);
       });
   }
 

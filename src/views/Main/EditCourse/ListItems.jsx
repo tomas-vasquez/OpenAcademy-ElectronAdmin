@@ -10,9 +10,11 @@ import {
   ButtonGroup,
   Button,
   Spinner,
+  Alert,
 } from "reactstrap";
 import Axios from "axios";
 import { addItemUrl, itemsOrderUrl } from "config";
+import Alerts from "helpers/Alerts";
 
 export default class ListItems extends Component {
   constructor(props) {
@@ -33,14 +35,16 @@ export default class ListItems extends Component {
       item_type: type,
       item_sort: this.state.items.length,
     };
+    Alerts.showLoading();
     Axios.post(addItemUrl, newItem)
       .then((response) => {
-        alert("OK");
+        Alerts.showSuccess();
         const newItem = response.data;
         this.props.handleItemChanged(newItem);
       })
       .catch((error) => {
-        alert(JSON.stringify(error));
+        Alerts.showErrorUnknow();
+        console.error(error);
       });
   };
 
@@ -54,12 +58,14 @@ export default class ListItems extends Component {
       data.push(aux);
     });
 
+    Alerts.showLoading();
     Axios.put(itemsOrderUrl, data)
       .then(() => {
-        alert("OK");
+        Alerts.showSuccess();
       })
       .catch((error) => {
-        alert(JSON.stringify(error));
+        Alert.showErrorUnknow();
+        console.error(error);
       });
   };
 
@@ -86,7 +92,7 @@ export default class ListItems extends Component {
     newItems.forEach((item, key) => {
       let newItem = { ...item };
       newItem.item_sort = `${key + 1}`;
-      this.props.handleItemChanged(newItem);
+      this.props.handleItemChanged(newItem, false);
     });
   };
 

@@ -12,6 +12,7 @@ import Axios from "axios";
 import { addItemUrl } from "config";
 import Container from "reactstrap/lib/Container";
 import Col from "reactstrap/lib/Col";
+import Alerts from "helpers/Alerts";
 
 export default class VideoInformation extends Component {
   constructor(props) {
@@ -32,13 +33,15 @@ export default class VideoInformation extends Component {
   onHandleSubmit = (e) => {
     e.preventDefault();
 
+    Alerts.showLoading();
     Axios.put(`${addItemUrl}/${this.props.item._id}`, this.state)
       .then((response) => {
-        alert("ok");
+        Alerts.showSuccess("");
         this.props.handleItemChanged(response.data);
       })
       .catch((error) => {
-        alert(JSON.stringify(error));
+        Alerts.showErrorUnknow();
+        console.error(error);
       });
   };
 

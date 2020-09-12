@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { CardHeader, CardTitle, CardBody, Card, Button } from "reactstrap";
+import {
+  CardHeader,
+  CardTitle,
+  CardBody,
+  Card,
+  Button,
+  Alert,
+} from "reactstrap";
 
 import Axios from "axios";
 import {
@@ -12,6 +19,8 @@ import "./highlight";
 import ReactQuill from "react-quill"; // ES6
 import "react-quill/dist/quill.snow.css"; // ES6
 import "highlight.js/styles/monokai-sublime.css";
+
+import Alerts from "helpers/Alerts";
 
 var toolbarOptions = [
   [{ font: [] }],
@@ -60,20 +69,19 @@ export default class Description extends Component {
   }
 
   uploadDescription = () => {
+    Alerts.showLoading();
     Axios.post(`${courseItemsDescriptionsUrl2}/${this.props.item._id}`, {
       newHtml: this.state.content,
     })
       .then((response) => {
-        console.log(response.data);
-        console.log(this.props.item);
-
+        Alerts.showSuccess();
         this.props.handleItemChanged({
           ...this.props.item,
           ...response.data,
         });
-        alert("OK");
       })
       .catch((error) => {
+        Alerts.showLoading(false);
         console.log(error);
         this.setState({
           content: "",

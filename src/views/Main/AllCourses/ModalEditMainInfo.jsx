@@ -13,6 +13,7 @@ import {
 import Axios from "axios";
 import mongose from "mongoose";
 import { addCourseUrl } from "config";
+import Alerts from "helpers/Alerts";
 
 export default class ModalEditMainInfo extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ export default class ModalEditMainInfo extends Component {
 
     Axios.put(`${addCourseUrl}/${this.state.course._id}`, data)
       .then((response) => {
-        alert("ok");
+        Alerts.showSuccess();
         this.setState({
           course: {
             ...this.props.course,
@@ -46,15 +47,11 @@ export default class ModalEditMainInfo extends Component {
           ...this.props.course,
           ...response.data,
         });
-        console.log(">>>>>>>", {
-          ...this.state.course,
-          ...response.data,
-        });
         this.props.toogleModal();
       })
       .catch((error) => {
-        alert("error");
-        alert(JSON.stringify(error));
+        Alerts.showErrorUnknow();
+        console.error(error);
       });
   };
 

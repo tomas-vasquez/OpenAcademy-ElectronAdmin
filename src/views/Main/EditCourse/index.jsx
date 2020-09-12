@@ -6,6 +6,7 @@ import Axios from "axios";
 import { courseItemsUrl } from "config";
 import ListItems from "./ListItems";
 import Description from "./Description";
+import Alerts from "helpers/Alerts";
 
 class App extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class App extends Component {
     };
   }
 
-  handleItemChanged = (item) => {
+  handleItemChanged = (item, setATargetItem = true) => {
     let index = this.state.items.findIndex((_item) => {
       return item._id === _item._id;
     });
@@ -31,8 +32,13 @@ class App extends Component {
 
     this.setState({
       items: newItems,
-      // targetItem: item,
     });
+
+    if (setATargetItem) {
+      this.setState({
+        targetItem: item,
+      });
+    }
   };
 
   handleItemTargetChanged = (item) => {
@@ -42,14 +48,17 @@ class App extends Component {
   };
 
   componentDidMount() {
+    Alerts.showLoading();
     Axios.get(courseItemsUrl + "/" + this.state.course.course_short_link)
       .then((response) => {
+        Alerts.showLoading(false);
         this.setState({
           items: response.data.items,
         });
       })
       .catch((error) => {
-        alert(JSON.stringify(error));
+        Alerts.showErrorUnknow();
+        console.error(error);
       });
   }
 

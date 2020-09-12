@@ -12,6 +12,7 @@ import {
 import Axios from "axios";
 import { addCourseUrl } from "../../../config";
 import mongose from "mongoose";
+import Alerts from "helpers/Alerts";
 
 export default class ModalAddCourse extends Component {
   //
@@ -33,20 +34,18 @@ export default class ModalAddCourse extends Component {
       }
     }
 
+    Alerts.showLoading();
     Axios.post(addCourseUrl, data)
       .then((response) => {
         this.props.handleCourseDataChanged({
           ...{ _id: this.state.course._id },
           ...response.data,
         });
-        console.log(">>>>>>>", {
-          ...{ _id: this.state.course._id },
-          ...response.data,
-        });
         this.props.toogleModal();
       })
       .catch((error) => {
-        alert(JSON.stringify(error));
+        Alerts.showErrorUnknow();
+        console.error(error);
       });
   };
 

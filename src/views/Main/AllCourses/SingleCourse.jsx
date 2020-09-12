@@ -4,6 +4,8 @@ import { coursePicsUrl } from "config";
 import Axios from "axios";
 import { uploadPicUrl, pageUrl } from "config";
 import ModalEditMainInfo from "./ModalEditMainInfo";
+import Alerts from "helpers/Alerts";
+
 const { shell } = window.require("electron");
 
 export default class SingleCourse extends React.Component {
@@ -26,15 +28,17 @@ export default class SingleCourse extends React.Component {
     formData.append("blob", file);
     formData.append("_id", course._id);
 
+    Alerts.showLoading();
     Axios.post(uploadPicUrl, formData)
       .then((response) => {
         setTimeout(() => {
-          alert("OK");
+          Alerts.showSuccess();
           _callback(response.data);
         }, 1000);
       })
       .catch((error) => {
-        alert(JSON.stringify(error));
+        Alerts.showErrorUnknow();
+        console.error(error);
       });
   };
 
