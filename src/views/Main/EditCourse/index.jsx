@@ -31,7 +31,7 @@ class App extends Component {
 
     this.setState({
       items: newItems,
-      targetItem: item,
+      // targetItem: item,
     });
   };
 

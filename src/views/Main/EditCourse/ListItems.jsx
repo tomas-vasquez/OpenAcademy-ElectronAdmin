@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import classname from "classname";
 import ReactDragListView from "react-drag-listview";
 
@@ -12,18 +12,18 @@ import {
   Spinner,
 } from "reactstrap";
 import Axios from "axios";
-import { addItemUrl } from "config";
+import { addItemUrl, itemsOrderUrl } from "config";
 
 export default class ListItems extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      items: props.items,
+    };
+  }
 
-    const data = [];
-    for (let i = 1, len = 7; i < len; i++) {
-      data.push({
-        title: `rows${i}`,
-      });
-    }
+  UNSAFE_componentWillReceiveProps(props) {
+    this.setState({ items: props.items });
   }
 
   handleAddItem = (type) => {
@@ -31,10 +31,8 @@ export default class ListItems extends Component {
       item_title: "no name",
       item_course_id: this.props.course._id,
       item_type: type,
+      item_sort: this.state.items.length,
     };
-
-    console.log("......");
-
     Axios.post(addItemUrl, newItem)
       .then((response) => {
         alert("OK");
@@ -46,34 +44,53 @@ export default class ListItems extends Component {
       });
   };
 
-  sortItems = (items) => {
-    var aux = items;
+  handleSaveItemSord = () => {
+    let data = [];
 
-    for (let y = 0; y <= items.length - 2; y++) {
-      for (let i = 0; i <= items.length - 2; i++) {
-        if (items[i].item_sort > items[i + 1].item_sort) {
-          aux = items[i];
-          items[i] = items[i + 1];
-          items[i + 1] = aux;
-        }
-      }
+    this.state.items.forEach((item) => {
+      let aux = {};
+      aux._id = item._id;
+      aux.item_sort = item.item_sort;
+      data.push(aux);
+    });
+
+    Axios.put(itemsOrderUrl, data)
+      .then(() => {
+        alert("OK");
+      })
+      .catch((error) => {
+        alert(JSON.stringify(error));
+      });
+  };
+
+  reordenedFieldItemSord = (fromIndex, toIndex) => {
+    let data = this.state.items.sort((a, b) => a.item_sort - b.item_sort);
+    let newItems = null;
+    let targetItem = data[fromIndex];
+
+    if (fromIndex < toIndex) {
+      let array1 = data.slice(0, toIndex + 1).filter((item) => {
+        return item._id !== targetItem._id;
+      });
+      let array2 = data.slice(toIndex + 1);
+      newItems = [...array1, targetItem, ...array2];
+    } else {
+      let array1 = data.slice(0, toIndex);
+
+      let array2 = data.slice(toIndex).filter((item) => {
+        return item._id !== targetItem._id;
+      });
+      newItems = [...array1, targetItem, ...array2];
     }
-    return items;
+
+    newItems.forEach((item, key) => {
+      let newItem = { ...item };
+      newItem.item_sort = `${key + 1}`;
+      this.props.handleItemChanged(newItem);
+    });
   };
 
   render() {
-    const that = this;
-    const dragProps = {
-      onDragEnd(fromIndex, toIndex) {
-        const items = [...that.props.items];
-        const item = items.splice(fromIndex, 1)[0];
-        items.splice(toIndex, 0, item);
-        that.setState({ items });
-      },
-      nodeSelector: "section",
-      handleSelector: "a",
-    };
-
     return (
       <Card>
         <CardHeader>
@@ -83,51 +100,67 @@ export default class ListItems extends Component {
         </CardHeader>
 
         <CardBody>
-          {/* {JSON.stringify(this.props.items)} */}
-          {this.props.items ? (
-            <ReactDragListView {...dragProps}>
-              {this.sortItems([...that.props.items]).map((item, index) => (
-                <section key={index} className="py-2">
-                  <Card
-                    className={classname({
-                      "bg-default": item.item_type === "video",
-                      "bg-success": item.item_type === "test",
-                      "bg-warning": item.item_type === "separator",
-                    })}
-                  >
-                    <CardBody
-                      className="p-0 text-white d-flex"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => this.props.handleItemTargetChanged(item)}
+          {this.state.items ? (
+            <ReactDragListView
+              onDragEnd={this.reordenedFieldItemSord}
+              nodeSelector="section"
+              handleSelector="span"
+            >
+              {this.state.items
+                .sort((a, b) => a.item_sort - b.item_sort)
+                .map((item, index) => (
+                  <section key={index} className="py-2">
+                    <Card
+                      className={classname({
+                        "bg-default": item.item_type === "video",
+                        "bg-success": item.item_type === "test",
+                        "bg-warning": item.item_type === "separator",
+                      })}
                     >
-                      <p className="mb-0 p-2">
-                        <i
-                          className={classname("fa mr-2", {
-                            "fa-film": item.item_type === "video",
-                            "fa-pencil": item.item_type === "test",
-                            "fa-minus": item.item_type === "separator",
-                          })}
-                        />
-
-                        {`${index}. ${item.item_title}`}
-                      </p>
-                      <a
-                        className="ml-auto p-2"
-                        href="#"
-                        style={{ cursor: "move" }}
+                      <CardBody
+                        className="p-0 text-white d-flex"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => this.props.handleItemTargetChanged(item)}
                       >
-                        <i className="text-white fa fa-plus" />
-                      </a>
-                    </CardBody>
-                  </Card>
-                </section>
-              ))}
+                        <p className="mb-0 p-2">
+                          <i
+                            className={classname("fa mr-2", {
+                              "fa-film": item.item_type === "video",
+                              "fa-pencil": item.item_type === "test",
+                              "fa-minus": item.item_type === "separator",
+                            })}
+                          />
+
+                          {`${item.item_title}`}
+                        </p>
+                        <span
+                          className="ml-auto p-2"
+                          href="#"
+                          style={{ cursor: "move" }}
+                        >
+                          <i className="text-white fa fa-arrows" />
+                        </span>
+                      </CardBody>
+                    </Card>
+                  </section>
+                ))}
             </ReactDragListView>
           ) : (
             <div className="d-flex">
               <Spinner className="mx-auto my-5" />
             </div>
           )}
+
+          <div className="d-flex">
+            <Button
+              type="submit"
+              className="mt-3 ml-auto"
+              onClick={this.handleSaveItemSord}
+            >
+              <i className="fa fa-save mr-2" />
+              Guardar ordenamiento
+            </Button>
+          </div>
 
           <hr></hr>
           <label>

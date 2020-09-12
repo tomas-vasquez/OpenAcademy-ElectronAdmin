@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Modal } from "reactstrap";
+import { Button } from "reactstrap";
 import Card from "reactstrap/lib/Card";
 import CardBody from "reactstrap/lib/CardBody";
 import CardHeader from "reactstrap/lib/CardHeader";
