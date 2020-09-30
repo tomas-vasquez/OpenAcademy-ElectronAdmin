@@ -7,6 +7,8 @@ import { courseItemsUrl } from "config";
 import ListItems from "./ListItems";
 import Description from "./Description";
 import Alerts from "helpers/Alerts";
+import SeparatorText from "./SeparatorText";
+import TestEditor from "./TestEditor";
 
 class App extends Component {
   constructor(props) {
@@ -70,16 +72,34 @@ class App extends Component {
           <Row>
             <Col xs="8">
               {this.state.targetItem ? (
-                <>
-                  <VideoInformation
+                this.state.targetItem.item_type === "video" ? (
+                  <>
+                    <VideoInformation
+                      handleItemChanged={this.handleItemChanged}
+                      item={this.state.targetItem}
+                    />
+                    <Description
+                      handleItemChanged={this.handleItemChanged}
+                      item={this.state.targetItem}
+                    />
+                  </>
+                ) : this.state.targetItem.item_type === "test" ? (
+                  <>
+                    <SeparatorText
+                      handleItemChanged={this.handleItemChanged}
+                      item={this.state.targetItem}
+                    />
+                    <TestEditor
+                      handleItemChanged={this.handleItemChanged}
+                      item={this.state.targetItem}
+                    />
+                  </>
+                ) : this.state.targetItem.item_type === "separator" ? (
+                  <SeparatorText
                     handleItemChanged={this.handleItemChanged}
                     item={this.state.targetItem}
                   />
-                  <Description
-                    handleItemChanged={this.handleItemChanged}
-                    item={this.state.targetItem}
-                  />
-                </>
+                ) : null
               ) : null}
             </Col>
 

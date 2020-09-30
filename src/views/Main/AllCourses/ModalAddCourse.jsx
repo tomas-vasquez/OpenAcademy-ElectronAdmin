@@ -64,8 +64,6 @@ export default class ModalAddCourse extends Component {
     }, 1000);
   }
 
-  componentDidMount() {}
-
   render() {
     return (
       <Modal isOpen={this.props.isOpen} className="modal-centered modal-lg p-0">
@@ -73,7 +71,8 @@ export default class ModalAddCourse extends Component {
           <Card>
             <CardHeader className="d-flex" style={{ cursor: "pointer" }}>
               <CardTitle tag="h5" className="mb-0">
-                <i className="fa fa-plus mr-2"></i>Anadir curso
+                <i className="fa fa-plus mr-2" />
+                Anadir curso
               </CardTitle>
               <CardTitle
                 tag="h5"

@@ -32,9 +32,11 @@ export default class ListItems extends Component {
     let newItem = {
       item_title: "no name",
       item_course_id: this.props.course._id,
+      item_author_id: this.props.course.course_author_id,
       item_type: type,
       item_sort: this.state.items.length,
     };
+    console.log(">>>>>", newItem);
     Alerts.showLoading();
     Axios.post(addItemUrl, newItem)
       .then((response) => {

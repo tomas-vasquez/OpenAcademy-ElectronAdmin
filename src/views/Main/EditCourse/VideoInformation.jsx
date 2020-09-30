@@ -13,6 +13,7 @@ import { addItemUrl } from "config";
 import Container from "reactstrap/lib/Container";
 import Col from "reactstrap/lib/Col";
 import Alerts from "helpers/Alerts";
+import mongose from "mongoose";
 
 export default class VideoInformation extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ export default class VideoInformation extends Component {
     this.state = {
       item_title: props.item.item_title,
       item_video_url: props.item.item_video_url,
+      item_author_id: props.item.item_author_id,
     };
   }
 
@@ -27,12 +29,12 @@ export default class VideoInformation extends Component {
     this.setState({
       item_title: props.item.item_title,
       item_video_url: props.item.item_video_url,
+      item_author_id: props.item.item_author_id,
     });
   }
 
   onHandleSubmit = (e) => {
     e.preventDefault();
-
     Alerts.showLoading();
     Axios.put(`${addItemUrl}/${this.props.item._id}`, this.state)
       .then((response) => {
@@ -44,6 +46,21 @@ export default class VideoInformation extends Component {
         console.error(error);
       });
   };
+
+  componentDidUpdate() {
+    setTimeout(() => {
+      //validation input AuthorId
+      let inputId = document.getElementById("imput");
+      if (inputId)
+        inputId.addEventListener("input", (e) => {
+          if (!mongose.Types.ObjectId.isValid(inputId.value)) {
+            inputId.setCustomValidity("!invalid");
+          } else {
+            inputId.setCustomValidity("");
+          }
+        });
+    }, 500);
+  }
 
   render() {
     return (
@@ -61,11 +78,12 @@ export default class VideoInformation extends Component {
                 <label className="m-0 mt-1 mb-3">previsualizacion:</label>
                 <div className="d-flex">
                   <video
+                    id="video"
                     controls
                     className="mx-auto"
                     style={{ width: "100%" }}
                     src={this.state.item_video_url}
-                  ></video>
+                  />
                 </div>
               </Col>
               <Col xs="7">
@@ -80,6 +98,18 @@ export default class VideoInformation extends Component {
                     required
                   />
 
+                  <label className="m-0 mt-1">author id:</label>
+                  <Input
+                    id="imput"
+                    value={this.state.item_author_id}
+                    onChange={(e) => {
+                      this.setState({ item_author_id: e.target.value });
+                    }}
+                    type="text"
+                    name="item_author_id"
+                    required
+                  />
+
                   <label className="m-0 mt-1">video url:</label>
                   <Input
                     value={this.state.item_video_url}
@@ -90,8 +120,6 @@ export default class VideoInformation extends Component {
                     name="item_video_url"
                     required
                   />
-
-                  <hr />
 
                   <div className="d-flex">
                     <Button type="submit" className="mt-3 ml-auto">
