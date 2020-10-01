@@ -10,7 +10,7 @@ import {
   Input,
 } from "reactstrap";
 import Axios from "axios";
-import { addCourseUrl } from "../../../config";
+import { addCourseUrl } from "config";
 import mongose from "mongoose";
 import Alerts from "helpers/Alerts";
 

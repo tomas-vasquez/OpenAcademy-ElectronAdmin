@@ -2,7 +2,7 @@
   "name": "cra-electron",
   "description": "CRA + Electron sitting in a tree",
   "author": "tomas vasquez <tomasdetloging@gmail.com>",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
     "axios": "^0.20.0",
