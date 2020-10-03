@@ -5,6 +5,7 @@ import Axios from "axios";
 import { uploadPicUrl, pageUrl } from "config";
 import ModalEditMainInfo from "./ModalEditMainInfo";
 import Alerts from "helpers/Alerts";
+import { Link } from "react-router-dom";
 
 const { shell } = window.require("electron");
 
@@ -58,7 +59,7 @@ export default class SingleCourse extends React.Component {
               ) : (
                 <CardImg
                   style={{ width: 200, height: 120 }}
-                  src={require("assets/NO_IMG_600x600.png")}
+                  src={require("assets/img/NO_IMG_600x600.png")}
                 />
               )}
             </Col>
@@ -87,16 +88,13 @@ export default class SingleCourse extends React.Component {
                   <i className="fa fa-pencil mr-2" />
                   editar pic
                 </Button>
-                <Button
-                  className="mr-2"
-                  color="success"
-                  onClick={() => {
-                    setCurrentView("edititems", course);
-                  }}
+                <Link
+                  className="btn btn-success mr-2"
+                  to={"/edit/" + course.course_short_link}
                 >
                   <i className="fa fa-pencil mr-2" />
                   editar items
-                </Button>
+                </Link>
                 <Button
                   className="mr-2"
                   color="warning"

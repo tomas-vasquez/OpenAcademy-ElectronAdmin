@@ -72,10 +72,10 @@ export default class VideoInformation extends Component {
           </CardTitle>
         </CardHeader>
         <CardBody>
-          <Container>
+          <Container fluid>
             <Row>
               <Col xs="5">
-                <label className="m-0 mt-1 mb-3">previsualizacion:</label>
+                <p className="m-0 mt-1 mb-3">previsualizacion:</p>
                 <div className="d-flex">
                   <video
                     id="video"
@@ -88,7 +88,7 @@ export default class VideoInformation extends Component {
               </Col>
               <Col xs="7">
                 <form onSubmit={this.onHandleSubmit}>
-                  <label className="m-0 mt-1">titulo:</label>
+                  <p className="m-0 mt-1">titulo:</p>
                   <Input
                     value={this.state.item_title}
                     onChange={(e) => {
@@ -98,7 +98,7 @@ export default class VideoInformation extends Component {
                     required
                   />
 
-                  <label className="m-0 mt-1">author id:</label>
+                  <p className="m-0 mt-1">author id:</p>
                   <Input
                     id="imput"
                     value={this.state.item_author_id}
@@ -110,7 +110,7 @@ export default class VideoInformation extends Component {
                     required
                   />
 
-                  <label className="m-0 mt-1">video url:</label>
+                  <p className="m-0 mt-1">video url:</p>
                   <Input
                     value={this.state.item_video_url}
                     onChange={(e) => {
@@ -122,7 +122,11 @@ export default class VideoInformation extends Component {
                   />
 
                   <div className="d-flex">
-                    <Button type="submit" className="mt-3 ml-auto">
+                    <Button
+                      type="submit"
+                      color="success"
+                      className="mt-3 ml-auto"
+                    >
                       <i className="fa fa-save mr-2" />
                       Guardar
                     </Button>

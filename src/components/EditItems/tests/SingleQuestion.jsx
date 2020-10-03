@@ -56,7 +56,6 @@ const handleSetCorrectOption = (
 ) => {
   let newQuestions = [...questions].map((_question) => {
     if (_question.key === question.key) {
-      
     }
     return _question;
   });
@@ -71,7 +70,12 @@ export default function SingleQuestion({
 }) {
   return (
     <section>
-      <Card className="mb-4">
+      <Card
+        className="mb-4"
+        style={{
+          border: "1px solid #e14eca7a",
+        }}
+      >
         <CardHeader className="d-flex">
           <Input
             className="mr-3"
@@ -115,7 +119,6 @@ export default function SingleQuestion({
 
           <hr />
           <Button
-            color="warning"
             onClick={() => {
               handleAddOption(question, questions, handleChangeQuestions);
             }}

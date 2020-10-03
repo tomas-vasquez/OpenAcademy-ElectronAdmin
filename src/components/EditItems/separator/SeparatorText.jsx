@@ -45,13 +45,13 @@ export default class SeparatorText extends Component {
       <Card className="mb-4">
         <CardHeader>
           <CardTitle tag="h5" className="mb-0 d-flex">
-            <i className="fa fa-film mr-3" />
+            <i className="fa fa-tag mr-3" />
             {this.props.item.item_title}
           </CardTitle>
         </CardHeader>
         <CardBody>
           <form onSubmit={this.onHandleSubmit}>
-            <label className="m-0 mt-1">titulo:</label>
+            <p className="m-0 mt-1">titulo:</p>
             <Input
               value={this.state.item_title}
               onChange={(e) => {
@@ -60,9 +60,8 @@ export default class SeparatorText extends Component {
               name="item_title"
               required
             />
-            <hr />
             <div className="d-flex">
-              <Button type="submit" className="mt-3 ml-auto">
+              <Button type="submit" color="success" className="mt-3 ml-auto">
                 <i className="fa fa-save mr-2" />
                 Guardar
               </Button>

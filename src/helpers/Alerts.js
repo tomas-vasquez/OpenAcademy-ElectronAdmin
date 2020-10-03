@@ -171,7 +171,7 @@ class Alerts {
 
   setUplodingPercentage = (percentage) => {
     percentage = parseInt(percentage);
-    document.getElementById("swal-progress-label").innerText = percentage + "%";
+    document.getElementById("swal-progress-p").innerText = percentage + "%";
     document.getElementById("swal-progress-bar").style.width = percentage + "%";
   };
 
@@ -186,7 +186,7 @@ class Alerts {
           "</h2>" +
           '<div class="">' +
           "<br></br>" +
-          '<span id="swal-progress-label" class="mr-2">0%</span>' +
+          '<span id="swal-progress-p" class="mr-2">0%</span>' +
           "<div>" +
           '<div class="progress" style="width: 100%;height: 10px">' +
           '<div id="swal-progress-bar" class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>' +

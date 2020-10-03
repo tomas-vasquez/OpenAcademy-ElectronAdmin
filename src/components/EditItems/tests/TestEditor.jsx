@@ -135,7 +135,6 @@ export default class Test extends Component {
           <hr />
           <div className="d-flex w-100">
             <Button
-              color="primary"
               type="buttom"
               className="mt-3"
               onClick={this.handleAddQuestion}
@@ -146,6 +145,7 @@ export default class Test extends Component {
 
             <Button
               type="submit"
+              color="success"
               className="mt-3 ml-auto"
               onClick={this.uploadTest}
             >

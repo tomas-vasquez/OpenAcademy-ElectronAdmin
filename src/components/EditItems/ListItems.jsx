@@ -119,14 +119,14 @@ export default class ListItems extends Component {
                 .map((item, index) => (
                   <section key={index} className="py-2">
                     <Card
-                      className={classname({
+                      className={classname("mb-0", {
                         "bg-default": item.item_type === "video",
-                        "bg-success": item.item_type === "test",
+                        "bg-primary": item.item_type === "test",
                         "bg-warning": item.item_type === "separator",
                       })}
                     >
                       <CardBody
-                        className="p-0 text-white d-flex"
+                        className="p-0 d-flex"
                         style={{ cursor: "pointer" }}
                         onClick={() => this.props.handleItemTargetChanged(item)}
                       >
@@ -171,34 +171,31 @@ export default class ListItems extends Component {
           </div>
 
           <hr></hr>
-          <label>
+          <p>
             <i className="fa fa-plus mr-1"></i>Anadir:
-          </label>
+          </p>
           <div className="d-flex">
             <ButtonGroup className="mx-auto">
               <Button
-                color="primary"
                 onClick={() => {
                   this.handleAddItem("video");
                 }}
               >
-                clase de video
+                video
               </Button>
               <Button
-                color="success"
                 onClick={() => {
                   this.handleAddItem("test");
                 }}
               >
-                test o examen
+                test
               </Button>
               <Button
-                color="warning"
                 onClick={() => {
                   this.handleAddItem("separator");
                 }}
               >
-                separador
+                separator
               </Button>
             </ButtonGroup>
           </div>

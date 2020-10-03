@@ -23,3 +23,6 @@ yarn-error.log*
 .idea
 package-lock.json
 .vscode
+
+#generated styles
+/src/assets/css/black-dashboard-react.min.css

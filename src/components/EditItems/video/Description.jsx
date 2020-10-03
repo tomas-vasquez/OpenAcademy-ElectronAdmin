@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  CardHeader,
-  CardTitle,
-  CardBody,
-  Card,
-  Button,
-  Alert,
-} from "reactstrap";
+import { CardHeader, CardTitle, CardBody, Card, Button } from "reactstrap";
 
 import Axios from "axios";
 import {
@@ -99,28 +92,30 @@ export default class Description extends Component {
             <i className="ml-auto fa fa-pus" />
           </CardTitle>
         </CardHeader>
-        <CardBody>
+        <CardBody className="text-muted">
           <ReactQuill
             modules={{
               syntax: true,
               toolbar: toolbarOptions,
             }}
-            className="bg-white "
+            className="bg-white"
             value={this.state.content}
             onChange={(c) => {
-              console.log(c);
               this.setState({ content: c });
             }}
           ></ReactQuill>
 
-          <Button
-            type="submit"
-            className="mt-3"
-            onClick={this.uploadDescription}
-          >
-            <i className="fa fa-save mr-2" />
-            Guardar
-          </Button>
+          <div className="d-flex">
+            <Button
+              type="submit"
+              color="success"
+              className="ml-auto mt-3"
+              onClick={this.uploadDescription}
+            >
+              <i className="fa fa-save mr-2" />
+              Guardar
+            </Button>
+          </div>
         </CardBody>
       </Card>
     );

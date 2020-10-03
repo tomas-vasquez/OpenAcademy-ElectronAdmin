@@ -74,7 +74,7 @@ export default class ModalEditMainInfo extends Component {
     return (
       <Modal isOpen={this.props.isOpen} className="modal-centered modal-lg p-0">
         <form onSubmit={this.onHandleSubmit}>
-          <Card>
+          <Card className="m-0 bg-secodary">
             <CardHeader className="d-flex" style={{ cursor: "pointer" }}>
               <CardTitle tag="h5" className="mb-0">
                 <i className="fa fa-pencil mr-2"></i>Editar curso
@@ -89,14 +89,14 @@ export default class ModalEditMainInfo extends Component {
             </CardHeader>
 
             <CardBody>
-              <label className="m-0 mt-1">titulo del curso:</label>
+              <p className="m-0 mt-1">titulo del curso:</p>
               <Input
                 defaultValue={this.state.course.course_title}
                 name="course_title"
                 required
               />
 
-              <label className="m-0 mt-1">author id:</label>
+              <p className="m-0 mt-1">author id:</p>
               <Input
                 id="imput"
                 defaultValue={this.state.course.course_author_id}
@@ -104,16 +104,16 @@ export default class ModalEditMainInfo extends Component {
                 required
               />
 
-              <label className="m-0 mt-1">enlace corto:</label>
+              <p className="m-0 mt-1">enlace corto:</p>
               <Input
                 defaultValue={this.state.course.course_short_link}
                 name="course_short_link"
                 required
               />
 
-              <label type="text-area" className="m-0 mt-1">
+              <p type="text-area" className="m-0 mt-1">
                 descripcion:
-              </label>
+              </p>
               <Input
                 type="textarea"
                 defaultValue={this.state.course.course_description}

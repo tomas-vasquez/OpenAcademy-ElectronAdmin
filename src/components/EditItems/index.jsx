@@ -1,18 +1,20 @@
 import React, { Component } from "react";
 import { Row, Col, Container } from "reactstrap";
-import ToolBar from "./ToolBar";
-import VideoInformation from "./VideoInformation";
+import Alerts from "helpers/Alerts";
 import Axios from "axios";
 import { courseItemsUrl } from "config";
+
+import ToolBar from "./ToolBar";
 import ListItems from "./ListItems";
-import Description from "./Description";
-import Alerts from "helpers/Alerts";
-import SeparatorText from "./SeparatorText";
-import TestEditor from "./TestEditor";
+import SeparatorText from "./separator/SeparatorText";
+
+import VideoInformation from "./video/VideoInformation";
+import Description from "./video/Description";
+import TestEditor from "./tests/TestEditor";
 
 class App extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       course: props.course,
       items: null,
@@ -51,7 +53,8 @@ class App extends Component {
 
   componentDidMount() {
     Alerts.showLoading();
-    Axios.get(courseItemsUrl + "/" + this.state.course.course_short_link)
+    const course = document.location.pathname.split("/")[2];
+    Axios.get(courseItemsUrl + "/" + course)
       .then((response) => {
         Alerts.showLoading(false);
         this.setState({

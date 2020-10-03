@@ -84,18 +84,18 @@ export default class ModalAddCourse extends Component {
             </CardHeader>
 
             <CardBody>
-              <label className="m-0 mt-1">titulo del curso:</label>
+              <p className="m-0 mt-1">titulo del curso:</p>
               <Input name="course_title" required />
 
-              <label className="m-0 mt-1">author id:</label>
+              <p className="m-0 mt-1">author id:</p>
               <Input id="imput" name="course_author_id" required />
 
-              <label className="m-0 mt-1">enlace corto:</label>
+              <p className="m-0 mt-1">enlace corto:</p>
               <Input name="course_short_link" required />
 
-              <label type="text-area" className="m-0 mt-1">
+              <p type="text-area" className="m-0 mt-1">
                 descripcion:
-              </label>
+              </p>
               <Input type="textarea" name="course_description" required />
             </CardBody>
             <CardFooter>

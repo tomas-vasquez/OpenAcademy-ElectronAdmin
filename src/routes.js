@@ -9,6 +9,11 @@ var routes = [
     name: "Courses",
     icon: "fa fa-book",
   },
+  {
+    path: "/edit",
+    name: "EDIT",
+    icon: "fa fa-book",
+  },
 ];
 
 export default routes;
