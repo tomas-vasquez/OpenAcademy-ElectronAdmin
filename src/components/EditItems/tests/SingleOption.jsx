@@ -50,7 +50,7 @@ export default function SingleOption({
   handleSetCorrectOption,
 }) {
   return (
-    <section className="d-flex">
+    <section className="d-flex mb-1">
       <Input
         type="text"
         value={option.content}

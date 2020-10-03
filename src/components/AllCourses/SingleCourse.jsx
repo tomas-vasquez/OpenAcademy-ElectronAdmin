@@ -44,7 +44,7 @@ export default class SingleCourse extends React.Component {
   };
 
   render() {
-    let { course, setCurrentView, handleCourseDataChanged } = this.props;
+    let { course, handleCourseDataChanged } = this.props;
 
     return (
       <Card className="mb-4">
@@ -64,7 +64,7 @@ export default class SingleCourse extends React.Component {
               )}
             </Col>
             <Col>
-              <h3>{course.course_title}</h3>
+              <h3 className="m-0">{course.course_title}</h3>
               <span>{`_id:"${course._id}"  `}</span>
               <span>{`autor_id:"${course.course_author_id}"`}</span>
               <p>{course.course_description}</p>

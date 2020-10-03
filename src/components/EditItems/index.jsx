@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import { Row, Col, Container } from "reactstrap";
-import Alerts from "helpers/Alerts";
-import Axios from "axios";
-import { courseItemsUrl } from "config";
 
 import ToolBar from "./ToolBar";
 import ListItems from "./ListItems";
@@ -11,6 +8,8 @@ import SeparatorText from "./separator/SeparatorText";
 import VideoInformation from "./video/VideoInformation";
 import Description from "./video/Description";
 import TestEditor from "./tests/TestEditor";
+import { getItems } from "fetchers/items";
+import { getAllCourses } from "fetchers/courses";
 
 class App extends Component {
   constructor(props) {
@@ -28,6 +27,7 @@ class App extends Component {
     });
 
     let newItems = [...this.state.items];
+
     if (index !== -1) {
       newItems[index] = item;
     } else {
@@ -38,11 +38,10 @@ class App extends Component {
       items: newItems,
     });
 
-    if (setATargetItem) {
+    setATargetItem &&
       this.setState({
         targetItem: item,
       });
-    }
   };
 
   handleItemTargetChanged = (item) => {
@@ -52,19 +51,19 @@ class App extends Component {
   };
 
   componentDidMount() {
-    Alerts.showLoading();
-    const course = document.location.pathname.split("/")[2];
-    Axios.get(courseItemsUrl + "/" + course)
-      .then((response) => {
-        Alerts.showLoading(false);
-        this.setState({
-          items: response.data.items,
-        });
-      })
-      .catch((error) => {
-        Alerts.showErrorUnknow();
-        console.error(error);
+    const courseName = document.location.pathname.split("/")[2];
+    getAllCourses((data) => {
+      this.setState({
+        course: data.courses.find((course) => {
+          return course.course_short_link === courseName;
+        }),
       });
+      getItems(courseName, (data) => {
+        this.setState({
+          items: data.items,
+        });
+      });
+    });
   }
 
   render() {
@@ -108,7 +107,7 @@ class App extends Component {
 
             <Col xs="4">
               <ListItems
-                course={this.props.course}
+                course={this.state.course}
                 handleItemTargetChanged={this.handleItemTargetChanged}
                 handleItemChanged={this.handleItemChanged}
                 items={this.state.items}

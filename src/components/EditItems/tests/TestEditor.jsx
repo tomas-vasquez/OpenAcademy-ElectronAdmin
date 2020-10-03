@@ -8,13 +8,11 @@ import {
   Spinner,
 } from "reactstrap";
 
-import Axios from "axios";
-import { courseItemsTestsUrl, courseItemsTestsUrl2 } from "config";
-import Alerts from "helpers/Alerts";
-
 import uuidv4 from "uuid/v4";
 import ReactDragListView from "react-drag-listview";
 import SingleQuestion from "./SingleQuestion";
+import { loadTest } from "fetchers/tests";
+import { uploadTest } from "fetchers/tests";
 
 export default class Test extends Component {
   constructor(props) {
@@ -31,37 +29,29 @@ export default class Test extends Component {
   }
 
   loadTest(props) {
-    Axios.get(`${courseItemsTestsUrl}/${props.item.item_tree_url}`)
-      .then((response) => {
+    loadTest(
+      props.item.item_tree_url,
+      (data) => {
         this.setState({
-          tree: response.data,
+          tree: data,
         });
-      })
-      .catch((error) => {
+      },
+      () => {
         this.setState({
           questions: [],
           correctAnswers: [],
         });
-      });
+      }
+    );
   }
 
   uploadTest = () => {
-    Alerts.showLoading();
-    Axios.post(
-      `${courseItemsTestsUrl2}/${this.props.item._id}`,
-      this.state.test
-    )
-      .then((response) => {
-        Alerts.showSuccess();
-        // this.props.handleItemChanged({
-        //   ...this.props.item,
-        //   ...response.data,
-        // });
-      })
-      .catch((error) => {
-        Alerts.showLoading(false);
-        console.log(error);
-      });
+    uploadTest(this.props.item._id, this.state.test, () => {
+      // this.props.handleItemChanged({
+      //     ...this.props.item,
+      //     ...response.data,
+      // });
+    });
   };
 
   handleAddQuestion = () => {
@@ -86,13 +76,6 @@ export default class Test extends Component {
     });
   };
 
-  onDragEnd = (fromIndex, toIndex) => {
-    const questions = [...this.state.questions];
-    const item = questions.splice(fromIndex, 1)[0];
-    questions.splice(toIndex, 0, item);
-    this.setState({ questions });
-  };
-
   handleChangeQuestions = (questions) => {
     this.setState({
       questions,
@@ -103,7 +86,7 @@ export default class Test extends Component {
     return (
       <Card className="my-3">
         <CardHeader>
-          <CardTitle tag="h5" className="mb-0 d-flex">
+          <CardTitle tag="h4" className="mb-0 d-flex">
             <i className="fa fa-home mr-3" />
             preguntas:
             <i className="ml-auto fa fa-pus" />
@@ -111,21 +94,15 @@ export default class Test extends Component {
         </CardHeader>
         <CardBody>
           {this.state.questions ? (
-            <ReactDragListView
-              onDragEnd={this.onDragEnd}
-              nodeSelector="section"
-              handleSelector="span"
-            >
-              {this.state.questions.map((question, index) => (
-                <SingleQuestion
-                  question={question}
-                  questions={this.state.questions}
-                  correctAnswers={this.state.correctAnswers}
-                  key={question.key}
-                  handleChangeQuestions={this.handleChangeQuestions}
-                />
-              ))}
-            </ReactDragListView>
+            this.state.questions.map((question) => (
+              <SingleQuestion
+                question={question}
+                questions={this.state.questions}
+                correctAnswers={this.state.correctAnswers}
+                key={question.key}
+                handleChangeQuestions={this.handleChangeQuestions}
+              />
+            ))
           ) : (
             <div className="d-flex">
               <Spinner className="mx-auto my-5" />

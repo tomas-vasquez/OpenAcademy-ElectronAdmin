@@ -38,10 +38,11 @@ export default class ModalAddCourse extends Component {
     Axios.post(addCourseUrl, data)
       .then((response) => {
         this.props.handleCourseDataChanged({
-          ...{ _id: this.state.course._id },
+          // ...{ _id: this.state.course._id },
           ...response.data,
         });
         this.props.toogleModal();
+        Alerts.showSuccess();
       })
       .catch((error) => {
         Alerts.showErrorUnknow();
@@ -68,14 +69,19 @@ export default class ModalAddCourse extends Component {
     return (
       <Modal isOpen={this.props.isOpen} className="modal-centered modal-lg p-0">
         <form onSubmit={this.onHandleSubmit}>
-          <Card>
+          <Card
+            className="m-0 shadow"
+            style={{
+              border: "1px solid #bbb",
+            }}
+          >
             <CardHeader className="d-flex" style={{ cursor: "pointer" }}>
-              <CardTitle tag="h5" className="mb-0">
+              <CardTitle tag="h4">
                 <i className="fa fa-plus mr-2" />
                 Anadir curso
               </CardTitle>
               <CardTitle
-                tag="h5"
+                tag="h4"
                 className="mb-0 ml-auto"
                 onClick={this.props.toogleModal}
               >
@@ -98,8 +104,8 @@ export default class ModalAddCourse extends Component {
               </p>
               <Input type="textarea" name="course_description" required />
             </CardBody>
-            <CardFooter>
-              <Button type="submit">
+            <CardFooter className="d-flex">
+              <Button color="success" className="ml-auto" type="submit">
                 <i className="fa fa-save mr-2" />
                 Guardar
               </Button>

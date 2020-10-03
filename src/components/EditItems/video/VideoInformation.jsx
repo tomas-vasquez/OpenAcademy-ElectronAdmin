@@ -8,12 +8,10 @@ import {
   Button,
   Row,
 } from "reactstrap";
-import Axios from "axios";
-import { addItemUrl } from "config";
 import Container from "reactstrap/lib/Container";
 import Col from "reactstrap/lib/Col";
-import Alerts from "helpers/Alerts";
 import mongose from "mongoose";
+import { editItem } from "fetchers/items";
 
 export default class VideoInformation extends Component {
   constructor(props) {
@@ -35,16 +33,9 @@ export default class VideoInformation extends Component {
 
   onHandleSubmit = (e) => {
     e.preventDefault();
-    Alerts.showLoading();
-    Axios.put(`${addItemUrl}/${this.props.item._id}`, this.state)
-      .then((response) => {
-        Alerts.showSuccess("");
-        this.props.handleItemChanged(response.data);
-      })
-      .catch((error) => {
-        Alerts.showErrorUnknow();
-        console.error(error);
-      });
+    editItem(this.props.item._id, this.state, (data) => {
+      this.props.handleItemChanged(data);
+    });
   };
 
   componentDidUpdate() {
@@ -66,7 +57,7 @@ export default class VideoInformation extends Component {
     return (
       <Card>
         <CardHeader>
-          <CardTitle tag="h5" className="mb-0 d-flex">
+          <CardTitle tag="h4" className="mb-0 d-flex">
             <i className="fa fa-film mr-3" />
             {this.state.item_title}
           </CardTitle>

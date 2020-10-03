@@ -51,14 +51,10 @@ export default class ListItems extends Component {
   };
 
   handleSaveItemSord = () => {
-    let data = [];
-
-    this.state.items.forEach((item) => {
-      let aux = {};
-      aux._id = item._id;
-      aux.item_sort = item.item_sort;
-      data.push(aux);
-    });
+    let data = this.state.items.map((item) => ({
+      _id: item._id,
+      item_sort: item.item_sort,
+    }));
 
     Alerts.showLoading();
     Axios.put(itemsOrderUrl, data)
@@ -102,7 +98,7 @@ export default class ListItems extends Component {
     return (
       <Card>
         <CardHeader>
-          <CardTitle tag="h5" className="mb-0">
+          <CardTitle tag="h4" className="mb-0">
             Items del curso
           </CardTitle>
         </CardHeader>
@@ -161,6 +157,7 @@ export default class ListItems extends Component {
 
           <div className="d-flex">
             <Button
+              color="success"
               type="submit"
               className="mt-3 ml-auto"
               onClick={this.handleSaveItemSord}

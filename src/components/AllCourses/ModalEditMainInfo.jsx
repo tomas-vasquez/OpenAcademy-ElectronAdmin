@@ -10,10 +10,8 @@ import {
   CardFooter,
   Button,
 } from "reactstrap";
-import Axios from "axios";
 import mongose from "mongoose";
-import { addCourseUrl } from "config";
-import Alerts from "helpers/Alerts";
+import { editCourseData } from "fetchers/courses";
 
 export default class ModalEditMainInfo extends Component {
   constructor(props) {
@@ -27,32 +25,26 @@ export default class ModalEditMainInfo extends Component {
     e.preventDefault();
     const form = e.target;
 
-    let data = {};
+    let newData = {};
     for (let index = 0; index < form.length; index++) {
       if (form[index].name) {
-        data[form[index].name] = form[index].value;
+        newData[form[index].name] = form[index].value;
       }
     }
 
-    Axios.put(`${addCourseUrl}/${this.state.course._id}`, data)
-      .then((response) => {
-        Alerts.showSuccess();
-        this.setState({
-          course: {
-            ...this.props.course,
-            ...response.data,
-          },
-        });
-        this.props.handleCourseDataChanged({
+    editCourseData(this.state.course._id, newData, (data) => {
+      this.setState({
+        course: {
           ...this.props.course,
-          ...response.data,
-        });
-        this.props.toogleModal();
-      })
-      .catch((error) => {
-        Alerts.showErrorUnknow();
-        console.error(error);
+          ...data,
+        },
       });
+      this.props.handleCourseDataChanged({
+        ...this.props.course,
+        ...data,
+      });
+      this.props.toogleModal();
+    });
   };
 
   componentDidUpdate() {
@@ -74,13 +66,18 @@ export default class ModalEditMainInfo extends Component {
     return (
       <Modal isOpen={this.props.isOpen} className="modal-centered modal-lg p-0">
         <form onSubmit={this.onHandleSubmit}>
-          <Card className="m-0 bg-secodary">
+          <Card
+            className="m-0 shadow"
+            style={{
+              border: "1px solid #bbb",
+            }}
+          >
             <CardHeader className="d-flex" style={{ cursor: "pointer" }}>
-              <CardTitle tag="h5" className="mb-0">
+              <CardTitle tag="h4">
                 <i className="fa fa-pencil mr-2"></i>Editar curso
               </CardTitle>
               <CardTitle
-                tag="h5"
+                tag="h4"
                 className="mb-0 ml-auto"
                 onClick={this.props.toogleModal}
               >
@@ -121,8 +118,8 @@ export default class ModalEditMainInfo extends Component {
                 required
               />
             </CardBody>
-            <CardFooter>
-              <Button type="submit">
+            <CardFooter className="d-flex">
+              <Button color="success" className="ml-auto" type="submit">
                 <i className="fa fa-save mr-2" />
                 Guardar
               </Button>

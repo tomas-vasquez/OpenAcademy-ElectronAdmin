@@ -1,17 +1,10 @@
 import React, { Component } from "react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardBody,
-  Container,
-  Spinner,
-} from "reactstrap";
-import Axios from "axios";
-import { coursesUrl } from "config";
+import { Container, Spinner } from "reactstrap";
+
 import SingleCourse from "./SingleCourse";
 import MyAddElements from "./MyAddElements";
-import Alerts from "helpers/Alerts";
+
+import { getAllCourses } from "fetchers/courses";
 
 export default class AllCourses extends Component {
   constructor() {
@@ -22,18 +15,12 @@ export default class AllCourses extends Component {
   }
 
   componentDidMount() {
-    Axios.get(coursesUrl)
-      .then((data) => {
-        this.setState({ courses: data.data.courses });
-      })
-      .catch((error) => {
-        Alerts.showErrorUnknow();
-        console.error(error);
-      });
+    getAllCourses((data) => {
+      this.setState({ courses: data.courses });
+    });
   }
 
   handleCourseDataChanged = (_course) => {
-    console.log(_course);
     let index = this.state.courses.findIndex((course) => {
       return course._id === _course._id;
     });

@@ -1,19 +1,13 @@
 import React, { Component } from "react";
 import { CardHeader, CardTitle, CardBody, Card, Button } from "reactstrap";
 
-import Axios from "axios";
-import {
-  courseItemsDescriptionsUrl,
-  courseItemsDescriptionsUrl2,
-} from "config";
-
 import "./highlight";
 
 import ReactQuill from "react-quill"; // ES6
 import "react-quill/dist/quill.snow.css"; // ES6
 import "highlight.js/styles/monokai-sublime.css";
 
-import Alerts from "helpers/Alerts";
+import { loadDescription, uploadDescription } from "fetchers/descriptions";
 
 var toolbarOptions = [
   [{ font: [] }],
@@ -48,45 +42,35 @@ export default class Description extends Component {
   }
 
   loadDescription(props) {
-    Axios.get(`${courseItemsDescriptionsUrl}/${props.item.item_content_url}`)
-      .then((response) => {
+    loadDescription(
+      props.item.item_content_url,
+      (data) => {
         this.setState({
-          content: response.data,
+          content: data,
         });
-      })
-      .catch((error) => {
+      },
+      () => {
         this.setState({
           content: "",
         });
-      });
+      }
+    );
   }
 
   uploadDescription = () => {
-    Alerts.showLoading();
-    Axios.post(`${courseItemsDescriptionsUrl2}/${this.props.item._id}`, {
-      newHtml: this.state.content,
-    })
-      .then((response) => {
-        Alerts.showSuccess();
-        this.props.handleItemChanged({
-          ...this.props.item,
-          ...response.data,
-        });
-      })
-      .catch((error) => {
-        Alerts.showLoading(false);
-        console.log(error);
-        this.setState({
-          content: "",
-        });
+    uploadDescription(this.props.item._id, this.state.content, (data) => {
+      this.props.handleItemChanged({
+        ...this.props.item,
+        ...data,
       });
+    });
   };
 
   render() {
     return (
       <Card className="my-3">
         <CardHeader>
-          <CardTitle tag="h5" className="mb-0 d-flex">
+          <CardTitle tag="h4" className="mb-0 d-flex">
             <i className="fa fa-home mr-3" />
             Descripcion:
             <i className="ml-auto fa fa-pus" />
@@ -103,7 +87,7 @@ export default class Description extends Component {
             onChange={(c) => {
               this.setState({ content: c });
             }}
-          ></ReactQuill>
+          />
 
           <div className="d-flex">
             <Button

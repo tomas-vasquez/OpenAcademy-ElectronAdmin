@@ -1,4 +1,5 @@
 const serverUrl = "http://localhost:3001";
+// const serverUrl = "https://openacademy-api.herokuapp.com";
 
 export const coursesUrl = serverUrl + "/academy/courses";
 export const courseItemsUrl = serverUrl + "/academy/items";
