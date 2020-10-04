@@ -44,7 +44,7 @@ export default class SingleCourse extends React.Component {
   };
 
   render() {
-    let { course, handleCourseDataChanged } = this.props;
+    const { course, handleCourseDataChanged } = this.props;
 
     return (
       <Card className="mb-4">
@@ -71,13 +71,12 @@ export default class SingleCourse extends React.Component {
               <div className="d-flex ml-auto">
                 <Button
                   className="mr-2"
-                  color="primary"
                   onClick={() => {
                     this.toogleModal();
                   }}
                 >
                   <i className="fa fa-pencil mr-2" />
-                  editar info
+                  edit info
                 </Button>
                 <Button
                   onClick={() => {
@@ -86,18 +85,18 @@ export default class SingleCourse extends React.Component {
                   className="mr-2"
                 >
                   <i className="fa fa-pencil mr-2" />
-                  editar pic
+                  edit pic
                 </Button>
                 <Link
-                  className="btn btn-success mr-2"
+                  className="btn mr-2"
                   to={"/edit/" + course.course_short_link}
                 >
                   <i className="fa fa-pencil mr-2" />
-                  editar items
+                  edit items
                 </Link>
                 <Button
                   className="mr-2"
-                  color="warning"
+                  color="success"
                   onClick={() => {
                     shell.openExternal(
                       `${pageUrl}/${course.course_short_link}`
@@ -105,7 +104,7 @@ export default class SingleCourse extends React.Component {
                   }}
                 >
                   <i className="fa fa-external-link-square mr-2" />
-                  probar
+                  open in browser
                 </Button>
               </div>
             </Col>

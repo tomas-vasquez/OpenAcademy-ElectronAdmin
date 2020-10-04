@@ -19,7 +19,7 @@ class Alerts {
         allowOutsideClick: backdropDismiss,
         buttonsStyling: false,
         confirmButtonText: 'Sí, continuar <i class="fa fa-check"></i>',
-        confirmButtonClass: "btn btn-primary",
+        confirmButtonClass: "btn btn-default",
         cancelButtonText: 'cancelar <i class="fa fa-times"></i>',
         cancelButtonClass: "btn btn-secundary",
       })
@@ -46,7 +46,7 @@ class Alerts {
       showConfirmButton: true,
       buttonsStyling: false,
       allowOutsideClick: backdropDismiss,
-      confirmButtonClass: "btn btn-primary",
+      confirmButtonClass: "btn btn-default",
       onAfterClose: (result) => {
         if (onDidDismiss !== null) onDidDismiss(result);
       },
@@ -67,7 +67,7 @@ class Alerts {
       showConfirmButton: true,
       buttonsStyling: false,
       allowOutsideClick: backdropDismiss,
-      confirmButtonClass: "btn btn-primary",
+      confirmButtonClass: "btn btn-default",
       onAfterClose: (result) => {
         if (onDidDismiss !== null) onDidDismiss(result);
       },
@@ -83,7 +83,7 @@ class Alerts {
       timer: 2000,
       showConfirmButton: false,
       buttonsStyling: false,
-      confirmButtonClass: "btn btn-primary",
+      confirmButtonClass: "btn btn-default",
     });
   };
 
@@ -91,13 +91,13 @@ class Alerts {
   showToast = (message) => {
     swal.fire({
       title: message,
-      icon: "success",
+      icon: "default",
       position: "bottom",
       timer: 3000,
       toast: true,
       showConfirmButton: false,
       buttonsStyling: false,
-      confirmButtonClass: "btn btn-primary",
+      confirmButtonClass: "btn btn-default",
     });
   };
 
@@ -112,14 +112,14 @@ class Alerts {
         showCancelButton: !isStrict,
         allowOutsideClick: !isStrict,
         buttonsStyling: false,
-        confirmButtonClass: "btn btn-primary",
-        cancelButtonClass: "btn btn-secondary",
+        confirmButtonClass: "btn btn-default ml-2",
+        cancelButtonClass: "btn btn-default",
         confirmButtonText: 'reintentar <i class="fa fa-redo"></i>',
         cancelButtonText: 'cancelar  <i class="fa fa-times"></i>',
       })
       .then((result) => {
         if (result.value) {
-          if (retryHandler !== null) retryHandler();
+          retryHandler && retryHandler();
         }
       });
   };
@@ -135,16 +135,14 @@ class Alerts {
         showCancelButton: !isStrict,
         allowOutsideClick: !isStrict,
         buttonsStyling: false,
-        confirmButtonClass: "btn btn-primary",
-        cancelButtonClass: "btn btn-secondary",
+        confirmButtonClass: "btn btn-default mr-2",
+        cancelButtonClass: "btn btn-default",
         confirmButtonText: 'reintentar <i class="fa fa-redo"></i>',
         cancelButtonText: 'cancelar  <i class="fa fa-times"></i>',
       })
       .then((result) => {
         if (result.value) {
-          if (retryHandler !== null) {
-            retryHandler();
-          }
+          retryHandler && retryHandler();
         }
       });
   };
@@ -156,7 +154,7 @@ class Alerts {
         allowOutsideClick: false,
         // title: message,
         html:
-          '<div class="pt-1 mx-auto lds-dual-ring"></div><h2 class="text-default">' +
+          '<div class="pt-1 mx-auto lds-dual-ring"></div><h2 class="text-default mb-0">' +
           message +
           "</h2>",
         showConfirmButton: false,
@@ -198,7 +196,7 @@ class Alerts {
         buttonsStyling: false,
 
         cancelButtonText: 'cancelar  <i class="fa fa-times"></i>',
-        cancelButtonClass: "btn btn-secondary",
+        cancelButtonClass: "btn btn-default",
         // onBeforeOpen: () => {
         //     swal.showLoading()
         // }

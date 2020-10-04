@@ -69,7 +69,7 @@ class App extends Component {
   render() {
     return (
       <>
-        <ToolBar setCurrentView={this.props.setCurrentView} />
+        <ToolBar />
         <Container fluid>
           <Row>
             <Col xs="8">
@@ -107,10 +107,11 @@ class App extends Component {
 
             <Col xs="4">
               <ListItems
+                item={this.state.targetItem}
+                items={this.state.items}
                 course={this.state.course}
                 handleItemTargetChanged={this.handleItemTargetChanged}
                 handleItemChanged={this.handleItemChanged}
-                items={this.state.items}
               />
             </Col>
           </Row>

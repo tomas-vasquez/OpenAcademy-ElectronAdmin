@@ -17,9 +17,9 @@ export const getAllCourses = (_callback, _error) => {
 export const editCourseData = (courseId, newData, _callback, _error) => {
   Alerts.showLoading();
   Axios.put(`${addCourseUrl}/${courseId}`, newData)
-    .then((data) => {
+    .then((response) => {
       Alerts.showSuccess();
-      _callback && _callback(data);
+      _callback && _callback(response.data);
     })
     .catch((error) => {
       Alerts.showErrorUnknow();

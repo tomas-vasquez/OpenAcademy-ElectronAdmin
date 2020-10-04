@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-import { Button } from "reactstrap";
-import Card from "reactstrap/lib/Card";
-import CardBody from "reactstrap/lib/CardBody";
-import CardHeader from "reactstrap/lib/CardHeader";
-import CardTitle from "reactstrap/lib/CardTitle";
+import { Button, Card, CardBody } from "reactstrap";
 import ModalAddCourse from "./ModalAddCourse";
 
 export default class MyAddElements extends Component {
@@ -21,17 +17,17 @@ export default class MyAddElements extends Component {
   render() {
     return (
       <div>
-        <Card className="my-3">
-          <CardHeader>
-            <CardTitle tag="h6" className="mb-0">
-              <i className="fa fa-plus mr-2"></i>Anadir
-            </CardTitle>
-          </CardHeader>
-
+        <Card
+          className="m-0"
+          style={{
+            border: "1px solid #344675",
+            boxShadow: "0 1px 20px 0px #3446757a",
+          }}
+        >
           <CardBody>
             <Button onClick={this.toogleModal}>
-              <i className="fa fa-pluss mr-2" />
-              Anadir curso
+              <i className="fa fa-plus mr-2" />
+              Add course
             </Button>
           </CardBody>
         </Card>
@@ -39,7 +35,6 @@ export default class MyAddElements extends Component {
         <ModalAddCourse
           isOpen={this.state.modal}
           handleCourseDataChanged={this.props.handleCourseDataChanged}
-          setCurrentView={this.props.setCurrentView}
           toogleModal={this.toogleModal}
         />
       </div>

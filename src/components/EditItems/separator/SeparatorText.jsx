@@ -37,7 +37,7 @@ export default class SeparatorText extends Component {
         <CardHeader>
           <CardTitle tag="h4" className="mb-0 d-flex">
             <i className="fa fa-tag mr-3" />
-            {this.props.item.item_title}
+            Title:
           </CardTitle>
         </CardHeader>
         <CardBody>
@@ -54,7 +54,7 @@ export default class SeparatorText extends Component {
             <div className="d-flex">
               <Button type="submit" color="success" className="mt-3 ml-auto">
                 <i className="fa fa-save mr-2" />
-                Guardar
+                Save
               </Button>
             </div>
           </form>

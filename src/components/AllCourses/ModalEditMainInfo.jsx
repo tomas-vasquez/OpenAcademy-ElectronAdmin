@@ -67,14 +67,15 @@ export default class ModalEditMainInfo extends Component {
       <Modal isOpen={this.props.isOpen} className="modal-centered modal-lg p-0">
         <form onSubmit={this.onHandleSubmit}>
           <Card
-            className="m-0 shadow"
+            className="m-0"
             style={{
-              border: "1px solid #bbb",
+              border: "1px solid #344675",
+              boxShadow: "0 1px 20px 0px #3446757a",
             }}
           >
             <CardHeader className="d-flex" style={{ cursor: "pointer" }}>
               <CardTitle tag="h4">
-                <i className="fa fa-pencil mr-2"></i>Editar curso
+                <i className="fa fa-pencil mr-2"></i>edit course
               </CardTitle>
               <CardTitle
                 tag="h4"
@@ -86,7 +87,7 @@ export default class ModalEditMainInfo extends Component {
             </CardHeader>
 
             <CardBody>
-              <p className="m-0 mt-1">titulo del curso:</p>
+              <p className="m-0 mt-1">titulo del course:</p>
               <Input
                 defaultValue={this.state.course.course_title}
                 name="course_title"
@@ -121,7 +122,7 @@ export default class ModalEditMainInfo extends Component {
             <CardFooter className="d-flex">
               <Button color="success" className="ml-auto" type="submit">
                 <i className="fa fa-save mr-2" />
-                Guardar
+                Save
               </Button>
             </CardFooter>
           </Card>

@@ -7,17 +7,19 @@ import {
   Button,
   Spinner,
 } from "reactstrap";
+import ReactDragListView from "react-drag-listview";
 
 import uuidv4 from "uuid/v4";
-import ReactDragListView from "react-drag-listview";
 import SingleQuestion from "./SingleQuestion";
 import { loadTest } from "fetchers/tests";
 import { uploadTest } from "fetchers/tests";
 
 export default class Test extends Component {
-  constructor(props) {
+  constructor() {
     super();
-    this.state = {};
+    this.state = {
+      questions: null,
+    };
   }
 
   componentDidMount() {
@@ -32,47 +34,36 @@ export default class Test extends Component {
     loadTest(
       props.item.item_tree_url,
       (data) => {
-        this.setState({
-          tree: data,
-        });
+        this.setState(data);
       },
       () => {
         this.setState({
           questions: [],
-          correctAnswers: [],
         });
       }
     );
   }
 
   uploadTest = () => {
-    uploadTest(this.props.item._id, this.state.test, () => {
-      // this.props.handleItemChanged({
-      //     ...this.props.item,
-      //     ...response.data,
-      // });
+    uploadTest(this.props.item._id, this.state.test, (data) => {
+      this.props.handleItemChanged({
+        ...this.props.item,
+        ...data,
+      });
     });
   };
 
   handleAddQuestion = () => {
     let questions = this.state.questions;
-    let correctAnswers = this.state.correctAnswers;
-    const key = `${uuidv4()}`;
 
     questions.push({
-      key,
+      key: uuidv4(),
       content: "",
       options: [],
     });
 
-    correctAnswers.push({
-      key,
-      correct: null,
-    });
-
     this.setState({
       questions,
-      correctAnswers,
     });
   };
 
@@ -80,6 +71,13 @@ export default class Test extends Component {
     this.setState({
       questions,
     });
+  };
+
+  onDragEnd = (fromIndex, toIndex) => {
+    const questions = [...this.state.questions];
+    const item = questions.splice(fromIndex, 1)[0];
+    questions.splice(toIndex, 0, item);
+    this.setState({ questions });
   };
 
   render() {
@@ -94,22 +92,26 @@ export default class Test extends Component {
         </CardHeader>
         <CardBody>
           {this.state.questions ? (
-            this.state.questions.map((question) => (
-              <SingleQuestion
-                question={question}
-                questions={this.state.questions}
-                correctAnswers={this.state.correctAnswers}
-                key={question.key}
-                handleChangeQuestions={this.handleChangeQuestions}
-              />
-            ))
+            <ReactDragListView
+              onDragEnd={this.onDragEnd}
+              nodeSelector="section"
+              handleSelector="span"
+            >
+              {this.state.questions.map((question) => (
+                <SingleQuestion
+                  question={question}
+                  questions={this.state.questions}
+                  key={question.key}
+                  handleChangeQuestions={this.handleChangeQuestions}
+                />
+              ))}
+            </ReactDragListView>
           ) : (
             <div className="d-flex">
               <Spinner className="mx-auto my-5" />
             </div>
           )}
 
-          <hr />
           <div className="d-flex w-100">
             <Button
               type="buttom"
@@ -117,7 +119,7 @@ export default class Test extends Component {
               onClick={this.handleAddQuestion}
             >
               <i className="fa fa-save mr-2" />
-              Anadir pregunta
+              Add pregunta
             </Button>
 
             <Button
@@ -127,9 +129,10 @@ export default class Test extends Component {
               onClick={this.uploadTest}
             >
               <i className="fa fa-save mr-2" />
-              Guardar
+              Save
             </Button>
           </div>
+          {/* {JSON.stringify(this.state.questions)} */}
         </CardBody>
       </Card>
     );

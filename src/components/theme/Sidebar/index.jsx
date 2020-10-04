@@ -54,17 +54,21 @@ class Sidebar extends React.Component {
             </div>
           ) : null}
           <Nav>
-            {routes.map((prop, key) => {
-              if (prop.redirect) return null;
-              return (
-                <li className={this.activeRoute(prop.path)} key={key}>
-                  <NavLink to={prop.path} activeClassName="active">
-                    <i className={prop.icon} />
-                    {prop.name}
-                  </NavLink>
-                </li>
-              );
-            })}
+            {routes
+              .filter((prop) => {
+                return !prop.hide;
+              })
+              .map((prop, key) => {
+                if (prop.redirect) return null;
+                return (
+                  <li className={this.activeRoute(prop.path)} key={key}>
+                    <NavLink to={prop.path} activeClassName="active">
+                      <i className={prop.icon} />
+                      {prop.name}
+                    </NavLink>
+                  </li>
+                );
+              })}
           </Nav>
         </div>
       </div>

@@ -13,6 +13,7 @@ var routes = [
     path: "/edit",
     name: "EDIT",
     icon: "fa fa-book",
+    hide: true,
   },
 ];
 

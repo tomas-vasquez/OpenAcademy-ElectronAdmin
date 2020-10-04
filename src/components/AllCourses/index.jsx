@@ -31,7 +31,6 @@ export default class AllCourses extends Component {
     } else {
       newCourses.push(_course);
     }
-
     this.setState({
       courses: newCourses,
     });
@@ -42,11 +41,10 @@ export default class AllCourses extends Component {
       <div className="content">
         <Container fluid>
           {this.state.courses ? (
-            this.state.courses.map((course, key) => (
+            this.state.courses.map((course) => (
               <SingleCourse
-                key={key}
+                key={course._id}
                 course={course}
-                setCurrentView={this.props.setCurrentView}
                 handleCourseDataChanged={this.handleCourseDataChanged}
               />
             ))
@@ -58,7 +56,6 @@ export default class AllCourses extends Component {
 
           <MyAddElements
             handleCourseDataChanged={this.handleCourseDataChanged}
-            setCurrentView={this.props.setCurrentView}
           />
         </Container>
       </div>

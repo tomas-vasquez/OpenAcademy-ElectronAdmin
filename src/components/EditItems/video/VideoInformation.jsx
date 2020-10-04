@@ -119,7 +119,7 @@ export default class VideoInformation extends Component {
                       className="mt-3 ml-auto"
                     >
                       <i className="fa fa-save mr-2" />
-                      Guardar
+                      Save
                     </Button>
                   </div>
                 </form>

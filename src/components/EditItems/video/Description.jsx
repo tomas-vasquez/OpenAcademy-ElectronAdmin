@@ -97,7 +97,7 @@ export default class Description extends Component {
               onClick={this.uploadDescription}
             >
               <i className="fa fa-save mr-2" />
-              Guardar
+              Save
             </Button>
           </div>
         </CardBody>
