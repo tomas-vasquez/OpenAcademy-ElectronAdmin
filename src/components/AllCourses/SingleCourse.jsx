@@ -1,13 +1,12 @@
 import React from "react";
-import { Card, CardBody, Button, Col, Row, CardImg } from "reactstrap";
-import { coursePicsUrl } from "config";
+import {Card, CardBody, Button, Col, Row, CardImg} from "reactstrap";
 import Axios from "axios";
-import { uploadPicUrl, pageUrl } from "config";
+import {uploadPicUrl, pageUrl} from "config";
 import ModalEditMainInfo from "./ModalEditMainInfo";
 import Alerts from "helpers/Alerts";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
-const { shell } = window.require("electron");
+const {shell} = window.require("electron");
 
 export default class SingleCourse extends React.Component {
   constructor() {
@@ -44,7 +43,7 @@ export default class SingleCourse extends React.Component {
   };
 
   render() {
-    const { course, handleCourseDataChanged } = this.props;
+    const {course, handleCourseDataChanged} = this.props;
 
     return (
       <Card className="mb-4">
@@ -53,15 +52,15 @@ export default class SingleCourse extends React.Component {
             <Col xs="auto">
               {course.course_pic_url ? (
                 <CardImg
-                  style={{ width: 200 }}
-                  src={coursePicsUrl + course.course_pic_url}
+                  style={{width: 200}}
+                  src={course.course_pic_url}
                 />
               ) : (
-                <CardImg
-                  style={{ width: 200, height: 120 }}
-                  src={require("assets/img/NO_IMG_600x600.png")}
-                />
-              )}
+                  <CardImg
+                    style={{width: 200, height: 120}}
+                    src={require("assets/img/NO_IMG_600x600.png")}
+                  />
+                )}
             </Col>
             <Col>
               <h3 className="m-0">{course.course_title}</h3>
@@ -117,7 +116,7 @@ export default class SingleCourse extends React.Component {
             this.uploadPic(e, course, (newUrl) => {
               handleCourseDataChanged({
                 ...course,
-                ...{ course_pic_url: newUrl },
+                ...{course_pic_url: newUrl},
               });
             })
           }

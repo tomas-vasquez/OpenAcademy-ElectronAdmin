@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
+
 import Navbar from "../theme/Navbar";
 import Footer from "../theme/Footer";
 import Sidebar from "../theme/Sidebar";
@@ -18,16 +19,12 @@ export default class Layout extends Component {
 
   toggleSidebar = () => {
     document.documentElement.classList.toggle("nav-open");
-    this.setState({ sidebarOpened: !this.state.sidebarOpened });
+    this.setState({sidebarOpened: !this.state.sidebarOpened});
   };
 
   getBrandText = (path) => {
     for (let i = 0; i < routes.length; i++) {
-      if (
-        this.props.location.pathname.indexOf(
-          routes[i].layout + routes[i].path
-        ) !== -1
-      ) {
+      if (routes[i].path === path) {
         return routes[i].name;
       }
     }

@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Row, Col, Container } from "reactstrap";
+import React, {Component} from "react";
+import {Row, Col, Container} from "reactstrap";
 
 import ToolBar from "./ToolBar";
 import ListItems from "./ListItems";
@@ -8,8 +8,8 @@ import SeparatorText from "./separator/SeparatorText";
 import VideoInformation from "./video/VideoInformation";
 import Description from "./video/Description";
 import TestEditor from "./tests/TestEditor";
-import { getItems } from "fetchers/items";
-import { getAllCourses } from "fetchers/courses";
+import {getItems} from "fetchers/items";
+import {getAllCourses} from "fetchers/courses";
 
 class App extends Component {
   constructor(props) {

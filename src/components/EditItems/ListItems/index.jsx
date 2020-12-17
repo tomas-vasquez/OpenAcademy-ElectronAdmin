@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 
-import { Card, CardBody, Button, Spinner } from "reactstrap";
+import {Card, CardBody, Button, Spinner} from "reactstrap";
 
-import { addItem } from "fetchers/items";
-import { saveItemSord } from "fetchers/items";
-import ArrowIndicator from "./ArrowIndicator";
+import {addItem} from "fetchers/items";
+import {saveItemSord} from "fetchers/items";
+//import ArrowIndicator from "./ArrowIndicator";
 import AddItem from "./AddItem";
 import DragList from "./DragList";
 import SingleItem from "./SingleItem";
@@ -19,7 +19,7 @@ export default class ListItems extends Component {
   }
 
   UNSAFE_componentWillReceiveProps(props) {
-    this.setState({ items: props.items, item: props.item });
+    this.setState({items: props.items, item: props.item});
   }
 
   handleAddItem = (type) => {
@@ -67,10 +67,10 @@ export default class ListItems extends Component {
                   ))}
               </DragList>
             ) : (
-              <div className="d-flex">
-                <Spinner className="mx-auto my-5" />
-              </div>
-            )}
+                <div className="d-flex">
+                  <Spinner className="mx-auto my-5" />
+                </div>
+              )}
 
             <div className="d-flex">
               <Button

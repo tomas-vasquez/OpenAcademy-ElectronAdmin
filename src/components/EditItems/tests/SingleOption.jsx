@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import Input from "reactstrap/lib/Input";
 
 export default class SingleOption extends Component {
   handleEditOption = (newContent) => {
-    const { option, question, questions, handleChangeQuestions } = this.props;
+    const {option, question, questions, handleChangeQuestions} = this.props;
     let newQuestions = [...questions].map((_question) => {
       if (_question.key === question.key) {
         _question.options.map((_option) => {
@@ -19,7 +19,7 @@ export default class SingleOption extends Component {
   };
 
   handleSetCorrectOption = (option) => {
-    const { question, questions, handleChangeQuestions } = this.props;
+    const {question, questions, handleChangeQuestions} = this.props;
     let newQuestions = [...questions].map((_question) => {
       if (_question.key === question.key) {
         _question.options.map((_option) => {
@@ -35,7 +35,7 @@ export default class SingleOption extends Component {
   };
 
   handleDeleteOption = () => {
-    const { option, question, questions, handleChangeQuestions } = this.props;
+    const {option, question, questions, handleChangeQuestions} = this.props;
     let newQuestions = [...questions].map((_question) => {
       if (_question.key === question.key) {
         _question.options = _question.options.filter((_option) => {
@@ -48,7 +48,8 @@ export default class SingleOption extends Component {
   };
 
   render() {
-    const { option, question } = this.props;
+    //const { option, question } = this.props;
+    const {option} = this.props;
     return (
       <section className="d-flex mb-1">
         <Input
@@ -62,7 +63,7 @@ export default class SingleOption extends Component {
         <div className="d-flex ml-2">
           <span
             className="text-white ml-auto p-2 d-flex"
-            style={{ cursor: "pointer" }}
+            style={{cursor: "pointer"}}
             onClick={() => {
               this.handleSetCorrectOption(option);
             }}
@@ -71,13 +72,13 @@ export default class SingleOption extends Component {
             {option.isCorrect ? (
               <i className="ml-2 pt-1 fa fa-check-square" />
             ) : (
-              <i className="ml-2 pt-1 fa fa-square" />
-            )}
+                <i className="ml-2 pt-1 fa fa-square" />
+              )}
           </span>
 
           <span
             className="text-white ml-auto p-2 d-flex"
-            style={{ cursor: "pointer" }}
+            style={{cursor: "pointer"}}
             onClick={() => {
               this.handleDeleteOption();
             }}

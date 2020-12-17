@@ -10,6 +10,11 @@ var routes = [
     icon: "fa fa-book",
   },
   {
+    path: "/settings",
+    name: "Settings",
+    icon: "fa fa-cog",
+  },
+  {
     path: "/edit",
     name: "EDIT",
     icon: "fa fa-book",

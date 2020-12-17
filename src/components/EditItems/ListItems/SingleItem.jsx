@@ -1,6 +1,6 @@
 import React from "react";
 import classname from "classname";
-import { Card, CardBody } from "reactstrap";
+import {Card, CardBody} from "reactstrap";
 import ArrowIndicator from "./ArrowIndicator";
 
 export default function SingleItem({
@@ -20,7 +20,7 @@ export default function SingleItem({
       >
         <CardBody
           className="p-0 d-flex"
-          style={{ cursor: "pointer" }}
+          style={{cursor: "pointer"}}
           onClick={() => handleItemTargetChanged(item)}
         >
           <p className="mb-0 p-2">
@@ -34,7 +34,7 @@ export default function SingleItem({
 
             {`${item.item_title}`}
           </p>
-          <span className="ml-auto p-2" href="#" style={{ cursor: "move" }}>
+          <span className="ml-auto p-2" href="#" style={{cursor: "move"}}>
             <i className="text-white fa fa-arrows" />
           </span>
         </CardBody>

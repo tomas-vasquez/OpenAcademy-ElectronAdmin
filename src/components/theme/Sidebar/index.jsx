@@ -1,7 +1,7 @@
 import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import {NavLink, Link} from "react-router-dom";
 // reactstrap components
-import { Nav } from "reactstrap";
+import {Nav} from "reactstrap";
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -18,10 +18,10 @@ class Sidebar extends React.Component {
   };
 
   render() {
-    const { routes, logo } = this.props;
+    const {routes, logo} = this.props;
     let logoImg = null;
     let logoText = null;
-    if (logo !== undefined) {
+    if (logo.innerLink) {
       logoImg = (
         <Link
           to={logo.innerLink}
