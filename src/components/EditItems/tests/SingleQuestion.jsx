@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "reactstrap";
 import SingleOption from "./SingleOption";
-import uuidv4 from "uuid/v4";
+import uuidv4 from "uuidv4";
 
 export default class SingleQuestion extends Component {
   handleEditContent = (newContent) => {

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {
   Modal,
   Card,
@@ -10,9 +10,10 @@ import {
   Input,
 } from "reactstrap";
 import Axios from "axios";
-import { addCourseUrl } from "config";
+import {addCourseUrl} from "config";
 import mongose from "mongoose";
 import Alerts from "helpers/Alerts";
+import DB from 'helpers/DB'
 
 export default class ModalAddCourse extends Component {
   //
@@ -35,7 +36,7 @@ export default class ModalAddCourse extends Component {
     }
 
     Alerts.showLoading();
-    Axios.post(addCourseUrl, data)
+    Axios.post(DB.get("serverUrl") + addCourseUrl, data)
       .then((response) => {
         this.props.handleCourseDataChanged({
           // ...{ _id: this.state.course._id },
@@ -76,7 +77,7 @@ export default class ModalAddCourse extends Component {
               boxShadow: "0 1px 20px 0px #3446757a",
             }}
           >
-            <CardHeader className="d-flex" style={{ cursor: "pointer" }}>
+            <CardHeader className="d-flex" style={{cursor: "pointer"}}>
               <CardTitle tag="h4">
                 <i className="fa fa-plus mr-2" />
                 Add course

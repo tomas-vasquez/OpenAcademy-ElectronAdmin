@@ -1,12 +1,11 @@
 import React from "react";
-import {Card, CardBody, Button, Col, Row, CardImg} from "reactstrap";
-import Axios from "axios";
-import {uploadPicUrl, pageUrl} from "config";
+import { Card, CardBody, Button, Col, Row, CardImg } from "reactstrap";
+import { pageUrl } from "config";
 import ModalEditMainInfo from "./ModalEditMainInfo";
-import Alerts from "helpers/Alerts";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { uploadCover } from "fetchers/courseCover";
 
-const {shell} = window.require("electron");
+const { shell } = window.require("electron");
 
 export default class SingleCourse extends React.Component {
   constructor() {
@@ -22,28 +21,8 @@ export default class SingleCourse extends React.Component {
     });
   };
 
-  uploadPic = (e, course, _callback) => {
-    const file = e.target.files[0];
-    var formData = new FormData();
-    formData.append("blob", file);
-    formData.append("_id", course._id);
-
-    Alerts.showLoading();
-    Axios.post(uploadPicUrl, formData)
-      .then((response) => {
-        setTimeout(() => {
-          Alerts.showSuccess();
-          _callback(response.data);
-        }, 1000);
-      })
-      .catch((error) => {
-        Alerts.showErrorUnknow();
-        console.error(error);
-      });
-  };
-
   render() {
-    const {course, handleCourseDataChanged} = this.props;
+    const { course, handleCourseDataChanged } = this.props;
 
     return (
       <Card className="mb-4">
@@ -51,16 +30,13 @@ export default class SingleCourse extends React.Component {
           <Row>
             <Col xs="auto">
               {course.course_pic_url ? (
-                <CardImg
-                  style={{width: 200}}
-                  src={course.course_pic_url}
-                />
+                <CardImg style={{ width: 200 }} src={course.course_pic_url} />
               ) : (
-                  <CardImg
-                    style={{width: 200, height: 120}}
-                    src={require("assets/img/NO_IMG_600x600.png")}
-                  />
-                )}
+                <CardImg
+                  style={{ width: 200, height: 120 }}
+                  src={require("assets/img/NO_IMG_600x600.png")}
+                />
+              )}
             </Col>
             <Col>
               <h3 className="m-0">{course.course_title}</h3>
@@ -113,10 +89,10 @@ export default class SingleCourse extends React.Component {
         <input
           id={`imput-pic-${course._id}`}
           onChange={(e) =>
-            this.uploadPic(e, course, (newUrl) => {
+            uploadCover(e, course, (newUrl) => {
               handleCourseDataChanged({
                 ...course,
-                ...{course_pic_url: newUrl},
+                ...{ course_pic_url: newUrl },
               });
             })
           }

@@ -7,7 +7,7 @@ import ReactQuill from "react-quill"; // ES6
 import "react-quill/dist/quill.snow.css"; // ES6
 import "highlight.js/styles/monokai-sublime.css";
 
-import {loadDescription, uploadDescription} from "fetchers/descriptions";
+import {uploadDescription} from "fetchers/descriptions";
 
 var toolbarOptions = [
   [{font: []}],

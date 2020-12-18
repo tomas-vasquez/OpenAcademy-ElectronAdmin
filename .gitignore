@@ -22,7 +22,5 @@ yarn-debug.log*
 yarn-error.log*
 .idea
 package-lock.json*
+yarn.lock
 .vscode
-
-#generated styles
-/src/assets/css/black-dashboard-react.min.css

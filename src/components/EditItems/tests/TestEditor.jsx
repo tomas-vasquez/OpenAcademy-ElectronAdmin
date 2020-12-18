@@ -9,7 +9,7 @@ import {
 } from "reactstrap";
 import ReactDragListView from "react-drag-listview";
 
-import uuidv4 from "uuid/v4";
+import uuidv4 from "uuidv4";
 import SingleQuestion from "./SingleQuestion";
 import { loadTest } from "fetchers/tests";
 import { uploadTest } from "fetchers/tests";
