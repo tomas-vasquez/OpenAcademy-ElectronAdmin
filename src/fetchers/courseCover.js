@@ -1,7 +1,6 @@
 import Alerts from "helpers/Alerts";
 import Axios from "axios";
 import { uploadPicUrl } from "config";
-import DB from "helpers/DB";
 import { apiUrl } from "config";
 
 export const uploadCover = (e, course, _callback) => {

@@ -1,11 +1,29 @@
+import { loadPaymentReports } from "fetchers/paymentReports";
 import React, { Component } from "react";
 
-export default class PaymentReports extends Component {
+import { connect } from "react-redux";
+import ReportList from "./ReportList";
+
+class PaymentReports extends Component {
+  componentDidMount() {
+    loadPaymentReports((reports) => {});
+  }
+
   render() {
+    const { paymentReports } = this.props;
+
     return (
       <div className="content">
-        <div>paymentReports</div>
+        <h2>Payment reports ({paymentReports.length})</h2>
+        {/* <div>{JSON.stringify(paymentReports)}</div> */}
+        <ReportList paymentReports={paymentReports} />
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  paymentReports: state.paymentReports,
+});
+
+export default connect(mapStateToProps)(PaymentReports);

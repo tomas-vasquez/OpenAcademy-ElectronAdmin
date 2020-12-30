@@ -2,7 +2,6 @@ import Axios from "axios";
 import { apiUrl } from "config";
 import { addCourseUrl, coursesUrl } from "config";
 import Alerts from "helpers/Alerts";
-import DB from "helpers/DB";
 
 export const getAllCourses = (_callback, _error) => {
   Alerts.showLoading();

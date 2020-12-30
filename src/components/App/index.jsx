@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import { connect } from "react-redux";
 
 // const { app } = window.require("electron").remote;
 
@@ -17,10 +18,20 @@ class App extends Component {
             <b> Release 0.2.7 </b>
             {/* Version: {app.getVersion()} */}
           </p>
+          <hr />
+          <div className="text-left">
+            {JSON.stringify(this.props.userData)}
+            <hr />
+            {JSON.stringify(this.props.paymentReports)}
+          </div>
         </div>
       </div>
     );
   }
 }
+const mapStateToProps = (state) => ({
+  userData: state.userData,
+  paymentReports: state.paymentReports,
+});
 
-export default App;
+export default connect(mapStateToProps)(App);

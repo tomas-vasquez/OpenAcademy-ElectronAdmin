@@ -13,7 +13,7 @@ import { setUserData } from "store/userData_store/actions";
 import DB from "helpers/DB";
 
 //load data
-store.dispatch(setUserData(DB.get("userData")));
+if (DB.get("userData")) store.dispatch(setUserData(DB.get("userData")));
 
 ReactDOM.render(
   <Provider store={store}>{<App />}</Provider>,

@@ -2,7 +2,6 @@ import Axios from "axios";
 import { apiUrl } from "config";
 import { courseItemsDescriptionsUrl2 } from "config";
 import Alerts from "helpers/Alerts";
-import DB from "helpers/DB";
 
 export const uploadDescription = (item_id, newHtml, _callback, _error) => {
   Alerts.showLoading();

@@ -2,9 +2,7 @@ import Axios from "axios";
 import { itemsOrderUrl } from "config";
 import { apiUrl } from "config";
 import { courseItemsUrl, addItemUrl } from "config";
-
 import Alerts from "helpers/Alerts";
-import DB from "helpers/DB";
 
 export const getItems = (courseName, _callback, _error) => {
   Alerts.showLoading();
