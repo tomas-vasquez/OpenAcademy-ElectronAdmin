@@ -1,13 +1,12 @@
 import Axios from "axios";
-import {
-  courseItemsDescriptionsUrl2,
-} from "config";
+import { apiUrl } from "config";
+import { courseItemsDescriptionsUrl2 } from "config";
 import Alerts from "helpers/Alerts";
 import DB from "helpers/DB";
 
 export const uploadDescription = (item_id, newHtml, _callback, _error) => {
   Alerts.showLoading();
-  Axios.post(`${DB.get("serverUrl")}${courseItemsDescriptionsUrl2}/${item_id}`, {
+  Axios.post(`${apiUrl}${courseItemsDescriptionsUrl2}/${item_id}`, {
     newHtml,
   })
     .then((response) => {

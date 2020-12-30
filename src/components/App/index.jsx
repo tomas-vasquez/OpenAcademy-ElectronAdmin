@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-const { app } = window.require("electron").remote;
+// const { app } = window.require("electron").remote;
 
 class App extends Component {
   render() {
@@ -15,7 +15,7 @@ class App extends Component {
           </div>
           <p className="App-intro">
             <b> Release 0.2.7 </b>
-            Version: {app.getVersion()}
+            {/* Version: {app.getVersion()} */}
           </p>
         </div>
       </div>

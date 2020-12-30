@@ -1,11 +1,11 @@
 import React from "react";
 import { Card, CardBody, Button, Col, Row, CardImg } from "reactstrap";
-import { pageUrl } from "config";
+// import { pageUrl } from "config";
 import ModalEditMainInfo from "./ModalEditMainInfo";
 import { Link } from "react-router-dom";
 import { uploadCover } from "fetchers/courseCover";
 
-const { shell } = window.require("electron");
+// const { shell } = window.require("electron");
 
 export default class SingleCourse extends React.Component {
   constructor() {
@@ -72,11 +72,11 @@ export default class SingleCourse extends React.Component {
                 <Button
                   className="mr-2"
                   color="success"
-                  onClick={() => {
-                    shell.openExternal(
-                      `${pageUrl}/${course.course_short_link}`
-                    );
-                  }}
+                  // onClick={() => {
+                  //   shell.openExternal(
+                  //     `${pageUrl}/${course.course_short_link}`
+                  //   );
+                  // }}
                 >
                   <i className="fa fa-external-link-square mr-2" />
                   open in browser

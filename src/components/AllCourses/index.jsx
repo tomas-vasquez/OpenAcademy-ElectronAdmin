@@ -49,7 +49,6 @@ export default class AllCourses extends Component {
                   handleCourseDataChanged={this.handleCourseDataChanged}
                 />
               ))}
-
               <MyAddElements
                 handleCourseDataChanged={this.handleCourseDataChanged}
               />

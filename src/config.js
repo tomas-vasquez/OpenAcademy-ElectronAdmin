@@ -11,3 +11,13 @@ export const courseItemsTestsUrl = "/storage/tests";
 export const courseItemsTestsUrl2 = "/admin/tests";
 
 export const pageUrl = "http://localhost:3000";
+
+export const apiUrl = process.env.API_URL || "http://localhost:3001";
+
+export const apiLinks = {
+  apiLoginUrl: apiUrl + "/login",
+  apiSignupUrl: apiUrl + "/signup",
+  testsUrl: apiUrl + "/academy/tests",
+  getAllCourses: apiUrl + "/academy/courses",
+  getItems: apiUrl + "/academy/items/",
+};

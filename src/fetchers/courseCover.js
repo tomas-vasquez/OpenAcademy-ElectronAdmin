@@ -2,6 +2,7 @@ import Alerts from "helpers/Alerts";
 import Axios from "axios";
 import { uploadPicUrl } from "config";
 import DB from "helpers/DB";
+import { apiUrl } from "config";
 
 export const uploadCover = (e, course, _callback) => {
   const file = e.target.files[0];
@@ -11,7 +12,7 @@ export const uploadCover = (e, course, _callback) => {
   formData.append("_id", course._id);
 
   Alerts.showLoading();
-  Axios.post(DB.get("serverUrl") + uploadPicUrl, formData)
+  Axios.post(apiUrl + uploadPicUrl, formData)
     .then((response) => {
       setTimeout(() => {
         Alerts.showSuccess();

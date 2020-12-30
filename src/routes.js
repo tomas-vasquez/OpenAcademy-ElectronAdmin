@@ -1,13 +1,18 @@
 var routes = [
   {
     path: "/",
-    name: "About",
-    icon: "fa fa-star",
+    name: "Home",
+    icon: "fa fa-home",
   },
   {
     path: "/courses",
     name: "Courses",
     icon: "fa fa-book",
+  },
+  {
+    path: "/payment_reports",
+    name: "Reports",
+    icon: "fa fa-dollar",
   },
   {
     path: "/settings",
