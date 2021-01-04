@@ -23,6 +23,8 @@
     "react-quill": "^1.3.5",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
+    "react-tag-input-custom-search": "^5.9.26",
+    "react-tagsinput": "^3.19.0",
     "react-youtube": "^7.13.0",
     "reactstrap": "^8.5.1",
     "redux": "^4.0.5",
@@ -68,7 +70,7 @@
     "release": "yarn react-build && electron-builder --publish=always",
     "build": "npm run react-build && npm run electron-build",
     "start": "concurrently \"npm run react-start\" \"wait-on http://localhost:3005 && electron .\"",
-    "compile-sass": "node-sass src/assets/scss/black-dashboard-react.scss src/assets/css/black-dashboard-react.min.css --output-style compressed"
+    "compile-sass": "node-sass src/assets/scss/black-dashboard-react.scss src/assets/css/black-dashboard-react.min.css --output-style  -w compressed"
   },
   "browserslist": {
     "production": [

@@ -9,15 +9,20 @@ import {
   Input,
   CardFooter,
   Button,
+  Row,
+  Col,
 } from "reactstrap";
 import mongose from "mongoose";
 import { editCourseData } from "fetchers/courses";
+import TagsInput from "react-tagsinput";
 
 export default class ModalEditMainInfo extends Component {
   constructor(props) {
     super();
     this.state = {
       course: props.course,
+      tags: props.course.course_tags || [],
+      tag: "",
     };
   }
 
@@ -31,6 +36,8 @@ export default class ModalEditMainInfo extends Component {
         newData[form[index].name] = form[index].value;
       }
     }
+
+    newData.course_tags = this.state.tags;
 
     editCourseData(this.state.course._id, newData, (data) => {
       this.setState({
@@ -62,9 +69,17 @@ export default class ModalEditMainInfo extends Component {
     }, 1000);
   }
 
+  handleChange = (tags) => {
+    this.setState({ tags });
+  };
+
+  handleChangeInput = (tag) => {
+    this.setState({ tag });
+  };
+
   render() {
     return (
-      <Modal isOpen={this.props.isOpen} className="modal-centered modal-lg p-0">
+      <Modal isOpen={this.props.isOpen} className=" modal-lg p-0">
         <form onSubmit={this.onHandleSubmit}>
           <Card
             className="m-0"
@@ -87,38 +102,77 @@ export default class ModalEditMainInfo extends Component {
             </CardHeader>
 
             <CardBody>
-              <p className="m-0 mt-1">titulo del course:</p>
+              <Row>
+                <Col xs="4">
+                  <p className="m-0 mt-1">course title:</p>
+                  <Input
+                    defaultValue={this.state.course.course_title || ""}
+                    name="course_title"
+                    required
+                  />
+                </Col>
+                <Col xs="4">
+                  <p className="m-0 mt-1">author id:</p>
+                  <Input
+                    id="imput"
+                    defaultValue={this.state.course.course_author_id}
+                    name="course_author_id"
+                    required
+                  />
+                </Col>
+                <Col xs="4">
+                  <p className="m-0 mt-1">short link:</p>
+                  <Input
+                    defaultValue={this.state.course.course_short_link || ""}
+                    name="course_short_link"
+                    required
+                  />
+                </Col>
+              </Row>
+
+              <p className="m-0 mt-4">Course Price (in dollars $$$):</p>
               <Input
-                defaultValue={this.state.course.course_title}
-                name="course_title"
+                defaultValue={this.state.course.course_price || 0}
+                name="course_price"
+                type="number"
                 required
               />
 
-              <p className="m-0 mt-1">author id:</p>
-              <Input
-                id="imput"
-                defaultValue={this.state.course.course_author_id}
-                name="course_author_id"
-                required
+              <p type="text-area" className="m-0 mt-4">
+                Tags:
+              </p>
+              <TagsInput
+                value={this.state.tags}
+                onChange={this.handleChange}
+                className="form-control react-tagsinput"
+                inputValue={this.state.tag}
+                onChangeInput={this.handleChangeInput}
               />
 
-              <p className="m-0 mt-1">enlace corto:</p>
-              <Input
-                defaultValue={this.state.course.course_short_link}
-                name="course_short_link"
-                required
-              />
-
-              <p type="text-area" className="m-0 mt-1">
-                descripcion:
+              <p type="text-area" className="m-0 mt-4">
+                description:
               </p>
               <Input
-                type="textarea"
-                defaultValue={this.state.course.course_description}
+                defaultValue={this.state.course.course_description || ""}
                 name="course_description"
                 required
               />
+
+              <p type="text-area" className="m-0 mt-4">
+                long description:
+              </p>
+              <Input
+                type="textarea"
+                style={{
+                  maxHeight: 190,
+                  height: 190,
+                }}
+                defaultValue={this.state.course.course_long_description || ""}
+                name="course_long_description"
+                required
+              />
             </CardBody>
+
             <CardFooter className="d-flex">
               <Button color="success" className="ml-auto" type="submit">
                 <i className="fa fa-save mr-2" />

@@ -56,7 +56,7 @@ export default class VideoInformation extends Component {
   }
 
   render() {
-    const src = this.state.item_video_url;
+    const src = this.state.item_video_url || "";
     let id = "";
     if (src.startsWith("https://www.youtube.com/watch")) {
       id = new URL(src).searchParams.get("v");
