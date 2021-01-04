@@ -1,27 +1,30 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
+import createSocketIoMiddleware from "redux-socket.io";
 
 import userDataReducer from "store/userData_store/reducer";
 import appReducer from "store/app_store/reducer";
 import paymentReports from "store/payment_report_store/reducer";
-import socketio from "store/socket.io/reducer";
 
-import createSocketIoMiddleware from "redux-socket.io";
+import logger from "redux-logger";
 import io from "socket.io-client";
 import { apiUrl } from "config";
+import DB from "helpers/DB";
 
-const socket = io(apiUrl);
+const socket = io(apiUrl, {
+  query: "token=" + DB.get("api-token"),
+});
 
-let socketIoMiddleware = createSocketIoMiddleware(socket, "io/");
+require("../socket")(socket);
+
+let socketIoMiddleware = createSocketIoMiddleware(socket, "action/");
 
 const store = createStore(
   combineReducers({
     app: appReducer,
     userData: userDataReducer,
     paymentReports: paymentReports,
-    socketio: socketio,
   }),
-
-  applyMiddleware(socketIoMiddleware)
+  applyMiddleware(logger, socketIoMiddleware)
 );
 
 store.log = () => {

@@ -1,12 +1,14 @@
-export default (state = [], action) => {
+export default (state = null, action) => {
   if (action.type === "ADD_REPORT") {
-    return [...state, action.data];
+    let aux = state || [];
+    aux.push(action.data);
+    return [...aux];
   } else if (action.type === "DELETE_REPORT") {
     let aux = [...state];
-    return aux.filter((report) => {
-      return `${report._id}` !== `${action.data}`;
+    aux = aux.filter((report) => {
+      return `${report._id}` !== `${action.data._id}`;
     });
+    return [...aux];
   }
-
   return state;
 };

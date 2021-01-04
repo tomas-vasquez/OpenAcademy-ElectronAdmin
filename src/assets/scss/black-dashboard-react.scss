@@ -1,4 +1,3 @@
-
 /*
  =========================================================
  * Black Dashboard React v1.1.0 based on Black Dashboard - v1.1.0
@@ -16,7 +15,7 @@
 
  */
 
- // Core
+// Core
 
 @import "black-dashboard-react/custom/functions";
 @import "black-dashboard-react/bootstrap/functions";
@@ -27,7 +26,7 @@
 @import "black-dashboard-react/custom/mixins";
 @import "black-dashboard-react/bootstrap/mixins";
 
- // Bootstrap components
+// Bootstrap components
 
 @import "black-dashboard-react/bootstrap/root";
 @import "black-dashboard-react/bootstrap/reboot";
@@ -62,28 +61,27 @@
 @import "black-dashboard-react/bootstrap/utilities";
 @import "black-dashboard-react/bootstrap/print";
 
- // Custom components
+// Custom components
 
- @import "black-dashboard-react/custom/alerts.scss";
- @import "black-dashboard-react/custom/badges.scss";
- @import "black-dashboard-react/custom/buttons.scss";
- @import "black-dashboard-react/custom/dropdown.scss";
- @import "black-dashboard-react/custom/footer.scss";
- @import "black-dashboard-react/custom/forms.scss";
- @import "black-dashboard-react/custom/images.scss";
- @import "black-dashboard-react/custom/modal.scss";
- @import "black-dashboard-react/custom/navbar.scss";
- @import "black-dashboard-react/custom/type.scss";
- @import "black-dashboard-react/custom/tables";
- @import "black-dashboard-react/custom/checkboxes-radio";
- @import "black-dashboard-react/custom/fixed-plugin";
- @import "black-dashboard-react/custom/sidebar-and-main-panel.scss";
- @import "black-dashboard-react/custom/misc.scss";
- @import "black-dashboard-react/custom/rtl.scss";
- @import "black-dashboard-react/custom/input-group.scss";
+@import "black-dashboard-react/custom/alerts.scss";
+@import "black-dashboard-react/custom/badges.scss";
+@import "black-dashboard-react/custom/buttons.scss";
+@import "black-dashboard-react/custom/dropdown.scss";
+@import "black-dashboard-react/custom/footer.scss";
+@import "black-dashboard-react/custom/forms.scss";
+@import "black-dashboard-react/custom/images.scss";
+@import "black-dashboard-react/custom/modal.scss";
+@import "black-dashboard-react/custom/navbar.scss";
+@import "black-dashboard-react/custom/type.scss";
+@import "black-dashboard-react/custom/tables";
+@import "black-dashboard-react/custom/checkboxes-radio";
+@import "black-dashboard-react/custom/fixed-plugin";
+@import "black-dashboard-react/custom/sidebar-and-main-panel.scss";
+@import "black-dashboard-react/custom/misc.scss";
+@import "black-dashboard-react/custom/rtl.scss";
+@import "black-dashboard-react/custom/input-group.scss";
 
-
- // Vendor / Plugins
+// Vendor / Plugins
 
 @import "black-dashboard-react/custom/vendor/plugin-perfect-scrollbar.scss";
 @import "black-dashboard-react/custom/vendor/plugin-react-notification-alert.scss";
@@ -94,7 +92,7 @@
 
 // Cards
 
-@import 'black-dashboard-react/custom/card';
+@import "black-dashboard-react/custom/card";
 @import "black-dashboard-react/custom/cards/card-chart";
 @import "black-dashboard-react/custom/cards/card-map";
 @import "black-dashboard-react/custom/cards/card-user";
@@ -103,3 +101,17 @@
 
 // React differences
 @import "black-dashboard-react/react-differences/react-differences";
+
+.video-container {
+  width: 100%;
+  height: 250px;
+  display: flex;
+  background-color: $white;
+}
+
+.video-container :first-child {
+  margin-left: auto;
+  width: 100%;
+  height: inherit;
+  margin-right: auto;
+}

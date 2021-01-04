@@ -32,3 +32,17 @@ export const editCourseData = (courseId, newData, _callback, _error) => {
       _error && _error(error);
     });
 };
+
+export const addCourse = (newCourse, _callback, _error) => {
+  Alerts.showLoading();
+  Axios.post(`${apiUrl}${addCourseUrl}`, newCourse)
+    .then((response) => {
+      Alerts.showSuccess();
+      _callback && _callback(response.data);
+    })
+    .catch((error) => {
+      Alerts.showErrorUnknow();
+      console.error(error);
+      _error && _error(error);
+    });
+};

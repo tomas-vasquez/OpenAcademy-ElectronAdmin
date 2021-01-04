@@ -12,6 +12,8 @@ import Container from "reactstrap/lib/Container";
 import Col from "reactstrap/lib/Col";
 import mongose from "mongoose";
 import { editItem } from "fetchers/items";
+import YouTube from "react-youtube";
+import Vimeo from "@u-wave/react-vimeo";
 
 export default class VideoInformation extends Component {
   constructor(props) {
@@ -54,6 +56,20 @@ export default class VideoInformation extends Component {
   }
 
   render() {
+    const src = this.state.item_video_url;
+    let id = "";
+    if (src.startsWith("https://www.youtube.com/watch")) {
+      id = new URL(src).searchParams.get("v");
+    } else if (src.startsWith("https://www.youtube.com/embed/")) {
+      id = new URL(src).pathname.slice(7);
+    } else if (src.startsWith("https://youtu.be/")) {
+      id = new URL(src).pathname;
+    }
+
+    if (src.startsWith("https://vimeo.com/")) {
+      id = new URL(src).pathname.slice(1);
+    }
+
     return (
       <Card>
         <CardHeader>
@@ -65,23 +81,24 @@ export default class VideoInformation extends Component {
         <CardBody>
           <Container fluid>
             <Row>
-              <Col xs="5">
-                <p className="m-0 mt-1 mb-3">previsualizacion:</p>
+              <Col xs="6">
                 <div className="d-flex">
-                  <video
-                    id="video"
-                    controls
-                    className="mx-auto"
-                    style={{ width: "100%" }}
-                    src={this.state.item_video_url}
-                  />
+                  <>
+                    <div className="video-container shadow">
+                      {(src.startsWith("https://www.youtube") ||
+                        src.startsWith("https://youtu.be")) && (
+                        <YouTube videoId={id} />
+                      )}
+                      {src.includes("vimeo") && <Vimeo video={id} autoplay />}
+                    </div>
+                  </>
                 </div>
               </Col>
-              <Col xs="7">
+              <Col xs="6">
                 <form onSubmit={this.onHandleSubmit}>
                   <p className="m-0 mt-1">titulo:</p>
                   <Input
-                    value={this.state.item_title}
+                    value={this.state.item_title || ""}
                     onChange={(e) => {
                       this.setState({ item_title: e.target.value });
                     }}
@@ -92,7 +109,7 @@ export default class VideoInformation extends Component {
                   <p className="m-0 mt-1">author id:</p>
                   <Input
                     id="imput"
-                    value={this.state.item_author_id}
+                    value={this.state.item_author_id || ""}
                     onChange={(e) => {
                       this.setState({ item_author_id: e.target.value });
                     }}
@@ -103,7 +120,7 @@ export default class VideoInformation extends Component {
 
                   <p className="m-0 mt-1">video url:</p>
                   <Input
-                    value={this.state.item_video_url}
+                    value={this.state.item_video_url || ""}
                     onChange={(e) => {
                       this.setState({ item_video_url: e.target.value });
                     }}

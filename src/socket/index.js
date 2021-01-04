@@ -1,6 +1,10 @@
 const aux = (socket) => {
-  socket.on("connect", () => {
-    alert("connectido");
+  socket.on("connect", (socket) => {
+    console.log("connected!!!");
+  });
+
+  socket.on("action", (data) => {
+    // console.log("data =>>", data);
   });
 };
 

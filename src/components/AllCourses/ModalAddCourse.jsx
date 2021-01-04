@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import {
   Modal,
   Card,
@@ -9,11 +9,8 @@ import {
   Button,
   Input,
 } from "reactstrap";
-import Axios from "axios";
-import {addCourseUrl} from "config";
 import mongose from "mongoose";
-import Alerts from "helpers/Alerts";
-import DB from 'helpers/DB'
+import { addCourse } from "fetchers/courses";
 
 export default class ModalAddCourse extends Component {
   //
@@ -28,27 +25,19 @@ export default class ModalAddCourse extends Component {
     e.preventDefault();
     const form = e.target;
 
-    let data = {};
+    let newCourse = {};
     for (let index = 0; index < form.length; index++) {
       if (form[index].name) {
-        data[form[index].name] = form[index].value;
+        newCourse[form[index].name] = form[index].value;
       }
     }
 
-    Alerts.showLoading();
-    Axios.post(DB.get("serverUrl") + addCourseUrl, data)
-      .then((response) => {
-        this.props.handleCourseDataChanged({
-          // ...{ _id: this.state.course._id },
-          ...response.data,
-        });
-        this.props.toogleModal();
-        Alerts.showSuccess();
-      })
-      .catch((error) => {
-        Alerts.showErrorUnknow();
-        console.error(error);
+    addCourse(newCourse, (course) => {
+      this.props.handleCourseDataChanged({
+        ...course,
       });
+      this.props.toogleModal();
+    });
   };
 
   componentDidUpdate() {
@@ -77,7 +66,7 @@ export default class ModalAddCourse extends Component {
               boxShadow: "0 1px 20px 0px #3446757a",
             }}
           >
-            <CardHeader className="d-flex" style={{cursor: "pointer"}}>
+            <CardHeader className="d-flex" style={{ cursor: "pointer" }}>
               <CardTitle tag="h4">
                 <i className="fa fa-plus mr-2" />
                 Add course

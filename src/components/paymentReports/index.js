@@ -6,7 +6,7 @@ import ReportList from "./ReportList";
 
 class PaymentReports extends Component {
   componentDidMount() {
-    loadPaymentReports((reports) => {});
+    if (!this.props.paymentReports) loadPaymentReports((reports) => {});
   }
 
   render() {
@@ -14,7 +14,7 @@ class PaymentReports extends Component {
 
     return (
       <div className="content">
-        <h2>Payment reports ({paymentReports.length})</h2>
+        <h2>Payment reports ({paymentReports && paymentReports.length})</h2>
         {/* <div>{JSON.stringify(paymentReports)}</div> */}
         <ReportList paymentReports={paymentReports} />
       </div>
