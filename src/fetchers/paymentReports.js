@@ -21,7 +21,7 @@ export const loadPaymentReports = (_callback) => {
         store.dispatch(addReport(report));
       });
       // store.log();
-      _callback(response.data);
+      _callback && _callback(response.data);
     })
     .catch((error) => {
       Alerts.showErrorUnknow();

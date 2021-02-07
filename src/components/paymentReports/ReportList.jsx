@@ -4,10 +4,9 @@ import moment from "moment";
 import { useState } from "react";
 import ModalPreviewReport from "./ModalPreviewReport";
 
-import { connect } from "react-redux";
 import { deletePaymentReport } from "fetchers/paymentReports";
 
-function ReportList({ paymentReports }) {
+function ReportList({ paymentReports, courses, users }) {
   const [currentReport, setCurrentReport] = useState(null);
   const [openModal, setOpenModal] = useState(false);
 
@@ -67,17 +66,17 @@ function ReportList({ paymentReports }) {
           </table>
         </div>
       </div>
-      <ModalPreviewReport
-        isOpen={openModal}
-        toggle={toggle}
-        currentReport={currentReport}
-      />
+      {currentReport && (
+        <ModalPreviewReport
+          isOpen={openModal}
+          toggle={toggle}
+          currentReport={currentReport}
+          courses={courses}
+          users={users}
+        />
+      )}
     </>
   );
 }
 
-const mapStateToProps = (state) => ({
-  paymentReports: state.paymentReports,
-});
-
-export default connect(mapStateToProps)(ReportList);
+export default ReportList;

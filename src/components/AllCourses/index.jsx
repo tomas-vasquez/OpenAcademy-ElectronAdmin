@@ -5,57 +5,58 @@ import SingleCourse from "./SingleCourse";
 import MyAddElements from "./MyAddElements";
 
 import { getAllCourses } from "fetchers/courses";
+import { connect } from "react-redux";
+import store from "store";
+import { replace_courses } from "store/courses_store/actions";
 
-export default class AllCourses extends Component {
-  constructor() {
-    super();
-    this.state = {
-      courses: null,
-    };
-  }
-
+class AllCourses extends Component {
   componentDidMount() {
-    getAllCourses((data) => {
-      this.setState({ courses: data.courses });
-    });
+    if (!this.props.courses) getAllCourses();
   }
 
   handleCourseDataChanged = (_course) => {
-    let index = this.state.courses.findIndex((course) => {
+    const { courses } = this.props;
+    let index = courses.findIndex((course) => {
       return course._id === _course._id;
     });
 
-    let newCourses = [...this.state.courses];
+    let newCourses = [...courses];
     if (index !== -1) {
       newCourses[index] = _course;
     } else {
       newCourses.push(_course);
     }
-    this.setState({
-      courses: newCourses,
-    });
+
+    store.dispatch(replace_courses(newCourses));
   };
 
   render() {
+    const { courses } = this.props;
     return (
       <div className="content">
         <Container fluid>
-          {this.state.courses ? (
+          {courses ? (
             <>
-              {this.state.courses.map((course) => (
+              {courses.map((course) => (
                 <SingleCourse
                   key={course._id}
                   course={course}
                   handleCourseDataChanged={this.handleCourseDataChanged}
                 />
               ))}
-              <MyAddElements
-                handleCourseDataChanged={this.handleCourseDataChanged}
-              />
             </>
           ) : null}
+          <MyAddElements
+            handleCourseDataChanged={this.handleCourseDataChanged}
+          />
         </Container>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  courses: state.courses,
+});
+
+export default connect(mapStateToProps)(AllCourses);

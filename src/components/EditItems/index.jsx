@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {Row, Col, Container} from "reactstrap";
+import React, { Component } from "react";
+import { Row, Col, Container } from "reactstrap";
 
 import ToolBar from "./ToolBar";
 import ListItems from "./ListItems";
@@ -8,8 +8,8 @@ import SeparatorText from "./separator/SeparatorText";
 import VideoInformation from "./video/VideoInformation";
 import Description from "./video/Description";
 import TestEditor from "./tests/TestEditor";
-import {getItems} from "fetchers/items";
-import {getAllCourses} from "fetchers/courses";
+import { getItems } from "fetchers/items";
+import { getAllCourses } from "fetchers/courses";
 
 class App extends Component {
   constructor(props) {
@@ -53,8 +53,10 @@ class App extends Component {
   componentDidMount() {
     const courseName = document.location.pathname.split("/")[2];
     getAllCourses((data) => {
+      console.log("data", data);
+
       this.setState({
-        course: data.courses.find((course) => {
+        course: data.find((course) => {
           return course.course_short_link === courseName;
         }),
       });
