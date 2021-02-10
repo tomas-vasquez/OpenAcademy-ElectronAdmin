@@ -1,25 +1,24 @@
 import React from "react";
+import { Container } from "reactstrap";
 
-export default function Footer(litle) {
+export default function Footer() {
   return (
-    <footer className="footer px-0 fixed-bottom footer-bar py-3">
-      <div className="container text-center">
-        <div>
-          <p className="mb-0 text-center">
-            © 2019-{new Date().getFullYear()} tu-academia.com. Made with{" "}
-            <i className="fa fa-heart" /> by{" "}
-            <a
-              className="badge badge-dark"
-              rel="noopener"
-              href="https://tomas-dev.vercel.app/"
-              aria-label="My GitHub"
-            >
-              Tomi
-            </a>{" "}
-            {/* using <Icons icon="react" /> */}
-          </p>
+    <footer className="footer fixed-bottom footer-bar">
+      <Container fluid>
+        <div className="copyright">
+          © {new Date().getFullYear()} made with
+          <i className="fa fa-heart mx-2" />
+          by
+          <a
+            className="badge badge-dark"
+            rel="noopener"
+            href="https://tomas-vasquez.vercel.app/"
+            aria-label="My GitHub"
+          >
+            Tomas Vasquez
+          </a>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }

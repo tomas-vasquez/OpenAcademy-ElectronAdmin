@@ -9,13 +9,18 @@ import App from "./App";
 //redux
 import { Provider } from "react-redux";
 import store from "store";
-import { setUserData } from "store/userData_store/actions";
-import DB from "helpers/DB";
 
-//load data
-if (DB.get("userData")) store.dispatch(setUserData(DB.get("userData")));
+//firebase
+import firebaseConfig from "firebase.config";
+import { FirebaseAppProvider } from "reactfire";
+import "firebase/auth";
+import "firebase/firestore";
+import "firebase/storage";
 
 ReactDOM.render(
-  <Provider store={store}>{<App />}</Provider>,
+  <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+    <Provider store={store}>{<App />}</Provider>
+  </FirebaseAppProvider>,
+
   document.getElementById("root")
 );

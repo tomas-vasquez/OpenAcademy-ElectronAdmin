@@ -30,9 +30,9 @@ import {
   faExclamationTriangle,
   faPlus,
   faTrash,
-  faDoorClosed,
   faEye,
 } from "@fortawesome/free-solid-svg-icons";
+
 import {
   faGithub,
   faFacebook,
@@ -88,9 +88,6 @@ const getIcon = (icon) => {
 
     case "search":
       return faSearch;
-
-    case "play":
-      return faPlay;
 
     case "dot":
       return faAngleRight;

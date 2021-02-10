@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-
+import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import AllCourses from "views/AllCourses";
@@ -7,13 +6,15 @@ import EditItems from "views/EditItems";
 import Main from "views/Main";
 import Settings from "views/Settings";
 import PaymentReports from "views/PaymentReports";
-import { connect } from "react-redux";
-import Login from "components/auth/Login";
 
-class App extends Component {
-  render() {
-    if (this.props.userData) {
-      return (
+//firebase
+import AuthWrapper from "components/auth/AuthWrapper";
+import OnlyAdminsWrapper from "components/auth/OnlyAdminsWrapper";
+
+const App = () => {
+  return (
+    <AuthWrapper>
+      <OnlyAdminsWrapper>
         <Router>
           <Route exact path="/" render={(props) => <Main {...props} />} />
           <Route
@@ -36,15 +37,9 @@ class App extends Component {
             render={(props) => <EditItems {...props} />}
           />
         </Router>
-      );
-    } else {
-      return <Login />;
-    }
-  }
-}
+      </OnlyAdminsWrapper>
+    </AuthWrapper>
+  );
+};
 
-const mapStateToProps = (state) => ({
-  userData: state.userData,
-});
-
-export default connect(mapStateToProps)(App);
+export default App;

@@ -1,4 +1,3 @@
-import Alerts from "helpers/Alerts";
 import axios from "axios";
 import { apiUrl } from "config";
 import Controller from "fetchers";
@@ -7,11 +6,6 @@ import store from "store";
 import { add_user } from "store/users_store/actions";
 
 class Controller_Profile extends Controller {
-  constructor() {
-    super();
-    // this.alerts = new Alerts();
-  }
-
   getProfile = (id, _callback) => {
     axios({
       method: "get",

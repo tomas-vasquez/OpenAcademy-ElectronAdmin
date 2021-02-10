@@ -1,5 +1,4 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import createSocketIoMiddleware from "redux-socket.io";
 
 import userDataReducer from "store/userData_store/reducer";
 import appReducer from "store/app_store/reducer";

@@ -4,7 +4,7 @@ class Alerts {
   //alerta normal
   showConfirm = (
     message,
-    title = "Mensaje",
+    title = "Message",
     backdropDismiss = true,
     onOk = null,
     onCancel = null
@@ -35,7 +35,7 @@ class Alerts {
   //alerta normal
   showAlert = (
     message,
-    title = "Mensaje",
+    title = "Message",
     backdropDismiss = true,
     onDidDismiss = null
   ) => {
@@ -91,13 +91,11 @@ class Alerts {
   showToast = (message) => {
     swal.fire({
       title: message,
-      icon: "default",
-      position: "bottom",
+      icon: "success",
+      position: "bottom-left",
       timer: 3000,
       toast: true,
       showConfirmButton: false,
-      buttonsStyling: false,
-      confirmButtonClass: "btn btn-default",
     });
   };
 

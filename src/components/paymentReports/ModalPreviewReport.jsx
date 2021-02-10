@@ -16,10 +16,9 @@ import {
 
 import { PreviewPc } from "react-preview-images";
 import "react-preview-images/dist/main.css";
-import { pageUrl } from "config";
 import SocialButtons from "components/common/SocialButtons";
 import Controller_Profile from "fetchers/Profile";
-const { shell } = window.require("electron");
+// const { shell } = window.require("electron");
 
 function ModalPreviewReport({ isOpen, toggle, currentReport, courses, users }) {
   const [visible, setVisible] = React.useState(false);
@@ -100,11 +99,11 @@ function ModalPreviewReport({ isOpen, toggle, currentReport, courses, users }) {
                         <Button
                           className="mr-2"
                           color="success"
-                          onClick={() => {
-                            shell.openExternal(
-                              `${pageUrl}/${report_subject.course_short_link}`
-                            );
-                          }}
+                          // onClick={() => {
+                          //   shell.openExternal(
+                          //     `${pageUrl}/${report_subject.course_short_link}`
+                          //   );
+                          // }}
                         >
                           <i className="fa fa-external-link-square mr-2" />
                           open in browser

@@ -1,93 +1,54 @@
-import React, { Component } from "react";
-
 import Footer from "components/common/Footer";
-import Controller_Users from "fetchers/Users";
-import { Button } from "reactstrap";
+import Logo from "components/common/Logo";
+import React from "react";
+import FirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import { useAuth } from "reactfire";
 
-export default class Login extends Component {
-  constructor() {
-    super();
-    this.users = new Controller_Users();
-  }
+import { Card, CardBody, Col, Row } from "reactstrap";
 
-  submitHandlerLogin = (e) => {
-    e.preventDefault();
-    this.users.login(e.target, (data) => {
-      console.log(data);
-    });
+export default function Login() {
+  const auth = useAuth;
+  const uiConfig = {
+    queryParameterForSignInSuccessUrl: "signInSuccessUrl",
+    signInFlow: "popup",
+    signInOptions: [
+      auth.EmailAuthProvider.PROVIDER_ID,
+      auth.GoogleAuthProvider.PROVIDER_ID,
+      auth.FacebookAuthProvider.PROVIDER_ID,
+    ],
   };
 
-  render() {
-    return (
-      <>
-        <section
-          className="p-0 m-0"
-          style={{
-            backgroundImage: ` url(${require("../../assets/img/bg.png")})`,
-          }}
-        >
-          <div className="container">
-            <div
-              className="row pt-5 d-flex"
-              style={{ minHeight: "100vh", zIndex: 1 }}
-            >
-              <div className="my-auto col-12 col-md-6 col-lg-5 mx-auto">
-                <div className="shape-before card">
-                  <form
-                    action=""
-                    method="post"
-                    className="rounded p-4"
-                    onSubmit={this.submitHandlerLogin}
-                  >
-                    <h3 className="h2 mb-4">Iniciar sesión:</h3>
-                    <div className="form-group">
-                      <label>Tu correo:</label>
-                      <input
-                        id="input-email"
-                        type="text"
-                        name="email"
-                        className="form-control"
-                        required
-                      />
-                    </div>
-                    <label>Tu contrasena:</label>
-                    <div className="form-group">
-                      <input
-                        id="input-password"
-                        name="password"
-                        type="password"
-                        className="form-control"
-                        required
-                      />
-                    </div>
-                    <div className="d-none custom-control custom-checkbox my-3">
-                      <input
-                        className="custom-control-input"
-                        name="remember_token"
-                        id="customCheckLogin"
-                        type="checkbox"
-                      />
-                      <label
-                        className="custom-control-label d-inline"
-                        htmlFor="customCheckLogin"
-                      >
-                        Recordarme en este dispositivo
-                      </label>
-                    </div>
-                    <div className="form-group text-center mt-4">
-                      <Button type="submit" color="info">
-                        Iniciar sesión
-                        <i className="fa fa-sign-in ml-2" />
-                      </Button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <Footer />
-      </>
-    );
-  }
+  return (
+    <div className="main-content">
+      <Logo />
+      <div
+        className="container d-flex"
+        style={{
+          width: "100%",
+          height: "100vh",
+        }}
+      >
+        <Card className="m-auto p-4">
+          <CardBody>
+            <Row>
+              <Col lg="6" className="d-none d-lg-flex px-5">
+                <img
+                  className="mx-auto"
+                  src={require("assets/svgs/undraw_secure_login_pdn4.svg")}
+                  alt=""
+                  style={{ maxWidth: "400px" }}
+                />
+              </Col>
+              <Col xs="12" lg="6" className="p-4 text-center">
+                <h1 className="mb-4">log in:</h1>
+                <p>Please log in with one of these methods:</p>
+                <FirebaseAuth uiConfig={uiConfig} firebaseAuth={auth()} />{" "}
+              </Col>
+            </Row>
+          </CardBody>
+        </Card>
+      </div>
+      <Footer />
+    </div>
+  );
 }

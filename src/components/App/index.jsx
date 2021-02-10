@@ -1,37 +1,31 @@
-import React, { Component } from "react";
+import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { connect } from "react-redux";
+import { useUser } from "reactfire";
+import JSONTree from "react-json-tree";
 
-// const { app } = window.require("electron").remote;
+export default function App() {
+  const user = useUser();
 
-class App extends Component {
-  render() {
-    return (
-      <div className="content">
-        <div className="App">
-          <div className="App-header">
-            <img src={logo} className="App-logo mb-2" alt="logo" />
-            <h2>--=== Your Academy Tool Adminer ===--</h2>
-          </div>
-          <p className="App-intro">
-            <b> Release 0.2.7 </b>
-            {/* Version: {app.getVersion()} */}
-          </p>
-          <hr />
-          <div className="text-left">
-            {JSON.stringify(this.props.userData)}
-            <hr />
-            {JSON.stringify(this.props.paymentReports)}
-          </div>
+  return (
+    <div className="content">
+      <div className="App">
+        <div className="App-header">
+          <img src={logo} className="App-logo mb-2" alt="logo" />
+          <h2>--== Your Academy ==--</h2>
+        </div>
+        <div className="text-left">
+          <p className="mt-2">User data:</p>
+          <JSONTree
+            data={{
+              uid: user.data.uid,
+              displayName: user.data.displayName,
+              photoURL: user.data.photoURL,
+              email: user.data.email,
+            }}
+          />
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
-const mapStateToProps = (state) => ({
-  userData: state.userData,
-  paymentReports: state.paymentReports,
-});
-
-export default connect(mapStateToProps)(App);

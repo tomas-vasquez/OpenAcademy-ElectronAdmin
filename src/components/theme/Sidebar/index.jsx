@@ -1,7 +1,7 @@
 import React from "react";
-import {NavLink, Link} from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 // reactstrap components
-import {Nav} from "reactstrap";
+import { Nav } from "reactstrap";
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -18,41 +18,29 @@ class Sidebar extends React.Component {
   };
 
   render() {
-    const {routes, logo} = this.props;
-    let logoImg = null;
-    let logoText = null;
-    if (logo.innerLink) {
-      logoImg = (
-        <Link
-          to={logo.innerLink}
-          className="simple-text logo-mini"
-          onClick={this.props.toggleSidebar}
-        >
-          <div className="logo-img">
-            <img src={logo.imgSrc} alt="react-logo" />
-          </div>
-        </Link>
-      );
-      logoText = (
-        <Link
-          to={logo.innerLink}
-          className="simple-text logo-normal"
-          onClick={this.props.toggleSidebar}
-        >
-          {logo.text}
-        </Link>
-      );
-    }
+    const { routes, logo } = this.props;
 
     return (
       <div className="sidebar" data={"blue"}>
         <div className="sidebar-wrapper" ref="sidebar">
-          {logoImg !== null || logoText !== null ? (
-            <div className="logo">
-              {logoImg}
-              {logoText}
-            </div>
-          ) : null}
+          <div className="logo">
+            <Link
+              to={"/"}
+              className="simple-text logo-mini"
+              onClick={this.props.toggleSidebar}
+            >
+              <div className="logo-img">
+                <img src={"/icon.png"} alt="" style={{ borderRadius: "0px" }} />
+              </div>
+            </Link>
+            <Link
+              to={"/"}
+              className="simple-text logo-normal"
+              onClick={this.props.toggleSidebar}
+            >
+              Your Academy
+            </Link>
+          </div>
           <Nav>
             {routes
               .filter((prop) => {

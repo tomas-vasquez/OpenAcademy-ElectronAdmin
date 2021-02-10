@@ -1,3 +1,10 @@
+.firebaseui-title {
+  color: black !important;
+}
+.firebaseui-info-bar-message {
+  color: black !important;
+}
+
 .ql-container {
   color: rgb(20, 20, 20);
   font-size: 15px;
