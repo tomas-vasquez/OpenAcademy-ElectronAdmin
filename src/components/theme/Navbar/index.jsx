@@ -53,7 +53,6 @@ export default function AdminNavbar({
           <Nav className="ml-auto" navbar>
             <UncontrolledDropdown nav>
               <DropdownToggle
-                caret
                 color="default"
                 nav
                 onClick={(e) => e.preventDefault()}
@@ -62,8 +61,10 @@ export default function AdminNavbar({
                   <div className="photo">
                     <img src={user.photoURL} />
                   </div>
-                  <b className="caret d-none d-lg-block d-xl-block" />
-                  <p className="my-auto ml-1 mr-3">{user.displayName}</p>
+                  <b className="caret d-none d-md-inline" />
+                  <p className="my-auto ml-1 mr-3 d-none d-md-inline">
+                    {user.displayName}
+                  </p>
                 </NavItem>
               </DropdownToggle>
 

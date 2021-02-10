@@ -18,7 +18,7 @@ const AuthWrapper = ({ fallback, children }) => {
     setIsComplete(true);
   });
 
-  if (!isComplete) return <Loading texto="Cargando...." />;
+  if (!isComplete) return <Loading texto="loading...." />;
 
   if (user) {
     return <SignOut.Provider value={signOut}>{children}</SignOut.Provider>;

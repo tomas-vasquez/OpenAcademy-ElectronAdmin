@@ -12,7 +12,7 @@ export default function OnlyAdminsWrapper({ children }) {
   );
 
   if (!isComplete && !hasEmitted)
-    return <Loading texto="verificando credenciales....." />;
+    return <Loading texto="verifying credentials....." />;
 
   if (!credential.role) {
     return <Intruder />;

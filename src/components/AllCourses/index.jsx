@@ -1,62 +1,44 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
 
 import SingleCourse from "./SingleCourse";
 import MyAddElements from "./MyAddElements";
 
-import { getAllCourses } from "fetchers/courses";
-import { connect } from "react-redux";
-import store from "store";
-import { replace_courses } from "store/courses_store/actions";
+import NoData from "components/common/NoData";
+import Loading from "components/auth/Loading";
+import { useFirestore } from "reactfire";
 
-class AllCourses extends Component {
-  componentDidMount() {
-    if (!this.props.courses) getAllCourses();
-  }
+export default function AllCourses() {
+  const [courses, setCourses] = useState(null);
+  const [isComplete, setIsComplete] = useState(false);
+  const fireStore = useFirestore();
 
-  handleCourseDataChanged = (_course) => {
-    const { courses } = this.props;
-    let index = courses.findIndex((course) => {
-      return course._id === _course._id;
+  useEffect(() => {
+    fireStore.collection("courses").onSnapshot((snapshot) => {
+      const products = [];
+      snapshot.forEach((doc) => products.push({ ...doc.data(), id: doc.id }));
+      setCourses(products);
+      setIsComplete(true);
     });
+  }, []);
 
-    let newCourses = [...courses];
-    if (index !== -1) {
-      newCourses[index] = _course;
-    } else {
-      newCourses.push(_course);
-    }
-
-    store.dispatch(replace_courses(newCourses));
-  };
-
-  render() {
-    const { courses } = this.props;
-    return (
-      <div className="content">
+  return (
+    <div className="content">
+      {!isComplete ? (
+        <Loading style={{ height: "70vh" }} texto="loading courses....." />
+      ) : (
         <Container fluid>
           {courses ? (
             <>
+              {courses.length === 0 && <NoData />}
               {courses.map((course) => (
-                <SingleCourse
-                  key={course._id}
-                  course={course}
-                  handleCourseDataChanged={this.handleCourseDataChanged}
-                />
+                <SingleCourse key={course.id} course={course} />
               ))}
             </>
           ) : null}
-          <MyAddElements
-            handleCourseDataChanged={this.handleCourseDataChanged}
-          />
+          <MyAddElements />
         </Container>
-      </div>
-    );
-  }
+      )}
+    </div>
+  );
 }
-
-const mapStateToProps = (state) => ({
-  courses: state.courses,
-});
-
-export default connect(mapStateToProps)(AllCourses);
