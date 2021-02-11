@@ -2,7 +2,8 @@ import React from "react";
 import { Card, CardBody, Button, Col, Row, CardImg } from "reactstrap";
 import ModalEditMainInfo from "./ModalEditMainInfo";
 import { Link } from "react-router-dom";
-import { uploadCover } from "fetchers/courseCover";
+import ChangeCoursePic from "./ChangeCoursePic";
+import { pageUrl } from "config";
 
 // const { shell } = window.require("electron");
 
@@ -39,7 +40,7 @@ export default class SingleCourse extends React.Component {
             </Col>
             <Col>
               <h3 className="m-0">{course.course_title}</h3>
-              <span>{`_id:"${course._id}"  `}</span>
+              <span>{`id:"${course.id}"  `}</span>
               <span>{`autor_id:"${course.course_author_id}"`}</span>
               <p>{course.course_description}</p>
               <div className="d-flex ml-auto">
@@ -52,15 +53,16 @@ export default class SingleCourse extends React.Component {
                   <i className="fa fa-pencil mr-2" />
                   edit info
                 </Button>
-                <Button
-                  onClick={() => {
-                    document.getElementById(`imput-pic-${course._id}`).click();
-                  }}
-                  className="mr-2"
-                >
-                  <i className="fa fa-pencil mr-2" />
-                  edit pic
-                </Button>
+
+                <ModalEditMainInfo
+                  course={course}
+                  toogleModal={this.toogleModal}
+                  handleCourseDataChanged={handleCourseDataChanged}
+                  isOpen={this.state.openModal}
+                />
+
+                <ChangeCoursePic course={course} />
+
                 <Link
                   className="btn mr-2"
                   to={"/edit/" + course.course_short_link}
@@ -68,14 +70,11 @@ export default class SingleCourse extends React.Component {
                   <i className="fa fa-pencil mr-2" />
                   edit items
                 </Link>
+
                 <Button
                   className="mr-2"
                   color="success"
-                  // onClick={() => {
-                  //   shell.openExternal(
-                  //     `${pageUrl}/${course.course_short_link}`
-                  //   );
-                  // }}
+                  href={`${pageUrl}/${course.course_short_link}`}
                 >
                   <i className="fa fa-external-link-square mr-2" />
                   open in browser
@@ -84,28 +83,6 @@ export default class SingleCourse extends React.Component {
             </Col>
           </Row>
         </CardBody>
-
-        <input
-          id={`imput-pic-${course._id}`}
-          onChange={(e) =>
-            uploadCover(e, course, (newUrl) => {
-              handleCourseDataChanged({
-                ...course,
-                ...{ course_pic_url: newUrl },
-              });
-            })
-          }
-          className="d-none"
-          type="file"
-          accept="image/jpg"
-        ></input>
-
-        <ModalEditMainInfo
-          course={course}
-          toogleModal={this.toogleModal}
-          handleCourseDataChanged={handleCourseDataChanged}
-          isOpen={this.state.openModal}
-        />
       </Card>
     );
   }

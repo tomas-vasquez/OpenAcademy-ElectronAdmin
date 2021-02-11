@@ -59,7 +59,7 @@ export default function AdminNavbar({
               >
                 <NavItem className="d-flex">
                   <div className="photo">
-                    <img src={user.photoURL} />
+                    <img src={user.photoURL} alt="logo" />
                   </div>
                   <b className="caret d-none d-md-inline" />
                   <p className="my-auto ml-1 mr-3 d-none d-md-inline">

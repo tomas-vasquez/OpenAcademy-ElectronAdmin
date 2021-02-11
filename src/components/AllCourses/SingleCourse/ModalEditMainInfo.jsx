@@ -17,8 +17,8 @@ import Alerts from "helpers/Alerts";
 import { useFirestore } from "reactfire";
 
 export default function ModalEditMainInfo({ course, toogleModal, isOpen }) {
-  const [tags, setTags] = useState([]);
-  const [tag, setTag] = useState([]);
+  const [tags, setTags] = useState(course.course_tags || []);
+  const [tag, setTag] = useState("");
   const firestore = useFirestore();
 
   const onHandleSubmit = (e) => {
@@ -33,7 +33,6 @@ export default function ModalEditMainInfo({ course, toogleModal, isOpen }) {
     }
     newData.course_tags = tags;
 
-    alert(course.id);
     firestore
       .collection("courses")
       .doc(course.id)

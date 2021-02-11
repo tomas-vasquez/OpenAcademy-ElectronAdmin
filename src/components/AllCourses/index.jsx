@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
 
 import SingleCourse from "./SingleCourse";
-import MyAddElements from "./MyAddElements";
+import AddCourse from "./AddCourse";
 
 import NoData from "components/common/NoData";
 import Loading from "components/auth/Loading";
@@ -20,6 +20,7 @@ export default function AllCourses() {
       setCourses(products);
       setIsComplete(true);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -36,7 +37,7 @@ export default function AllCourses() {
               ))}
             </>
           ) : null}
-          <MyAddElements />
+          <AddCourse />
         </Container>
       )}
     </div>

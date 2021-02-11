@@ -18,7 +18,7 @@ class Sidebar extends React.Component {
   };
 
   render() {
-    const { routes, logo } = this.props;
+    const { routes } = this.props;
 
     return (
       <div className="sidebar" data={"blue"}>
