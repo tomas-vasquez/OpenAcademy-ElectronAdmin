@@ -9,7 +9,7 @@ export default function ArrowIndicator({ item, currentItem }) {
         paddingTop: 6,
       }}
       className={
-        item && currentItem && item._id === currentItem._id ? "" : "d-none"
+        item && currentItem && item.id === currentItem.id ? "" : "d-none"
       }
     >
       <i

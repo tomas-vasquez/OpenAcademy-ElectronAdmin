@@ -1,7 +1,30 @@
+import Alerts from "helpers/Alerts";
 import React from "react";
+import { useFirestore } from "reactfire";
 import { Button, ButtonGroup, Card, CardBody } from "reactstrap";
 
-export default function AddItem({ handleAddItem }) {
+export default function AddItem({ items, course }) {
+  const fireStore = useFirestore();
+
+  const handleAddItem = (type) => {
+    let newItem = {
+      item_title: `no name ${items.length}`,
+      item_course_id: course.id,
+      item_author_id: course.course_author_id,
+      item_type: type,
+      item_sort: `${items.length}`,
+    };
+
+    fireStore
+      .collection("course_items")
+      .doc()
+      .set(newItem)
+      .then(function() {
+        Alerts.showSuccess();
+      });
+    Alerts.showLoading();
+  };
+
   return (
     <Card
       className="m-0"

@@ -11,7 +11,7 @@ import PaymentReports from "views/PaymentReports";
 import AuthWrapper from "components/auth/AuthWrapper";
 import OnlyAdminsWrapper from "components/auth/OnlyAdminsWrapper";
 
-const App = () => {
+export default function App() {
   return (
     <AuthWrapper>
       <OnlyAdminsWrapper>
@@ -40,6 +40,4 @@ const App = () => {
       </OnlyAdminsWrapper>
     </AuthWrapper>
   );
-};
-
-export default App;
+}

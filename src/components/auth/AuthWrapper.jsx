@@ -4,7 +4,7 @@ import SignOut from "context/singout";
 import Loading from "./Loading";
 import Login from "./Login";
 
-const AuthWrapper = ({ fallback, children }) => {
+export default function AuthWrapper({ children }) {
   const auth = useAuth();
   const [user, setUser] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
@@ -25,6 +25,4 @@ const AuthWrapper = ({ fallback, children }) => {
   } else {
     return <Login />;
   }
-};
-
-export default AuthWrapper;
+}

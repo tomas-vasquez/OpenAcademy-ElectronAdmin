@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Container } from "reactstrap";
 
 import ToolBar from "./ToolBar";
@@ -8,119 +8,117 @@ import SeparatorText from "./separator/SeparatorText";
 import VideoInformation from "./video/VideoInformation";
 import Description from "./video/Description";
 import TestEditor from "./tests/TestEditor";
-import { getItems } from "fetchers/items";
-import { getAllCourses } from "fetchers/courses";
+import Loading from "components/auth/Loading";
+import { useFirestore } from "reactfire";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      course: props.course,
-      items: null,
-      targetItem: null,
-    };
-  }
+export default function EditItems() {
+  const [course, setCourse] = useState(null);
+  const [targetItem, setTargetItem] = useState(null);
+  const [isLoadCourse, setIsLoadCourse] = useState(false);
 
-  handleItemChanged = (item, setATargetItem = true) => {
-    let index = this.state.items.findIndex((_item) => {
-      return item._id === _item._id;
-    });
+  const fireStore = useFirestore();
 
-    let newItems = [...this.state.items];
-
-    if (index !== -1) {
-      newItems[index] = item;
-    } else {
-      newItems.push(item);
-    }
-
-    this.setState({
-      items: newItems,
-    });
-
-    setATargetItem &&
-      this.setState({
-        targetItem: item,
-      });
-  };
-
-  handleItemTargetChanged = (item) => {
-    this.setState({
-      targetItem: item,
-    });
-  };
-
-  componentDidMount() {
+  useEffect(() => {
     const courseName = document.location.pathname.split("/")[2];
-    getAllCourses((data) => {
-      console.log("data", data);
 
-      this.setState({
-        course: data.find((course) => {
-          return course.course_short_link === courseName;
-        }),
-      });
-      getItems(courseName, (data) => {
-        this.setState({
-          items: data.items,
-        });
-      });
+    fireStore.collection("courses").onSnapshot((snapshot) => {
+      let courses = [];
+      snapshot.forEach((doc) => courses.push({ ...doc.data(), id: doc.id }));
+      setCourse(
+        courses.find((_course) => _course.course_short_link === courseName)
+      );
+      setIsLoadCourse(true);
     });
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  render() {
-    return (
-      <>
-        <ToolBar />
-        <Container fluid>
-          <Row>
-            <Col xs="8">
-              {this.state.targetItem ? (
-                this.state.targetItem.item_type === "video" ? (
-                  <>
-                    <VideoInformation
-                      handleItemChanged={this.handleItemChanged}
-                      item={this.state.targetItem}
-                    />
-                    <Description
-                      handleItemChanged={this.handleItemChanged}
-                      item={this.state.targetItem}
-                    />
-                  </>
-                ) : this.state.targetItem.item_type === "test" ? (
-                  <>
-                    <SeparatorText
-                      handleItemChanged={this.handleItemChanged}
-                      item={this.state.targetItem}
-                    />
-                    <TestEditor
-                      handleItemChanged={this.handleItemChanged}
-                      item={this.state.targetItem}
-                    />
-                  </>
-                ) : this.state.targetItem.item_type === "separator" ? (
-                  <SeparatorText
-                    handleItemChanged={this.handleItemChanged}
-                    item={this.state.targetItem}
-                  />
-                ) : null
-              ) : null}
-            </Col>
+  if (!isLoadCourse) return <Loading texto="loading course..." />;
 
-            <Col xs="4">
-              <ListItems
-                item={this.state.targetItem}
-                items={this.state.items}
-                course={this.state.course}
-                handleItemTargetChanged={this.handleItemTargetChanged}
-                handleItemChanged={this.handleItemChanged}
-              />
-            </Col>
-          </Row>
-        </Container>
-      </>
-    );
-  }
+  return (
+    <>
+      <ToolBar />
+      <Container fluid>
+        <Row>
+          <Col xs="8">
+            {targetItem ? (
+              targetItem.item_type === "video" ? (
+                <>
+                  <VideoInformation item={targetItem} />
+                  <Description item={targetItem} />
+                </>
+              ) : targetItem.item_type === "test" ? (
+                <>
+                  <SeparatorText item={targetItem} />
+                  <TestEditor item={targetItem} />
+                </>
+              ) : targetItem.item_type === "separator" ? (
+                <SeparatorText item={targetItem} />
+              ) : null
+            ) : null}
+          </Col>
+
+          <Col xs="4">
+            <ListItems
+              item={targetItem}
+              course={course}
+              setTargetItem={setTargetItem}
+            />
+          </Col>
+        </Row>
+      </Container>
+    </>
+  );
 }
 
-export default App;
+//   handleItemChanged = (item, setATargetItem = true) => {
+//     let index = items.findIndex((_item) => {
+//       return item._id === _item._id;
+//     });
+
+//     let newItems = [...items];
+
+//     if (index !== -1) {
+//       newItems[index] = item;
+//     } else {
+//       newItems.push(item);
+//     }
+
+//     this.setState({
+//       items: newItems,
+//     });
+
+//     setATargetItem &&
+//       this.setState({
+//         targetItem: item,
+//       });
+//   };
+
+//   handleItemTargetChanged = (item) => {
+//     this.setState({
+//       targetItem: item,
+//     });
+//   };
+
+//   componentDidMount() {
+//     const courseName = document.location.pathname.split("/")[2];
+//     getAllCourses((data) => {
+//       console.log("data", data);
+
+//       this.setState({
+//         course: data.find((course) => {
+//           return course.course_short_link === courseName;
+//         }),
+//       });
+//       getItems(courseName, (data) => {
+//         this.setState({
+//           items: data.items,
+//         });
+//       });
+//     });
+//   }
+
+//   render() {
+//     return (
+//           );
+//   }
+// }

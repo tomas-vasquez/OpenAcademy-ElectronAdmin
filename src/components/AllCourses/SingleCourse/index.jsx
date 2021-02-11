@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardBody, Button, Col, Row, CardImg } from "reactstrap";
 import ModalEditMainInfo from "./ModalEditMainInfo";
 import { Link } from "react-router-dom";
-import ChangeCoursePic from "./ChangeCoursePic";
+import ChangeCoursePic from "../ChangeCoursePic";
 import { pageUrl } from "config";
 
 // const { shell } = window.require("electron");
