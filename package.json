@@ -21,6 +21,7 @@
     "moment": "^2.29.1",
     "mongoose": "^5.10.3",
     "node-sass": "^5.0.0",
+    "perfect-scrollbar": "^1.5.0",
     "react": "16.12.0",
     "react-dom": "^16.8.6",
     "react-drag-listview": "^0.1.7",
@@ -72,7 +73,7 @@
   "main": "public/electron.js",
   "homepage": "./",
   "scripts": {
-    "react-start": "react-scripts start",
+    "react-start": "cross-env PORT=3005 react-scripts start",
     "react-build": "react-scripts build",
     "react-test": "react-scripts test --env=jsdom",
     "react-eject": "react-scripts eject",
