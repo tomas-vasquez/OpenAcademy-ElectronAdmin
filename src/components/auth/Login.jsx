@@ -40,7 +40,7 @@ export default function Login() {
                 />
               </Col>
               <Col xs="12" lg="6" className="p-4 text-center">
-                <h1 className="mb-4">log in:</h1>
+                <h1 className="mb-4">logii in:</h1>
                 <p>Please log in with one of these methods:</p>
                 <FirebaseAuth uiConfig={uiConfig} firebaseAuth={auth()} />{" "}
               </Col>

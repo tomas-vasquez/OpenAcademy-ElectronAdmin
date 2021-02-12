@@ -1,4 +1,5 @@
 const path = require("path");
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 
 module.exports = {
   // APP ENTRY POINT
@@ -56,14 +57,34 @@ module.exports = {
   // PATH RESOLVE
   resolve: {
     extensions: [".js", ".json", ".jsx"],
-
     modules: [path.resolve(__dirname, "src"), "node_modules"],
   },
 
+  plugins: [
+    new FaviconsWebpackPlugin({
+      logo: "./src/assets/img/icon.png", // svg works too!
+      mode: "webapp", // optional can be 'webapp', 'light' or 'auto' - 'auto' by default
+      devMode: "webapp", // optional can be 'webapp' or 'light' - 'light' by default
+      favicons: {
+        appName: "my-app",
+        appDescription: "App Adminer For YourAcademy.com",
+        developerName: "Tomas Vasquez",
+        developerURL: "https://tomas-vasquez.vercel.app", // prevent retrieving from the nearest package.json
+        background: "#ddd",
+        theme_color: "#333",
+        icons: {
+          coast: false,
+          yandex: false,
+        },
+      },
+    }),
+  ],
+
   // DEV SERVER ENTRY POINT
   devServer: {
-    contentBase: path.resolve(__dirname, "./src"),
+    contentBase: path.resolve(__dirname, "src"),
     port: 3500,
+    hot: true,
     watchContentBase: true,
     open: true,
   },

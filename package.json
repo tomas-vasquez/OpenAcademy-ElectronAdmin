@@ -1,6 +1,6 @@
 {
-  "name": "cra-electron",
-  "description": "CRA + Electron sitting in a tree",
+  "name": "your-academy-adminer",
+  "description": "Admin tool for your-academy.com",
   "author": "tomas vasquez <tomasdetloging@gmail.com>",
   "version": "0.3.0",
   "private": true,
@@ -43,21 +43,16 @@
     "babel-loader": "^8.2.2",
     "babel-preset-env": "^1.7.0",
     "css-loader": "^5.0.2",
+    "favicons": "^6.2.0",
+    "favicons-webpack-plugin": "^5.0.1",
     "file-loader": "^6.2.0",
     "style-loader": "^2.0.0",
     "webpack": "^5.21.2",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2"
   },
-  "build": {
-    "publish": {
-      "provider": "github"
-    }
-  },
-  "main": "public/electron.js",
-  "homepage": "./",
   "scripts": {
-    "start": "webpack-cli serve --mode development",
+    "start": "webpack serve",
     "build": "webpack --mode production",
     "compile-sass": "node-sass src/assets/scss/black-dashboard-react.scss src/assets/css/black-dashboard-react.min.css --output-style  -w compressed"
   },

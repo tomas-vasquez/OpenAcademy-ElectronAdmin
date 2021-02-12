@@ -30,7 +30,11 @@ class Sidebar extends React.Component {
               onClick={this.props.toggleSidebar}
             >
               <div className="logo-img">
-                <img src={"/icon.png"} alt="" style={{ borderRadius: "0px" }} />
+                <img
+                  src={"assets/img/icon.png"}
+                  alt=""
+                  style={{ borderRadius: "0px" }}
+                />
               </div>
             </Link>
             <Link
