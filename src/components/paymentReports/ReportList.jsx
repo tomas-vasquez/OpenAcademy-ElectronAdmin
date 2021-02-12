@@ -4,7 +4,7 @@ import moment from "moment";
 import { useState } from "react";
 import ModalPreviewReport from "./ModalPreviewReport";
 
-import { deletePaymentReport } from "fetchers/paymentReports";
+// import { deletePaymentReport } from "fetchers/paymentReports";
 
 function ReportList({ paymentReports, courses, users }) {
   const [currentReport, setCurrentReport] = useState(null);
@@ -14,7 +14,7 @@ function ReportList({ paymentReports, courses, users }) {
 
   const handleClick = (e, report) => {
     e.preventDefault();
-    deletePaymentReport(report, () => {});
+    // deletePaymentReport(report, () => {});
   };
 
   return (

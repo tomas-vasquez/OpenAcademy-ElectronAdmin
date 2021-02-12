@@ -1,16 +1,16 @@
-import { getAllCourses } from "fetchers/courses";
-import { loadPaymentReports } from "fetchers/paymentReports";
+// import { getAllCourses } from "fetchers/courses";
+// import { loadPaymentReports } from "fetchers/paymentReports";
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
 import ReportList from "./ReportList";
 
 class PaymentReports extends Component {
-  componentDidMount() {
-    const { paymentReports, courses } = this.props;
-    if (!paymentReports) loadPaymentReports();
-    if (!courses) getAllCourses();
-  }
+  // componentDidMount() {
+  //   const { paymentReports, courses } = this.props;
+  //   if (!paymentReports) loadPaymentReports();
+  //   if (!courses) getAllCourses();
+  // }
 
   render() {
     const { paymentReports, courses, users } = this.props;

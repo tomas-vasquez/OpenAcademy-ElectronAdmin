@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "reactstrap";
 import SingleOption from "./SingleOption";
-import uuidv4 from "uuidv4";
+// import uuidv4 from "uuidv4";
 
 export default class SingleQuestion extends Component {
   handleEditContent = (newContent) => {
@@ -35,7 +35,7 @@ export default class SingleQuestion extends Component {
     let newQuestions = [...questions].map((_question) => {
       if (_question.key === question.key) {
         _question.options.push({
-          key: uuidv4(),
+          // key: uuidv4(),
           content: "",
           isCorrect: false,
         });

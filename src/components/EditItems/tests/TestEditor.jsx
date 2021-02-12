@@ -9,7 +9,7 @@ import {
 } from "reactstrap";
 import ReactDragListView from "react-drag-listview";
 
-import uuidv4 from "uuidv4";
+// import uuidv4 from "uuidv4";
 import SingleQuestion from "./SingleQuestion";
 import Loader from "react-loader-spinner";
 import SmallLoading from "components/auth/SmallLoading";
@@ -37,7 +37,7 @@ export default function TestEditor({ item }) {
   const handleAddQuestion = () => {
     let questions = [...questions];
     questions.push({
-      key: uuidv4(),
+      // key: uuidv4(),
       content: "",
       options: [],
     });

@@ -13,6 +13,7 @@
     "classname": "0.0.0",
     "firebase": "^8.2.6",
     "font-awesome": "^4.7.0",
+    "highlight.js": "^10.6.0",
     "moment": "^2.29.1",
     "perfect-scrollbar": "^1.5.0",
     "react": "^17.0.1",
@@ -30,6 +31,7 @@
     "reactfire": "^3.0.0-rc.0",
     "reactstrap": "^8.5.1",
     "redux": "^4.0.5",
+    "source-map-loader": "^2.0.1",
     "sweetalert2": "^10.0.1",
     "uuidv4": "^6.2.6"
   },
@@ -42,7 +44,6 @@
     "babel-preset-env": "^1.7.0",
     "css-loader": "^5.0.2",
     "file-loader": "^6.2.0",
-    "node-sass": "^5.0.0",
     "style-loader": "^2.0.0",
     "webpack": "^5.21.2",
     "webpack-cli": "^4.5.0",

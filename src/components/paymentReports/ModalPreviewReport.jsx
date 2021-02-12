@@ -17,7 +17,7 @@ import {
 import { PreviewPc } from "react-preview-images";
 import "react-preview-images/dist/main.css";
 import SocialButtons from "components/common/SocialButtons";
-import Controller_Profile from "fetchers/Profile";
+// import Controller_Profile from "fetchers/Profile";
 // const { shell } = window.require("electron");
 
 function ModalPreviewReport({ isOpen, toggle, currentReport, courses, users }) {
@@ -33,10 +33,10 @@ function ModalPreviewReport({ isOpen, toggle, currentReport, courses, users }) {
     (user) => user._id === currentReport.report_sender_id
   );
 
-  useEffect(() => {
-    if (!profile)
-      new Controller_Profile().getProfile(currentReport.report_sender_id);
-  });
+  // useEffect(() => {
+  //   if (!profile)
+  //     new Controller_Profile().getProfile(currentReport.report_sender_id);
+  // });
 
   const getPicUrl = (profile) => {
     if (profile.pic_url) {
