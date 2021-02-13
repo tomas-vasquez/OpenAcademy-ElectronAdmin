@@ -20,10 +20,7 @@ export default function ChangeCoursePic({ course }) {
           course_pic_url: url,
         };
 
-        firestore
-          .collection("courses")
-          .doc(course.id)
-          .update(newData);
+        firestore.collection("courses").doc(course.id).update(newData);
         Alerts.showSuccess();
       });
     });
@@ -34,7 +31,7 @@ export default function ChangeCoursePic({ course }) {
     <>
       <Button
         onClick={() => {
-          document.getElementById(`imput-pic-${course._id}`).click();
+          document.getElementById(`imput-pic-${course.id}`).click();
         }}
         className="mr-2"
       >
@@ -42,7 +39,7 @@ export default function ChangeCoursePic({ course }) {
         edit pic
       </Button>
       <input
-        id={`imput-pic-${course._id}`}
+        id={`imput-pic-${course.id}`}
         onChange={uploadCoursePic}
         className="d-none"
         type="file"

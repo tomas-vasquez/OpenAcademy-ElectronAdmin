@@ -1,11 +1,9 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 
 import Navbar from "../theme/Navbar";
 import Footer from "../theme/Footer";
 import Sidebar from "../theme/Sidebar";
-
 import routes from "routes.js";
-import logo from "assets/img/react-logo.png";
 
 export default class Layout extends Component {
   constructor(props) {
@@ -19,7 +17,7 @@ export default class Layout extends Component {
 
   toggleSidebar = () => {
     document.documentElement.classList.toggle("nav-open");
-    this.setState({sidebarOpened: !this.state.sidebarOpened});
+    this.setState({ sidebarOpened: !this.state.sidebarOpened });
   };
 
   getBrandText = (path) => {
@@ -38,11 +36,6 @@ export default class Layout extends Component {
           {...this.props}
           routes={routes}
           bgColor="blue"
-          logo={{
-            outterLink: "/",
-            text: "Open Academy",
-            imgSrc: logo,
-          }}
           toggleSidebar={this.toggleSidebar}
         />
         <div className="main-panel" data={"blue"}>

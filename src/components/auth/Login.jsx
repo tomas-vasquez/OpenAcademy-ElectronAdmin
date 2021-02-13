@@ -1,12 +1,31 @@
 import Footer from "components/common/Footer";
 import Logo from "components/common/Logo";
+import Alerts from "helpers/Alerts";
 import React from "react";
 import FirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { useAuth } from "reactfire";
+import { useAuth, useFirestore } from "reactfire";
 
 import { Card, CardBody, Col, Row } from "reactstrap";
 
 export default function Login() {
+  const fireStore = useFirestore();
+
+  const buildNewProfile = (user) => {
+    let newProfile = {
+      id: user.uid,
+      user_pic: user.photoURL,
+      user_name: user.displayName,
+    };
+
+    fireStore
+      .collection("profiles")
+      .doc(user.uid)
+      .set(newProfile)
+      .then(() => {
+        Alerts.showToast("your new profile was created!");
+      });
+  };
+
   const auth = useAuth;
   const uiConfig = {
     queryParameterForSignInSuccessUrl: "signInSuccessUrl",
@@ -16,6 +35,20 @@ export default function Login() {
       auth.GoogleAuthProvider.PROVIDER_ID,
       auth.FacebookAuthProvider.PROVIDER_ID,
     ],
+    callbacks: {
+      signInSuccessWithAuthResult: (data) => {
+        const { user } = data;
+
+        fireStore
+          .collection("profiles")
+          .doc(user.uid)
+          .get()
+          .then((_profile) => {
+            const profile = _profile.data();
+            if (!profile) buildNewProfile(user);
+          });
+      },
+    },
   };
 
   return (
@@ -28,6 +61,7 @@ export default function Login() {
           height: "100vh",
         }}
       >
+        {/* {JSON.stringify(user)} */}
         <Card className="m-auto p-4">
           <CardBody>
             <Row>

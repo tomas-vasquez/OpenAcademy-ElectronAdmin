@@ -34,7 +34,7 @@ export default class SingleCourse extends React.Component {
               ) : (
                 <CardImg
                   style={{ width: 200, height: 120 }}
-                  src={require("assets/img/NO_IMG_600x600.png")}
+                  src={require("assets/img/noPic.png")}
                 />
               )}
             </Col>
