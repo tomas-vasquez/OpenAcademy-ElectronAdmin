@@ -23,6 +23,8 @@ export default function AddCourse() {
     e.preventDefault();
     const form = e.target;
 
+    const documentRef = fireStore.collection("courses").doc();
+
     let newCourse = {};
     for (let index = 0; index < form.length; index++) {
       if (form[index].name) {
@@ -30,14 +32,10 @@ export default function AddCourse() {
       }
     }
 
-    fireStore
-      .collection("courses")
-      .doc()
-      .set(newCourse)
-      .then(() => {
-        toogleModal();
-        Alerts.showSuccess();
-      });
+    documentRef.set({ ...newCourse, id: documentRef.id }).then(() => {
+      toogleModal();
+      Alerts.showToast("new course was assed");
+    });
     Alerts.showLoading();
   };
 

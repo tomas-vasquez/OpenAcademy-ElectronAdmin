@@ -7,21 +7,22 @@ export default function AddItem({ items, course }) {
   const fireStore = useFirestore();
 
   const handleAddItem = (type) => {
+    const documentRef = fireStore.collection("course_items").doc();
+
     let newItem = {
+      id: documentRef.id,
       item_title: `no name ${items.length}`,
+      item_description: "no description",
       item_course_id: course.id,
       item_author_id: course.course_author_id,
       item_type: type,
       item_sort: `${items.length}`,
     };
 
-    fireStore
-      .collection("course_items")
-      .doc()
-      .set(newItem)
-      .then(function() {
-        Alerts.showSuccess();
-      });
+    documentRef.set(newItem).then(() => {
+      Alerts.showToast("new item was added!");
+    });
+
     Alerts.showLoading();
   };
 

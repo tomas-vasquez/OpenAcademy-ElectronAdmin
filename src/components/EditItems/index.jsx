@@ -29,7 +29,6 @@ export default function EditItems() {
       );
       setIsLoadCourse(true);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!isLoadCourse) return <Loading texto="loading course..." />;

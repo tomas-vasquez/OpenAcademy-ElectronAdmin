@@ -6,21 +6,24 @@ import AddCourse from "./AddCourse";
 
 import NoData from "components/common/NoData";
 import Loading from "components/auth/Loading";
-import { useFirestore } from "reactfire";
+import { useFirestore, useUser } from "reactfire";
 
 export default function AllCourses() {
   const [courses, setCourses] = useState(null);
   const [isComplete, setIsComplete] = useState(false);
   const fireStore = useFirestore();
+  const { data: user } = useUser();
 
   useEffect(() => {
-    fireStore.collection("courses").onSnapshot((snapshot) => {
-      const products = [];
-      snapshot.forEach((doc) => products.push({ ...doc.data(), id: doc.id }));
-      setCourses(products);
-      setIsComplete(true);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fireStore
+      .collection("courses")
+      .where("course_author_id", "==", user.uid)
+      .onSnapshot((snapshot) => {
+        const products = [];
+        snapshot.forEach((doc) => products.push({ ...doc.data(), id: doc.id }));
+        setCourses(products);
+        setIsComplete(true);
+      });
   }, []);
 
   return (

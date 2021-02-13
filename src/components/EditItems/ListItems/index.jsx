@@ -21,10 +21,9 @@ export default function ListItems({
     fireStore.collection("course_items").onSnapshot((snapshot) => {
       let items = [];
       snapshot.forEach((doc) => items.push({ ...doc.data(), id: doc.id }));
-      setItems(items);
+      setItems(items.filter((item) => item.item_course_id === course.id));
       setIsLoadItems(true);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

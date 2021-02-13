@@ -85,6 +85,7 @@ module.exports = {
     contentBase: path.resolve(__dirname, "src"),
     port: 3500,
     hot: true,
+    inline: true,
     watchContentBase: true,
     open: true,
   },

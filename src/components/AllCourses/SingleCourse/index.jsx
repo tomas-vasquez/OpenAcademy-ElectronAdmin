@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { Card, CardBody, Button, Col, Row, CardImg } from "reactstrap";
 import ModalEditMainInfo from "./ModalEditMainInfo";
