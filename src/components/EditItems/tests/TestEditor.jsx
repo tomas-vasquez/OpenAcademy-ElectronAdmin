@@ -1,22 +1,15 @@
 import React, { useState } from "react";
-import {
-  CardHeader,
-  CardTitle,
-  CardBody,
-  Card,
-  Button,
-  Spinner,
-} from "reactstrap";
+import { CardHeader, CardTitle, CardBody, Card, Button } from "reactstrap";
 import ReactDragListView from "react-drag-listview";
 
 // import uuidv4 from "uuidv4";
 import SingleQuestion from "./SingleQuestion";
-import Loader from "react-loader-spinner";
+// import Loader from "react-loader-spinner";
 import SmallLoading from "components/auth/SmallLoading";
 
 export default function TestEditor({ item }) {
   const [questions, setQuestions] = useState(null);
-  const [test, setTest] = useState(null);
+  // const [test, setTest] = useState(null);
 
   const onDragEnd = (fromIndex, toIndex) => {
     const _questions = [...questions];

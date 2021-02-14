@@ -1,12 +1,10 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import { Card, CardBody, Button, Col, Row, CardImg } from "reactstrap";
 import ModalEditMainInfo from "./ModalEditMainInfo";
 import { Link } from "react-router-dom";
 import ChangeCoursePic from "../ChangeCoursePic";
 import { pageUrl } from "config";
-
-// const { shell } = window.require("electron");
+import noImageUrl from "assets/img/noPic.png";
 
 export default class SingleCourse extends React.Component {
   constructor() {
@@ -33,10 +31,7 @@ export default class SingleCourse extends React.Component {
               {course.course_pic_url ? (
                 <CardImg style={{ width: 200 }} src={course.course_pic_url} />
               ) : (
-                <CardImg
-                  style={{ width: 200, height: 120 }}
-                  src={require("assets/img/noPic.png")}
-                />
+                <CardImg style={{ width: 200, height: 120 }} src={noImageUrl} />
               )}
             </Col>
             <Col>

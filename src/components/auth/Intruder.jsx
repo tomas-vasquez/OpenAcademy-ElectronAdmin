@@ -6,6 +6,7 @@ import { Card, CardBody, Col, div, Row } from "reactstrap";
 import { useUser } from "reactfire";
 import Footer from "components/common/Footer";
 import Logo from "components/common/Logo";
+import svgUrl from "assets/svgs/undraw_access_denied_6w73.svg";
 
 export default function Intruder() {
   const { data: user } = useUser();
@@ -25,7 +26,7 @@ export default function Intruder() {
             <Col lg="6" className="d-none d-lg-flex px-5">
               <img
                 className="mx-auto"
-                src={require("assets/svgs/undraw_access_denied_6w73.svg")}
+                src={svgUrl}
                 alt=""
                 style={{ maxWidth: "350px" }}
               />

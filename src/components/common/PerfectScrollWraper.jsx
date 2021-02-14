@@ -1,9 +1,9 @@
 import React from "react";
 import PerfectScrollbar from "perfect-scrollbar";
 
-var ps;
-
 class PerfectScrollWraper extends React.Component {
+  ps = null;
+
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
@@ -11,24 +11,25 @@ class PerfectScrollWraper extends React.Component {
 
   componentDidMount() {
     if (navigator.platform.indexOf("Win") > -1) {
-      ps = new PerfectScrollbar(this.myRef.current, {
+      this.ps = new PerfectScrollbar(this.myRef.current, {
         suppressScrollX: true,
         suppressScrollY: false,
         swipeEasing: false,
 
         ...this.props.options,
       });
+
+      window.addEventListener("resize", () => {
+        this.ps.update();
+      });
     }
-    window.addEventListener("resize", () => {
-      ps.update();
-    });
   }
 
   componentDidUpdate() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
     this.myRef.current.scrollTop = 0;
-    ps.update();
+    this.ps.update();
   }
 
   render = () => {

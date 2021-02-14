@@ -4,8 +4,8 @@ import Alerts from "helpers/Alerts";
 import React from "react";
 import FirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { useAuth, useFirestore } from "reactfire";
-
 import { Card, CardBody, Col, Row } from "reactstrap";
+import svgUrl from "assets/svgs/undraw_secure_login_pdn4.svg";
 
 export default function Login() {
   const fireStore = useFirestore();
@@ -36,7 +36,7 @@ export default function Login() {
       auth.FacebookAuthProvider.PROVIDER_ID,
     ],
     callbacks: {
-      signInSuccessWithAuthResult: (data) => {
+      signInSuccessWithAuthRe3sult: (data) => {
         const { user } = data;
 
         fireStore
@@ -68,13 +68,13 @@ export default function Login() {
               <Col lg="6" className="d-none d-lg-flex px-5">
                 <img
                   className="mx-auto"
-                  src={require("assets/svgs/undraw_secure_login_pdn4.svg")}
+                  src={svgUrl}
                   alt=""
                   style={{ maxWidth: "400px" }}
                 />
               </Col>
               <Col xs="12" lg="6" className="p-4 text-center">
-                <h1 className="mb-4">logii in:</h1>
+                <h1 className="mb-4">log in:</h1>
                 <p>Please log in with one of these methods:</p>
                 <FirebaseAuth uiConfig={uiConfig} firebaseAuth={auth()} />{" "}
               </Col>
