@@ -5,10 +5,11 @@ import SingleCourse from "./SingleCourse";
 import AddCourse from "./AddCourse";
 
 import NoData from "components/common/NoData";
-import Loading from "components/auth/Loading";
+import Loading from "components/common/auth/Loading";
 import { useFirestore, useUser } from "reactfire";
+import Layout from "components/common/Layout";
 
-export default function AllCourses() {
+export default function AllCourses(props) {
   const [courses, setCourses] = useState(null);
   const [isComplete, setIsComplete] = useState(false);
   const fireStore = useFirestore();
@@ -27,22 +28,24 @@ export default function AllCourses() {
   }, []);
 
   return (
-    <div className="content">
-      {!isComplete ? (
-        <Loading style={{ height: "70vh" }} texto="loading courses....." />
-      ) : (
-        <Container fluid>
-          {courses ? (
-            <>
-              {courses.length === 0 && <NoData />}
-              {courses.map((course) => (
-                <SingleCourse key={course.id} course={course} />
-              ))}
-            </>
-          ) : null}
-          <AddCourse />
-        </Container>
-      )}
-    </div>
+    <Layout {...props}>
+      <div className="content">
+        {!isComplete ? (
+          <Loading style={{ height: "70vh" }} texto="loading courses....." />
+        ) : (
+          <Container fluid>
+            {courses ? (
+              <>
+                {courses.length === 0 && <NoData />}
+                {courses.map((course) => (
+                  <SingleCourse key={course.id} course={course} />
+                ))}
+              </>
+            ) : null}
+            <AddCourse />
+          </Container>
+        )}
+      </div>
+    </Layout>
   );
 }

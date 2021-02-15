@@ -15,15 +15,15 @@ var routes = [
     icon: "fa fa-dollar",
   },
   {
+    path: "/profile",
+    name: "Profile",
+    icon: "fa fa-user",
+    // hide: true,
+  },
+  {
     path: "/settings",
     name: "Settings",
     icon: "fa fa-cog",
-  },
-  {
-    path: "/edit",
-    name: "EDIT",
-    icon: "fa fa-book",
-    hide: true,
   },
 ];
 

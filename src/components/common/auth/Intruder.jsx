@@ -1,6 +1,6 @@
 // import { useRouter } from "next/router";
 import React from "react";
-import SignOut from "../../context/singout";
+import SignOut from "context/singout";
 import Icons from "components/common/Icons";
 import { Card, CardBody, Col, div, Row } from "reactstrap";
 import { useUser } from "reactfire";

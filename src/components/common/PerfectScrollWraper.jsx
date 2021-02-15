@@ -10,19 +10,17 @@ class PerfectScrollWraper extends React.Component {
   }
 
   componentDidMount() {
-    if (navigator.platform.indexOf("Win") > -1) {
-      this.ps = new PerfectScrollbar(this.myRef.current, {
-        suppressScrollX: true,
-        suppressScrollY: false,
-        swipeEasing: false,
+    this.ps = new PerfectScrollbar(this.myRef.current, {
+      suppressScrollX: true,
+      suppressScrollY: false,
+      swipeEasing: false,
 
-        ...this.props.options,
-      });
+      ...this.props.options,
+    });
 
-      window.addEventListener("resize", () => {
-        this.ps.update();
-      });
-    }
+    window.addEventListener("resize", () => {
+      this.ps.update();
+    });
   }
 
   componentDidUpdate() {

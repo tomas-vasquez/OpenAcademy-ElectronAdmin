@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, Link } from "react-router-dom";
 // reactstrap components
 import { Nav } from "reactstrap";
+import logoUrl from "assets/img/icon.png";
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -30,11 +31,7 @@ class Sidebar extends React.Component {
               onClick={this.props.toggleSidebar}
             >
               <div className="logo-img">
-                <img
-                  src={"assets/img/icon.png"}
-                  alt=""
-                  style={{ borderRadius: "0px" }}
-                />
+                <img src={logoUrl} alt="" style={{ borderRadius: "0px" }} />
               </div>
             </Link>
             <Link

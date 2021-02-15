@@ -8,7 +8,7 @@ import SeparatorText from "./separator/SeparatorText";
 import VideoInformation from "./video/VideoInformation";
 import Description from "./video/Description";
 import TestEditor from "./tests/TestEditor";
-import Loading from "components/auth/Loading";
+import Loading from "components/common/auth/Loading";
 import { useFirestore } from "reactfire";
 
 export default function EditItems() {

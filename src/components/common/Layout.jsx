@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
-import Navbar from "../theme/Navbar";
-import Footer from "../theme/Footer";
-import Sidebar from "../theme/Sidebar";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+import Sidebar from "./Sidebar";
 import routes from "routes.js";
 
 export default class Layout extends Component {

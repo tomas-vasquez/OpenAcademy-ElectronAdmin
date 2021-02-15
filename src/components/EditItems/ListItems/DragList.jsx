@@ -1,76 +1,69 @@
 import React from "react";
 import ReactDragListView from "react-drag-listview";
-import { useFirestore } from "reactfire";
 
-export default function DragList({ children, setItems, items }) {
-  const fireStore = useFirestore();
+const reordenedFieldItemSord = (fromIndex, toIndex, items, setItems) => {
+  let itemsSorted = items.sort((a, b) => a.item_sort - b.item_sort);
+  let itemsChanged = [];
 
-  const reordenedFieldItemSord = (fromIndex, toIndex) => {
-    console.log(">> ", fromIndex, toIndex);
+  console.log("fromIndex:", fromIndex, "toIndex:", toIndex);
 
-    let itemsSorted = items.sort((a, b) => a.item_sort - b.item_sort);
-    let itemsModified = [];
-    let targetItem = itemsSorted[fromIndex];
+  if (fromIndex > toIndex) {
+    let newItem = itemsSorted[fromIndex];
+    newItem.item_sort = itemsSorted[toIndex].item_sort + "1";
+    itemsChanged.push(newItem);
+  } else {
+    // newItem;
+  }
 
-    if (fromIndex < toIndex) {
-      let array1 = itemsSorted.slice(0, toIndex + 1).filter((item) => {
-        return item._id !== targetItem._id;
-      });
-      let array2 = itemsSorted.slice(toIndex + 1);
-      itemsModified = [...array1, targetItem, ...array2];
-    } else {
-      let array1 = itemsSorted.slice(0, toIndex);
-      let array2 = itemsSorted.slice(toIndex).filter((item) => {
-        return item._id !== targetItem._id;
-      });
+  // let targetItem = data[fromIndex];
 
-      console.log("itemsSorted", [...itemsSorted]);
-      console.log("a1 ", [...array1]);
-      console.log("targetItem", targetItem);
-      console.log("a2 ", [...array2]);
+  // //change item_sort
+  // if (fromIndex < toIndex) {
+  //   let array1 = data.slice(0, toIndex + 1).filter((item) => {
+  //     return item._id !== targetItem._id;
+  //   });
+  //   let array2 = data.slice(toIndex + 1);
+  //   stagedItems = [...array1, targetItem, ...array2];
+  // } else {
+  //   let array1 = data.slice(0, toIndex);
+  //   let array2 = data.slice(toIndex).filter((item) => {
+  //     return item._id !== targetItem._id;
+  //   });
+  //   stagedItems = [...array1, targetItem, ...array2];
+  // }
 
-      itemsModified = [...array1, targetItem, ...array2];
-    }
+  // stagedItems.forEach((item, index) => {
+  //   let newItem = { ...item };
+  //   newItem.item_sort = `${index}`;
+  //   itemsChanged.push(newItem);
+  // });
 
-    itemsModified = itemsModified.map((item, index) => {
-      let newItem = { ...item };
-      console.log(newItem.item_sort);
-      newItem.item_sort = `${newItem.item_sort + index}`;
-      console.log(newItem.item_sort);
-      console.log("........");
-      return newItem;
-    });
+  //merge
+  let newItems = [];
 
-    var _items = [];
+  newItems = items.map((item) => {
+    const alreadyIndex = itemsChanged.findIndex(
+      (_item) => _item.id === item.id
+    );
 
-    // console.log(items);
+    if (alreadyIndex !== -1) return itemsChanged[alreadyIndex];
+    else return item;
+  });
 
-    _items = itemsSorted.map((item) => {
-      const i = itemsModified.find((_item) => _item.id === item.id);
-      // console.log(item);
-      // console.log(i);
-      // console.log("...................");
+  // console.log("itemsChanged", itemsChanged);
 
-      if (i) return i;
-      else return item;
-    });
+  // console.log(
+  //   "newItems",
+  //   newItems.sort((a, b) => a.item_sort - b.item_sort)
+  // );
+  setItems(newItems);
+};
 
-    // console.log(_items);
-
-    setItems(_items.sort((a, b) => a.item_sort - b.item_sort));
-
-    // itemsModified.forEach((item, key) => {
-    //   // let newItem = { ...item };
-    //   // newItem.item_sort = `${key + 1}`;
-    //   console.log(item);
-    //   // handleItemChanged(newItem, false);
-    // });
-  };
-
+export default function DragList({ children, items, setItems }) {
   return (
     <ReactDragListView
       onDragEnd={(fromIndex, toIndex) => {
-        reordenedFieldItemSord(fromIndex, toIndex);
+        reordenedFieldItemSord(fromIndex, toIndex, items, setItems);
       }}
       nodeSelector="section"
       handleSelector="span"

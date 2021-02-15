@@ -1,15 +1,16 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import AllCourses from "views/AllCourses";
-import EditItems from "views/EditItems";
-import Main from "views/Main";
-import Settings from "views/Settings";
-import PaymentReports from "views/PaymentReports";
+import AllCourses from "./components/AllCourses";
+import EditItems from "./components/EditItems";
+import Main from "./components/App";
+import Settings from "./components/Settings";
+import PaymentReports from "./components/PaymentReports";
+import Profile from "./components/Profile";
 
 //firebase
-import AuthWrapper from "components/auth/AuthWrapper";
-import OnlyAdminsWrapper from "components/auth/OnlyAdminsWrapper";
+import AuthWrapper from "components/common/auth/AuthWrapper";
+import OnlyAdminsWrapper from "components/common/auth/OnlyAdminsWrapper";
 import PerfectScrollWraper from "components/common/PerfectScrollWraper";
 
 export default function App() {
@@ -33,6 +34,11 @@ export default function App() {
               exact
               path="/payment_reports"
               render={(props) => <PaymentReports {...props} />}
+            />
+            <Route
+              exact
+              path="/profile"
+              render={(props) => <Profile {...props} />}
             />
             <Route
               path="/edit/:course"

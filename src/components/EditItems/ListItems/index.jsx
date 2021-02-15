@@ -5,7 +5,7 @@ import { Card, CardBody, Button } from "reactstrap";
 import AddItem from "./AddItem";
 import DragList from "./DragList";
 import SingleItem from "./SingleItem";
-import SmallLoading from "components/auth/SmallLoading";
+import SmallLoading from "components/common/auth/SmallLoading";
 
 export default function ListItems({
   setTargetItem,
