@@ -16,7 +16,7 @@ export default function AddItem({ items, course }) {
       item_course_id: course.id,
       item_author_id: course.course_author_id,
       item_type: type,
-      item_sort: `${items.length}`,
+      item_sort: `${items.length + 1}`,
     };
 
     documentRef.set(newItem).then(() => {

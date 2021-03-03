@@ -27,6 +27,10 @@ export default function App(props) {
               }}
             />
           </div>
+          <div className="text-left">
+            <p className="mt-2">Env:</p>
+            <JSONTree data={process.env} />
+          </div>
         </div>
       </div>
     </Layout>

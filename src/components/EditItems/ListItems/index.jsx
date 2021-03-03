@@ -6,6 +6,7 @@ import AddItem from "./AddItem";
 import DragList from "./DragList";
 import SingleItem from "./SingleItem";
 import SmallLoading from "components/common/auth/SmallLoading";
+import Alerts from "helpers/Alerts";
 
 export default function ListItems({
   setTargetItem,
@@ -13,18 +14,40 @@ export default function ListItems({
   course,
 }) {
   const [items, setItems] = useState(null);
+  const [itemsInDb, setItemsInDb] = useState(null);
   const [isLoadItems, setIsLoadItems] = useState(false);
   const fireStore = useFirestore();
 
   useEffect(() => {
     //load items
-    fireStore.collection("course_items").onSnapshot((snapshot) => {
-      let items = [];
-      snapshot.forEach((doc) => items.push({ ...doc.data(), id: doc.id }));
-      setItems(items.filter((item) => item.item_course_id === course.id));
-      setIsLoadItems(true);
-    });
+    fireStore
+      .collection("course_items")
+      .where("item_course_id", "==", course.id)
+      .onSnapshot((snapshot) => {
+        let items = [];
+        snapshot.forEach((doc) => items.push({ ...doc.data(), id: doc.id }));
+        setItems(items);
+        setItemsInDb(items);
+        setIsLoadItems(true);
+      });
   }, []);
+
+  const saveChanges = () => {
+    var batch = fireStore.batch();
+
+    itemsInDb.forEach((_item) => {
+      let item = items.find((item) => item.id === _item.id);
+      if (_item.item_sort !== item.item_sort) {
+        let ref = fireStore.collection("course_items").doc(_item.id);
+        batch.update(ref, { item_sort: item.item_sort });
+      }
+    });
+
+    batch.commit().then(() => {
+      Alerts.showSuccess();
+    });
+    Alerts.showLoading();
+  };
 
   return (
     <>
@@ -48,7 +71,11 @@ export default function ListItems({
           )}
 
           <div className="d-flex">
-            <Button color="success" type="submit" className="mt-3 ml-auto">
+            <Button
+              color="success"
+              className="mt-3 ml-auto"
+              onClick={saveChanges}
+            >
               <i className="fa fa-save mr-2" />
               Save sort
             </Button>
