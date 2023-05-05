@@ -3,7 +3,6 @@ import React from "react";
 // reactstrap components
 import {
   Input,
-  InputGroupAddon,
   InputGroupText,
   InputGroup,
   UncontrolledTooltip,

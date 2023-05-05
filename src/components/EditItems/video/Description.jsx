@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { CardHeader, CardTitle, CardBody, Card, Button } from "reactstrap";
 
-import "./highlight";
-import ReactQuill from "react-quill"; // ES6
-import "react-quill/dist/quill.snow.css"; // ES6
-import "highlight.js/styles/monokai-sublime.css";
+// import "./highlight";
+// import ReactQuill from "react-quill"; // ES6
+// import "react-quill/dist/quill.snow.css"; // ES6
+// import "highlight.js/styles/monokai-sublime.css";
 import Alerts from "helpers/Alerts";
 import { useFirestore } from "reactfire";
 
@@ -53,7 +53,7 @@ export default function Description({ item }) {
         </CardTitle>
       </CardHeader>
       <CardBody className="text-muted">
-        <ReactQuill
+        {/* <ReactQuill
           modules={{
             syntax: true,
             toolbar: toolbarOptions,
@@ -63,7 +63,7 @@ export default function Description({ item }) {
           onChange={(text) => {
             setContent(text);
           }}
-        />
+        /> */}
         <div className="d-flex">
           <Button
             type="submit"

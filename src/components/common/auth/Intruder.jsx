@@ -7,9 +7,10 @@ import { useUser } from "reactfire";
 import Footer from "components/common/Footer";
 import Logo from "components/common/Logo";
 import svgUrl from "assets/svgs/undraw_access_denied_6w73.svg";
+import { connect } from "react-redux";
 
-export default function Intruder() {
-  const { data: user } = useUser();
+function Intruder(props) {
+  const { user } = props;
 
   return (
     <div
@@ -85,3 +86,10 @@ export default function Intruder() {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    user: state.settings.user,
+  };
+};
+
+export default connect(mapStateToProps)(Intruder);

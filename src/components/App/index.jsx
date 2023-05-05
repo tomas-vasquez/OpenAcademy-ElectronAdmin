@@ -2,7 +2,7 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { useUser } from "reactfire";
-import JSONTree from "react-json-tree";
+import { JSONTree } from "react-json-tree";
 import Layout from "components/common/Layout";
 
 export default function App(props) {

@@ -1,5 +1,5 @@
 import React from "react";
-import Loader from "react-loader-spinner";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function SmallLoading({ text }) {
   return (
@@ -10,7 +10,7 @@ export default function SmallLoading({ text }) {
       }}
     >
       <div className="m-auto text-center">
-        <Loader type="ThreeDots" color="#6950df" height={100} width={100} />
+        <ThreeDots type="ThreeDots" color="#6950df" height={100} width={100} />
         <p>{text}</p>
       </div>
     </div>

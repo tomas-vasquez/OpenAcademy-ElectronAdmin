@@ -1,14 +1,16 @@
 import Footer from "components/common/Footer";
 import Logo from "components/common/Logo";
 import Alerts from "helpers/Alerts";
-import React from "react";
+import React, { useContext } from "react";
 import FirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { useAuth, useFirestore } from "reactfire";
 import { Card, CardBody, Col, Row } from "reactstrap";
 import svgUrl from "assets/svgs/undraw_secure_login_pdn4.svg";
+import FirebaseContext from "context/FirebaseContext";
 
 export default function Login() {
-  const fireStore = useFirestore();
+  const firebase = useContext(FirebaseContext);
+
+  const fireStore = firebase.fireStore;
 
   const buildNewProfile = (user) => {
     let newProfile = {
@@ -26,7 +28,7 @@ export default function Login() {
       });
   };
 
-  const auth = useAuth;
+  const auth = firebase.auth;
   const uiConfig = {
     queryParameterForSignInSuccessUrl: "signInSuccessUrl",
     signInFlow: "popup",

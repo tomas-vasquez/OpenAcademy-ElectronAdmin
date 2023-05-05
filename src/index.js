@@ -1,5 +1,4 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 
 import "./assets/css/black-dashboard-react.min.css";
 import "./assets/css/myStyles.css";
@@ -7,16 +6,13 @@ import "font-awesome/css/font-awesome.min.css";
 import App from "./App";
 
 //firebase
-import firebaseConfig from "firebase.config";
-import { FirebaseAppProvider } from "reactfire";
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/storage";
+import FirebaseContext from "context/FirebaseContext";
+import myFirebase from "./myFirebase";
 
-ReactDOM.render(
-  <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+const container = document.getElementById("root");
+const root = createRoot(container);
+root.render(
+  <FirebaseContext.Provider value={myFirebase}>
     <App />
-  </FirebaseAppProvider>,
-
-  document.getElementById("root")
+  </FirebaseContext.Provider>
 );

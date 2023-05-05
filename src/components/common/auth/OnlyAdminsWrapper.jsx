@@ -1,18 +1,38 @@
-import React from "react";
-import { useFirestore, useFirestoreDocData, useUser } from "reactfire";
+import React, { useContext, useEffect, useState } from "react";
+import { connect } from "react-redux"; // import { useFirestore, useFirestoreDocData, useUser } from "reactfire";
+
 import Intruder from "./Intruder";
 import Loading from "./Loading";
 
-export default function OnlyAdminsWrapper({ children }) {
-  const { data: user } = useUser();
-  const credentialsRef = useFirestore();
+import FirebaseContext from "context/FirebaseContext";
+import { doc, getDoc } from "firebase/firestore";
 
-  let { isComplete, data: credential, hasEmitted } = useFirestoreDocData(
-    credentialsRef.collection("credentials").doc(user?.uid)
-  );
+function OnlyAdminsWrapper(props) {
+  const { children, user } = props;
+  const firebase = useContext(FirebaseContext);
 
-  if (!isComplete && !hasEmitted)
-    return <Loading texto="verifying credentials....." />;
+  const [isComplete, setIsComplete] = useState(false);
+  const [credential, setCredential] = useState(null);
+
+  const myFunction = async () => {
+    const db = firebase.firestore();
+    const docRef = doc(db, "credentials", user.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const credential = docSnap.data();
+      setCredential(credential);
+    } else {
+      console.log(user);
+    }
+    setIsComplete(true);
+  };
+
+  useEffect(() => {
+    myFunction();
+  }, []);
+
+  if (!isComplete) return <Loading texto="verifying credentials....." />;
 
   if (!credential.role) {
     return <Intruder />;
@@ -20,3 +40,11 @@ export default function OnlyAdminsWrapper({ children }) {
     return children;
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.settings.user,
+  };
+};
+
+export default connect(mapStateToProps)(OnlyAdminsWrapper);
