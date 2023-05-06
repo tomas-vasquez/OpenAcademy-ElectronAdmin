@@ -16,7 +16,7 @@ function OnlyAdminsWrapper(props) {
 
   const myFunction = async () => {
     const db = firebase.firestore();
-    const docRef = doc(db, "credentials", user.uid);
+    const docRef = doc(db, "credentials", user.id);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {

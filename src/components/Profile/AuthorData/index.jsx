@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { connect } from "react-redux";
 
 // reactstrap components
 import {
@@ -12,21 +13,22 @@ import {
 } from "reactstrap";
 
 import { nameChangedHandler } from "helpers/input";
-// import Controller_Profile from "fetchers/Profile";
 
 import OptionCountries from "./OptionCountries";
 import ProfileCard from "./ProfileCard";
 import SingleField from "./SingleField";
 import SingleSocialField from "./SingleSocialField";
 import DescriptionField from "./DescriptionField";
-import { useFirestore, useUser } from "reactfire";
 import Alerts from "helpers/Alerts";
 import Icons from "components/common/Icons";
+import FirebaseContext from "context/FirebaseContext";
 
-export default function AuthorData({ profile }) {
-  const { data: user } = useUser();
+function AuthorData(props) {
+  const { profile, user, handleProfileDataChanged } = props;
   const [editable, setEditable] = useState(false);
-  const firestore = useFirestore();
+
+  const firebase = useContext(FirebaseContext);
+  const firestore = firebase.firestore();
 
   const handleDataUpdate = (e) => {
     e.preventDefault();
@@ -42,9 +44,10 @@ export default function AuthorData({ profile }) {
 
     firestore
       .collection("profiles")
-      .doc(user.uid)
+      .doc(user.id)
       .set({ ...profile, ...data })
       .then(() => {
+        handleProfileDataChanged({ ...profile, ...data });
         Alerts.showToast("perfil Actualizado");
       });
     Alerts.showLoading();
@@ -52,7 +55,7 @@ export default function AuthorData({ profile }) {
 
   useEffect(() => {
     if (user) {
-      if (user.uid === profile.id) {
+      if (user.id === profile.id) {
         setEditable(true);
       }
     }
@@ -61,7 +64,11 @@ export default function AuthorData({ profile }) {
   return (
     <div>
       <>
-        {/* <ProfileCard profile={profile} editable={editable} /> */}
+        <ProfileCard
+          profile={profile}
+          editable={editable}
+          handleProfileDataChanged={handleProfileDataChanged}
+        />
 
         <Card className="shadow-md mb-4">
           <CardHeader className="py-2 px-3">
@@ -99,13 +106,13 @@ export default function AuthorData({ profile }) {
 
               <hr className="my-4" />
               <h5 className="heading-small text-muted mb-4">Redes Sociales:</h5>
-
+              {/* 
               <OptionCountries
                 editing={editable}
                 parent_reference={this}
                 whatsapp_number={profile.whatsapp_number}
                 whatsapp_code_area={profile.whatsapp_code_area}
-              />
+              /> */}
 
               <SingleSocialField
                 name="facebook"
@@ -143,3 +150,11 @@ export default function AuthorData({ profile }) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.settings.user,
+  };
+};
+
+export default connect(mapStateToProps)(AuthorData);

@@ -15,7 +15,7 @@ export default function Login() {
   const buildNewProfile = (user) => {
     let newProfile = {
       id: user.uid,
-      user_pic: user.photoURL,
+      user_pic: user.user_pic,
       user_name: user.displayName,
     };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import {
   Modal,
@@ -14,12 +14,16 @@ import {
 } from "reactstrap";
 import TagsInput from "react-tagsinput";
 import Alerts from "helpers/Alerts";
-import { useFirestore } from "reactfire";
 
-export default function ModalEditMainInfo({ course, toogleModal, isOpen }) {
+import FirebaseContext from "context/FirebaseContext";
+
+export default function ModalEditMainInfo(props) {
+  const { course, toogleModal, isOpen, handleCourseDataChanged } = props;
   const [tags, setTags] = useState(course.course_tags || []);
   const [tag, setTag] = useState("");
-  const firestore = useFirestore();
+
+  const firebase = useContext(FirebaseContext);
+  const firestore = firebase.firestore();
 
   const onHandleSubmit = (e) => {
     e.preventDefault();
@@ -39,6 +43,7 @@ export default function ModalEditMainInfo({ course, toogleModal, isOpen }) {
       .update({ ...course, ...newData })
       .then(() => {
         Alerts.showSuccess();
+        handleCourseDataChanged({ ...course, ...newData });
       });
     Alerts.showLoading();
   };

@@ -51,7 +51,7 @@ function Intruder(props) {
                       width: "60px",
                       height: "60px",
                     }}
-                    src={user.photoURL}
+                    src={user.user_pic}
                     alt=""
                   />
                   <div className="p-2 text-white font-large">

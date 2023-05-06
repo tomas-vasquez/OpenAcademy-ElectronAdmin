@@ -41,7 +41,7 @@ export default class Layout extends Component {
         <div className="main-panel" data={"blue"}>
           <Navbar
             {...this.props}
-            brandText={this.getBrandText(this.props.location.pathname)}
+            brandText={this.getBrandText(window.location.pathname)}
             toggleSidebar={this.toggleSidebar}
             sidebarOpened={this.state.sidebarOpened}
           />

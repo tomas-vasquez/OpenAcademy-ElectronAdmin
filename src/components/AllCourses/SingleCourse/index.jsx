@@ -56,9 +56,10 @@ export default class SingleCourse extends React.Component {
                   handleCourseDataChanged={handleCourseDataChanged}
                   isOpen={this.state.openModal}
                 />
-
-                <ChangeCoursePic course={course} />
-
+                <ChangeCoursePic
+                  course={course}
+                  handleCourseDataChanged={handleCourseDataChanged}
+                />
                 <Link
                   className="btn mr-2"
                   to={"/edit/" + course.course_short_link}
@@ -66,7 +67,6 @@ export default class SingleCourse extends React.Component {
                   <i className="fa fa-pencil mr-2" />
                   edit items
                 </Link>
-
                 <Button
                   className="mr-2"
                   color="success"

@@ -1,12 +1,12 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { useUser } from "reactfire";
 import { JSONTree } from "react-json-tree";
 import Layout from "components/common/Layout";
+import { connect } from "react-redux";
 
-export default function App(props) {
-  const user = useUser();
+function App(props) {
+  const { user } = props;
 
   return (
     <Layout {...props}>
@@ -18,14 +18,7 @@ export default function App(props) {
           </div>
           <div className="text-left">
             <p className="mt-2">User data:</p>
-            <JSONTree
-              data={{
-                uid: user.data.uid,
-                displayName: user.data.displayName,
-                photoURL: user.data.photoURL,
-                email: user.data.email,
-              }}
-            />
+            <JSONTree data={user} />
           </div>
           <div className="text-left">
             <p className="mt-2">Env:</p>
@@ -36,3 +29,10 @@ export default function App(props) {
     </Layout>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    user: state.settings.user,
+  };
+};
+
+export default connect(mapStateToProps)(App);

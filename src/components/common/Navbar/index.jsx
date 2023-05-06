@@ -15,22 +15,18 @@ import {
   Nav,
   NavItem,
 } from "reactstrap";
-import { useUser } from "reactfire";
 import Icons from "components/common/Icons";
 import SignOut from "context/singout";
 import Alerts from "helpers/Alerts";
+import { connect } from "react-redux";
 
-export default function AdminNavbar({
-  brandText,
-  sidebarOpened,
-  toggleSidebar,
-}) {
-  const { data: user } = useUser();
+function AdminNavbar(props) {
+  const { user, brandText, sidebarOpened, toggleSidebar } = props;
 
   return (
     <>
       <Navbar className={"navbar-absolute navbar-transparent"} expand="lg">
-        <Container fluid>
+        <Container className="d-flex">
           <div className="navbar-wrapper">
             <div
               className={classNames("navbar-toggle d-inline", {
@@ -57,20 +53,20 @@ export default function AdminNavbar({
                 nav
                 onClick={(e) => e.preventDefault()}
               >
-                <NavItem className="d-flex">
+                <div className="d-flex">
                   <div className="photo">
-                    <img src={user.photoURL} alt="logo" />
+                    <img src={user.user_pic} alt="logo" />
                   </div>
                   <b className="caret d-none d-md-inline" />
                   <p className="my-auto ml-1 mr-3 d-none d-md-inline">
-                    {user.displayName}
+                    {user.user_name}
                   </p>
-                </NavItem>
+                </div>
               </DropdownToggle>
 
               <SignOut.Consumer>
                 {(signOut) => (
-                  <DropdownMenu className="dropdown-navbar" right tag="ul">
+                  <DropdownMenu className="dropdown-navbar" end tag="ul">
                     <NavLink tag="li">
                       <DropdownItem
                         className="nav-item"
@@ -93,3 +89,11 @@ export default function AdminNavbar({
     </>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.settings.user,
+  };
+};
+
+export default connect(mapStateToProps)(AdminNavbar);

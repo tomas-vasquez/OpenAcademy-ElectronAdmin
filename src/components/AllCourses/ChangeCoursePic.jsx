@@ -1,11 +1,15 @@
 import Alerts from "helpers/Alerts";
-import React from "react";
-import { useFirestore, useStorage } from "reactfire";
+import React, { useContext } from "react";
 import { Button } from "reactstrap";
 
-export default function ChangeCoursePic({ course }) {
-  const storage = useStorage();
-  const firestore = useFirestore();
+import FirebaseContext from "context/FirebaseContext";
+
+export default function ChangeCoursePic(props) {
+  const { course, handleCourseDataChanged } = props;
+  const firebase = useContext(FirebaseContext);
+
+  const firestore = firebase.firestore();
+  const storage = firebase.storage();
 
   const uploadCoursePic = (e) => {
     const file = e.target.files[0];
@@ -21,6 +25,7 @@ export default function ChangeCoursePic({ course }) {
         };
 
         firestore.collection("courses").doc(course.id).update(newData);
+        handleCourseDataChanged(newData);
         Alerts.showSuccess();
       });
     });

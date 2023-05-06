@@ -1,8 +1,10 @@
+import React, { useContext } from "react";
+import { connect } from "react-redux";
+
 import SocialButtons from "components/common/SocialButtons";
 import Alerts from "helpers/Alerts";
 import { cropToProfilePic } from "helpers/image";
-import React from "react";
-import { useFirestore, useStorage, useUser } from "reactfire";
+
 import {
   Col,
   CardBody,
@@ -12,19 +14,14 @@ import {
   UncontrolledTooltip,
 } from "reactstrap";
 import { getShortLink } from "helpers/courses";
+import FirebaseContext from "context/FirebaseContext";
 
-const getPicUrl = (profile) => {
-  if (profile.user_pic) {
-    return profile.user_pic;
-  } else {
-    return "/img/noPic.jpg";
-  }
-};
+const ProfileCard = (props) => {
+  const { user, profile, editable, handleProfileDataChanged } = props;
+  const firebase = useContext(FirebaseContext);
 
-const ProfileCard = ({ profile, editable }) => {
-  const storage = useStorage();
-  const firestore = useFirestore();
-  const { data: user } = useUser();
+  const firestore = firebase.firestore();
+  const storage = firebase.storage();
 
   const handlePicPicker = (e) => {
     const file = e.target.files[0];
@@ -41,6 +38,7 @@ const ProfileCard = ({ profile, editable }) => {
             .doc(user.uid)
             .set({ ...profile, user_pic: url })
             .then(() => {
+              handleProfileDataChanged({ ...profile, user_pic: url });
               Alerts.showToast("perfil Actualizado");
             });
         });
@@ -56,7 +54,7 @@ const ProfileCard = ({ profile, editable }) => {
           <Row>
             <Col xs="12" lg="4" className="order-lg-2 mx-auto d-flex">
               <img
-                src={getPicUrl(profile)}
+                src={profile.user_pic ? profile.user_pic : "/images/noPic.jpg"}
                 style={{
                   borderRadius: "50%",
                   cursor: "pointer",
@@ -103,4 +101,10 @@ const ProfileCard = ({ profile, editable }) => {
   );
 };
 
-export default ProfileCard;
+const mapStateToProps = (state) => {
+  return {
+    user: state.settings.user,
+  };
+};
+
+export default connect(mapStateToProps)(ProfileCard);

@@ -152,7 +152,7 @@ class Alerts {
         allowOutsideClick: false,
         // title: message,
         html:
-          '<div class="pt-1 mx-auto lds-dual-ring"></div><h2 class="text-default mb-0">' +
+          '<div class="spinner-border text-primary" role="status"> <span class="visually-hidden">Loading...</span></div><h2 class="text-default mb-0">' +
           message +
           "</h2>",
         showConfirmButton: false,

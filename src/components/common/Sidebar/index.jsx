@@ -51,7 +51,7 @@ class Sidebar extends React.Component {
                 if (prop.redirect) return null;
                 return (
                   <li className={this.activeRoute(prop.path)} key={key}>
-                    <NavLink to={prop.path} activeClassName="active">
+                    <NavLink to={prop.path}>
                       <i className={prop.icon} />
                       {prop.name}
                     </NavLink>

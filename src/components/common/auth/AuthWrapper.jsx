@@ -3,7 +3,7 @@ import SignOut from "context/singout";
 import Loading from "./Loading";
 import Login from "./Login";
 
-import app from "myFirebase";
+import firebase from "myFirebase";
 
 import { setCurrentUser, deleteCurrentUser } from "store/setting_store/actions";
 import { connect } from "react-redux";
@@ -14,18 +14,28 @@ function AuthWrapper(props) {
   const [isComplete, setIsComplete] = useState(false);
 
   var signOut = () => {
+    const auth = app.auth();
     auth.signOut();
   };
 
   useEffect(() => {
-    const auth = app.auth();
+    const auth = firebase.auth();
+    const firestore = firebase.firestore();
+
     auth.onAuthStateChanged(() => {
-      let user = auth.currentUser;
-      if (user) {
-        setCurrentUser({ ...user._delegate });
-        setIsComplete(true);
+      let currentUser = auth.currentUser;
+      if (currentUser) {
+        firestore
+          .collection("profiles")
+          .doc(currentUser.uid)
+          .onSnapshot((_profile) => {
+            const profile = _profile.data();
+            setCurrentUser({ ...profile });
+            setIsComplete(true);
+          });
       } else {
         deleteCurrentUser();
+        setIsComplete(true);
       }
     });
   }, []);
@@ -48,7 +58,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-    deleteCurrentUser: () => dispatch(deleteCurrentUser),
+    deleteCurrentUser: () => dispatch(deleteCurrentUser()),
   };
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container } from "reactstrap";
 
 import SingleCourse from "./SingleCourse";
@@ -6,25 +6,46 @@ import AddCourse from "./AddCourse";
 
 import NoData from "components/common/NoData";
 import Loading from "components/common/auth/Loading";
-import { useFirestore, useUser } from "reactfire";
 import Layout from "components/common/Layout";
 
-export default function AllCourses(props) {
+import FirebaseContext from "context/FirebaseContext";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { connect } from "react-redux";
+
+function AllCourses(props) {
+  const { children, user } = props;
+  const firebase = useContext(FirebaseContext);
+
   const [courses, setCourses] = useState(null);
   const [isComplete, setIsComplete] = useState(false);
-  const fireStore = useFirestore();
-  const { data: user } = useUser();
+
+  const myFunction = async () => {
+    let _courses = [];
+    const db = firebase.firestore();
+    const querySnapshot = await getDocs(
+      query(collection(db, "courses"), where("course_author_id", "==", user.id))
+    );
+
+    querySnapshot.forEach((doc) => {
+      const item = doc.data();
+      _courses.push(item);
+    });
+
+    setCourses(_courses);
+    setIsComplete(true);
+  };
+
+  const handleCourseDataChanged = (course) => {
+    let _courses = courses;
+    _courses = _courses.map((_course) => {
+      if (_course.id === course.id) return course;
+      else return _course;
+    });
+    setCourses(_courses);
+  };
 
   useEffect(() => {
-    fireStore
-      .collection("courses")
-      .where("course_author_id", "==", user.uid)
-      .onSnapshot((snapshot) => {
-        const products = [];
-        snapshot.forEach((doc) => products.push({ ...doc.data(), id: doc.id }));
-        setCourses(products);
-        setIsComplete(true);
-      });
+    myFunction();
   }, []);
 
   return (
@@ -38,14 +59,26 @@ export default function AllCourses(props) {
               <>
                 {courses.length === 0 && <NoData />}
                 {courses.map((course) => (
-                  <SingleCourse key={course.id} course={course} />
+                  <SingleCourse
+                    key={course.id}
+                    course={course}
+                    handleCourseDataChanged={handleCourseDataChanged}
+                  />
                 ))}
               </>
             ) : null}
-            <AddCourse />
+            {/* <AddCourse /> */}
           </Container>
         )}
       </div>
     </Layout>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.settings.user,
+  };
+};
+
+export default connect(mapStateToProps)(AllCourses);

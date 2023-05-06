@@ -1,27 +1,22 @@
+import React, { useContext, useEffect, useState } from "react";
+import { connect } from "react-redux";
+
 import Loading from "components/common/auth/Loading";
 import Layout from "components/common/Layout";
-import React, { useEffect, useState } from "react";
-import { useFirestore, useUser } from "reactfire";
-
 import AuthorData from "components/Profile/AuthorData";
 import { Col, Container, Row } from "reactstrap";
 
-export default function index(props) {
-  const fireStore = useFirestore();
-  const [profile, setProfile] = useState(null);
-  const { data: user } = useUser();
+import { setCurrentUser } from "store/setting_store/actions";
 
-  useEffect(() => {
-    fireStore
-      .collection("profiles")
-      .doc(user.uid)
-      .onSnapshot((_profile) => {
-        const profile = _profile.data();
-        setProfile(profile);
-      });
-  }, []);
+function Profile(props) {
+  const { user, setCurrentUser } = props;
+  const [profile, setProfile] = useState(user);
 
-  if (!profile) return <Loading texto="Loading profile..." />;
+  const handleProfileDataChanged = (_profile) => {
+    const newProfile = { ...profile, ..._profile };
+    setProfile(newProfile);
+    setCurrentUser(newProfile);
+  };
 
   return (
     <Layout {...props}>
@@ -29,7 +24,10 @@ export default function index(props) {
         <Container>
           <Row>
             <Col xs="12" className="order-lg-2">
-              <AuthorData profile={profile} />
+              <AuthorData
+                profile={profile}
+                handleProfileDataChanged={handleProfileDataChanged}
+              />
             </Col>
           </Row>
         </Container>
@@ -37,3 +35,17 @@ export default function index(props) {
     </Layout>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.settings.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

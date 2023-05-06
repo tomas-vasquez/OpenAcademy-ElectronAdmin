@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import AllCourses from "./components/AllCourses";
 import EditItems from "./components/EditItems";
@@ -24,31 +24,14 @@ export default function App() {
         <OnlyAdminsWrapper>
           <PerfectScrollWraper>
             <Router>
-              <Route exact path="/" render={(props) => <Main {...props} />} />
-              <Route
-                exact
-                path="/settings"
-                render={(props) => <Settings {...props} />}
-              />
-              <Route
-                exact
-                path="/courses"
-                render={(props) => <AllCourses {...props} />}
-              />
-              <Route
-                exact
-                path="/payment_reports"
-                render={(props) => <PaymentReports {...props} />}
-              />
-              <Route
-                exact
-                path="/profile"
-                render={(props) => <Profile {...props} />}
-              />
-              <Route
-                path="/edit/:course"
-                render={(props) => <EditItems {...props} />}
-              />
+              <Routes>
+                <Route path="/" element={<Main />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/courses" element={<AllCourses />} />
+                <Route path="/payment_reports" element={<PaymentReports />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/edit/:course" element={<EditItems />} />
+              </Routes>
             </Router>
           </PerfectScrollWraper>
         </OnlyAdminsWrapper>
